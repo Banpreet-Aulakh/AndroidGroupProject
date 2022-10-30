@@ -1,6 +1,8 @@
 package com.sfu.cmpt276.coopachievement;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,10 @@ public class GameConfigHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.game_history_toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.add_new_game_btn);
         fab.setOnClickListener(new View.OnClickListener() {
