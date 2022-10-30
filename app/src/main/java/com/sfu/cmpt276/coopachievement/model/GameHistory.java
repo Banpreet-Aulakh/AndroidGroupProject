@@ -33,5 +33,12 @@ public class GameHistory {
         this.configName = configName;
     }
 
+    public String[] getStringArray() {
+        String[] arr = new String[gamesPlayedList.size()];
+        for (int i = 0; i < gamesPlayedList.size(); i++) {
+            arr[i] = gamesPlayedList.get(i).toString(); // Calls to String method of GamesPLayed NEED TO ADD
+        }
+        return arr;
+    }
 
 }
