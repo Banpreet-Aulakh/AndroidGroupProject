@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextGameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtGameName" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/editTextPoorScore"
         android:layout_width="54dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toEndOf="@+id/txtPoorScore"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextGameName" />
 
     <TextView
         android:id="@+id/textView2"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtPoorScore" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/editTextGreatScore"
         android:layout_width="54dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -77,5 +77,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPoorScore" />
 </androidx.constraintlayout.widget.ConstraintLayout>

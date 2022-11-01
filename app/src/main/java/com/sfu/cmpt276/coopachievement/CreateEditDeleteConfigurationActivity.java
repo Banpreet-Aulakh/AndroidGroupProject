@@ -9,12 +9,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
     private int position;
     private boolean isCreateConfig;
+
+    private String gameName;
+
+    private String poorScoreTxt;
+    private int poorScore;
+
+    private String greatScoreTxt;
+    private int greatScore;
+
+    private EditText gameEditTxt;
+    private EditText poorEditTxt;
+    private EditText greatEditTxt;
 
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, CreateEditDeleteConfigurationActivity.class);
@@ -65,10 +78,31 @@ public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        //Get Input
+        gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
+        poorEditTxt = (EditText) findViewById(R.id.editTextGameName);
+        greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
+
+        //Convert to String
+        gameName = gameEditTxt.getText().toString();
+        poorScoreTxt = poorEditTxt.getText().toString();
+        greatScoreTxt = greatEditTxt.getText().toString();
+
         switch(item.getItemId()){
+
             case R.id.saveConfig:
-                //Save item
+                //Save item. Check Items are valid
+                if(!gameName.equals("") && !poorScoreTxt.equals("") && !greatScoreTxt.equals("")){
+                    Toast.makeText(CreateEditDeleteConfigurationActivity.this, "Saving",
+                            Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else{
+                    Toast.makeText(CreateEditDeleteConfigurationActivity.this, "Missing Parameters",
+                            Toast.LENGTH_LONG).show();
+                }
                 return true;
+
 
             case R.id.deleteConfig:
                 //Remove index from singleton
