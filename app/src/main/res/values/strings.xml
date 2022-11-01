@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">CoopAchievement</string>
+    <string name="terrible_trolls">Terrible Trolls</string>
+    <string name="goofy_goblins">Goofy Goblins</string>
+    <string name="fabulous_fairies">Fabulous Fairies</string>
+    <string name="dastardly_dragons">Dastardly Dragons</string>
+    <string name="horrendous_hagfish">Horrendous Hagfish</string>
+    <string name="epic_elephants">Epic Elephants</string>
+    <string name="awesome_alligators">Awesome Alligators</string>
+    <string name="bogus_blowfish">Bogus Blowfish</string>
+    <string name="total_score">Total score</string>
+    <string name="num_players"># players</string>
+    <string name="empty_string">-</string>
+
+
 </resources>
