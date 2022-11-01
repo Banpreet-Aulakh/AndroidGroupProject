@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
@@ -67,12 +68,16 @@ public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.saveConfig:
                 //Save item
+                return true;
 
             case R.id.deleteConfig:
                 //Remove index from singleton
+                Toast.makeText(CreateEditDeleteConfigurationActivity.this, "Hello",
+                        Toast.LENGTH_LONG).show();
+                return true;
 
             case android.R.id.home:
-                CreateEditDeleteConfigurationActivity.this.finish();
+                finish();
                 return true;
 
             default:

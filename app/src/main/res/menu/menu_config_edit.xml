@@ -4,12 +4,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/deleteConfig"
-        android:icon="@drawable/ic_baseline_delete_24"
         android:title="Delete"
+        android:visible="true"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/saveConfig"
-        android:icon="@drawable/ic_baseline_save_24"
         android:title="Save"
         app:showAsAction="ifRoom" />
 </menu>
