@@ -90,6 +90,8 @@ public class ViewConfigListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //change activity code. I think the position extra can be the "key" to the
+                // ArrayList so we know which GameConfig to edit.
                 Intent intent = GameConfigHistory.getIntent(
                         ViewConfigListActivity.this, position);
                 startActivity(intent);

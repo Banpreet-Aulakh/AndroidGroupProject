@@ -31,6 +31,7 @@ public class GameConfigHistory extends AppCompatActivity {
     private int position;
     private GameHistory gameHistory;
 
+    //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, GameConfigHistory.class);
         intent.putExtra(positionCodeName, position);
@@ -98,6 +99,7 @@ public class GameConfigHistory extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
+//Will contain code to handle editing game instance
     private void listOnClick() {
         ListView list = findViewById(R.id.game_history_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
