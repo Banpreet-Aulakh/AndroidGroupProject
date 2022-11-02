@@ -3,7 +3,7 @@
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/toolbar_edit_game_config"
         android:title="Edit Configuration"
         app:showAsAction="ifRoom"/>
 
