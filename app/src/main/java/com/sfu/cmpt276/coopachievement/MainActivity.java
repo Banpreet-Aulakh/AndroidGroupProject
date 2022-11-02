@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = EditConfiguredListActivity.getIntent(MainActivity.this, true);
+        Intent intent = ViewConfigListActivity.getIntent(MainActivity.this, true);
         startActivity(intent);
     }
 }

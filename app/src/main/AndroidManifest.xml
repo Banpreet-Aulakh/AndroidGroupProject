@@ -11,11 +11,11 @@
         android:theme="@style/Theme.CoopAchievement"
         tools:targetApi="31">
         <activity
-            android:name=".CreateEditDeleteConfigurationActivity"
-            android:parentActivityName=".EditConfiguredListActivity"
+            android:name=".EditConfigActivity"
+            android:parentActivityName=".ViewConfigListActivity"
             android:exported="false" />
         <activity
-            android:name=".EditConfiguredListActivity"
+            android:name=".ViewConfigListActivity"
             android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity

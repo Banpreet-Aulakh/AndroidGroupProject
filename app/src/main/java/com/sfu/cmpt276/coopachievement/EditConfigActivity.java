@@ -1,6 +1,5 @@
 package com.sfu.cmpt276.coopachievement;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +11,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
+public class EditConfigActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
+
+    //Index of Array, if position = -1, you are creating a new config
     private int position;
     private boolean isCreateConfig;
 
@@ -30,7 +31,7 @@ public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
     private EditText greatEditTxt;
 
     public static Intent getIntent(Context context, int position){
-        Intent intent = new Intent(context, CreateEditDeleteConfigurationActivity.class);
+        Intent intent = new Intent(context, EditConfigActivity.class);
         intent.putExtra(positionCodeName, position);
         return intent;
     }
@@ -60,6 +61,7 @@ public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
         else{
             toolbar.setTitle("Edit Config");
         }
+
         toolbar.setDisplayHomeAsUpEnabled(true);
 
     }
@@ -76,6 +78,8 @@ public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
         return true;
     }
 
+
+    //Singleton Class Here...
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         //Get Input
@@ -91,23 +95,42 @@ public class CreateEditDeleteConfigurationActivity extends AppCompatActivity {
         switch(item.getItemId()){
 
             case R.id.saveConfig:
+
                 //Save item. Check Items are valid
                 if(!gameName.equals("") && !poorScoreTxt.equals("") && !greatScoreTxt.equals("")){
-                    Toast.makeText(CreateEditDeleteConfigurationActivity.this, "Saving",
+                    Toast.makeText(EditConfigActivity.this, "Saving",
                             Toast.LENGTH_LONG).show();
+
+                    //Convert String to int
+                    greatScore = Integer.parseInt(greatScoreTxt);
+                    poorScore = Integer.parseInt(poorScoreTxt);
+
+                    //Final Check
+                    if(greatScore > poorScore) {
+
+                        //Put gameName, greatScore, and poorScore into singleton here.
+
+                    }
+                    else{
+                        Toast.makeText(EditConfigActivity.this, "Great Score less than Poor Score?",
+                                Toast.LENGTH_LONG).show();
+                    }
                     finish();
                 }
                 else{
-                    Toast.makeText(CreateEditDeleteConfigurationActivity.this, "Missing Parameters",
+                    Toast.makeText(EditConfigActivity.this, "Missing Parameters",
                             Toast.LENGTH_LONG).show();
                 }
                 return true;
 
 
             case R.id.deleteConfig:
+
                 //Remove index from singleton
-                Toast.makeText(CreateEditDeleteConfigurationActivity.this, "Hello",
+                Toast.makeText(EditConfigActivity.this, "Hello",
                         Toast.LENGTH_LONG).show();
+
+                //finish();
                 return true;
 
             case android.R.id.home:

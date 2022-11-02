@@ -13,12 +13,20 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class EditConfiguredListActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ViewConfigListActivity extends AppCompatActivity {
     private static final String ISEDITCONFIGMODECODE = "BOOLEAN EDITMODE";
     private boolean isEditConfigMode;
 
+
+    //Comment out
+    private List<String> placeholder = new ArrayList<>();
+
+
     public static Intent getIntent(Context context, Boolean isEdit){
-        Intent intent = new Intent(context, EditConfiguredListActivity.class);
+        Intent intent = new Intent(context, ViewConfigListActivity.class);
         intent.putExtra(ISEDITCONFIGMODECODE, isEdit);
         return intent;
     }
@@ -31,6 +39,10 @@ public class EditConfiguredListActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+
+        //Comment out
+        placeholder.add("Hello");
+
         populateListView();
         registerListClick();
     }
@@ -58,8 +70,6 @@ public class EditConfiguredListActivity extends AppCompatActivity {
     private void populateListView() {
 
         //Get Singleton Class
-        String[] placeholder = {"Blue", "Red", "Green", "Yellow", "Orange", "Black", "Yellow", "White", "Brown", "Pink", "Purple"};
-        //
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -77,11 +87,14 @@ public class EditConfiguredListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(isEditConfigMode){
-                Intent intent = CreateEditDeleteConfigurationActivity.getIntent(
-                        EditConfiguredListActivity.this, position);
+                Intent intent = EditConfigActivity.getIntent(
+                        ViewConfigListActivity.this, position);
                 startActivity(intent);}
 
+
+                //List View Component
                 else{
+
 
                 }
 
@@ -96,12 +109,19 @@ public class EditConfiguredListActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = CreateEditDeleteConfigurationActivity.getIntent(
-                            EditConfiguredListActivity.this, -1);
+                    Intent intent = EditConfigActivity.getIntent(
+                            ViewConfigListActivity.this, -1);
                     startActivity(intent);
                 }
             });
 
     }
+    public static void saveData(){
+
+    }
+    public static void getData(){
+
+    }
+
 
 }
