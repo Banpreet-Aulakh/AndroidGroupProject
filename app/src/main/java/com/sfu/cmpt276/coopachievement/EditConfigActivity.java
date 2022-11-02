@@ -116,6 +116,7 @@ public class EditConfigActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                     finish();
+
                 }
                 else{
                     Toast.makeText(EditConfigActivity.this, "Missing Parameters",
