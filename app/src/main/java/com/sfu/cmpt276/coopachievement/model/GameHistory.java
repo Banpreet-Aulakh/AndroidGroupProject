@@ -33,6 +33,8 @@ public class GameHistory {
         this.configName = configName;
     }
 
+    public String getConfigName() { return configName; }
+
     public String[] getStringArray() {
         String[] arr = new String[gamesPlayedList.size()];
         for (int i = 0; i < gamesPlayedList.size(); i++) {

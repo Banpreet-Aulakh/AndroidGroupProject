@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,31 +27,58 @@ selects the game configuration in the previous screen's menu.
  */
 public class GameConfigHistory extends AppCompatActivity {
 
+    private final static String positionCodeName = "POSITION";
+    private int position;
+    private GameHistory gameHistory;
+
+    public static Intent getIntent(Context context, int position){
+        Intent intent = new Intent(context, GameConfigHistory.class);
+        intent.putExtra(positionCodeName, position);
+        return intent;
+    }
+
+    private void getDataFromIntent(){
+        Intent intent = getIntent();
+        position = intent.getIntExtra(positionCodeName, -1);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.game_history_toolbar);
 
-        //Toolbar
-        myToolbar.setTitle("Game History");
-        setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         //Floating Action Button
-
         floatingActionButton();
 
         //STUB GAME HISTORY CODE
-        GameHistory gameHistory = new GameHistory(new String("Test"));
-        for (int i = 0; i < 10; i++){
-            gameHistory.getGameHistory().add(new GamesPlayed());
-        }
+        gameHistory = new GameHistory(new String("Test")); //This will change its name to whatever is saved in config
+        String configName = gameHistory.getConfigName();
+        ab.setTitle(configName + " History");
 
         //ListView
         populateListView(gameHistory);
         listOnClick();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateGameAchievements();
+        populateListView(gameHistory);
+    }
+
+    private void updateGameAchievements() {
+        /*
+        Stub method will use the Game instance model methods to update achievements based on config
+        */
+        gameHistory.getGameHistory().clear();
+        for (int i = 0; i < 10; i++){
+            gameHistory.getGameHistory().add(new GamesPlayed());
+        }
     }
 
     private void floatingActionButton() {
@@ -58,8 +86,7 @@ public class GameConfigHistory extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GameConfigHistory.this, MainActivity.class); //STUB code for changing activities on FAB
-                GameConfigHistory.this.startActivity(intent);
+                Toast.makeText(GameConfigHistory.this, "Go to Add Game Activity", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -92,7 +119,12 @@ public class GameConfigHistory extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar_edit_game_config){
-           Toast.makeText(this, "Change Activity Here", Toast.LENGTH_SHORT).show();
+            Intent intent = EditConfigActivity.getIntent(this, position);
+            startActivity(intent);
+        }
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

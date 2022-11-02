@@ -15,7 +15,7 @@
         <activity
             android:name=".GameConfigHistory"
             android:exported="false"
-            android:parentActivityName=".MainActivity"> <!---Change to real parent on merge-->
+            android:parentActivityName=".ViewConfigListActivity"> <!---Change to real parent on merge-->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -26,10 +26,6 @@
             android:exported="false" />
         <activity
             android:name=".ViewConfigListActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
