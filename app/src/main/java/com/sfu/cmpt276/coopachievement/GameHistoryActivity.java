@@ -3,7 +3,6 @@ package com.sfu.cmpt276.coopachievement;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,10 +21,11 @@ import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.GamesPlayed;
 
 /*
-The GameConfigHistory Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
+The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
 selects the game configuration in the previous screen's menu.
  */
-public class GameConfigHistory extends AppCompatActivity {
+
+public class GameHistoryActivity extends AppCompatActivity {
 
     private final static String positionCodeName = "POSITION";
     private int position;
@@ -33,7 +33,7 @@ public class GameConfigHistory extends AppCompatActivity {
 
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
-        Intent intent = new Intent(context, GameConfigHistory.class);
+        Intent intent = new Intent(context, GameHistoryActivity.class);
         intent.putExtra(positionCodeName, position);
         return intent;
     }
@@ -87,7 +87,7 @@ public class GameConfigHistory extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(GameConfigHistory.this, "Go to Add Game Activity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GameHistoryActivity.this, "Go to Add Game Activity", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -107,7 +107,7 @@ public class GameConfigHistory extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView textView = (TextView) view;
                 String message = "You clicked " + i + " which is string: " + textView.getText().toString();
-                Toast.makeText(GameConfigHistory.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(GameHistoryActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }

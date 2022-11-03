@@ -3,7 +3,6 @@ package com.sfu.cmpt276.coopachievement;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewConfigListActivity extends AppCompatActivity {
-    //Commented out because edit config is contained in GameConfigHistory
+    //Commented out because edit config is contained in GameHistoryActivity
 //    private static final String ISEDITCONFIGMODECODE = "BOOLEAN EDITMODE";
 
     private boolean isEditConfigMode;
@@ -26,7 +25,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
     //Comment out
     private List<String> placeholder = new ArrayList<>();
 
-    //Commented out because edit config is contained in GameConfigHistory
+    //Commented out because edit config is contained in GameHistoryActivity
 //    public static Intent getIntent(Context context, Boolean isEdit){
 //        Intent intent = new Intent(context, ViewConfigListActivity.class);
 //        intent.putExtra(ISEDITCONFIGMODECODE, isEdit);
@@ -59,7 +58,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Configured Games");
 
-        //Commented out because edit config is contained in GameConfigHistory
+        //Commented out because edit config is contained in GameHistoryActivity
 //        if(isEditConfigMode){
 //            toolbar.setTitle("Edit Config List");
 //        }
@@ -92,11 +91,11 @@ public class ViewConfigListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //change activity code. I think the position extra can be the "key" to the
                 // ArrayList so we know which GameConfig to edit.
-                Intent intent = GameConfigHistory.getIntent(
+                Intent intent = GameHistoryActivity.getIntent(
                         ViewConfigListActivity.this, position);
                 startActivity(intent);
 
-                //Commented out because edit config is contained in GameConfigHistory
+                //Commented out because edit config is contained in GameHistoryActivity
 //                if(isEditConfigMode){
 //                Intent intent = EditConfigActivity.getIntent(
 //                        ViewConfigListActivity.this, position);
