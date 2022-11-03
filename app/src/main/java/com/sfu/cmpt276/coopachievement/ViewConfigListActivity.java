@@ -17,24 +17,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewConfigListActivity extends AppCompatActivity {
-    private static final String ISEDITCONFIGMODECODE = "BOOLEAN EDITMODE";
+    //Commented out because edit config is contained in GameConfigHistory
+//    private static final String ISEDITCONFIGMODECODE = "BOOLEAN EDITMODE";
+
     private boolean isEditConfigMode;
 
 
     //Comment out
     private List<String> placeholder = new ArrayList<>();
 
-
-    public static Intent getIntent(Context context, Boolean isEdit){
-        Intent intent = new Intent(context, ViewConfigListActivity.class);
-        intent.putExtra(ISEDITCONFIGMODECODE, isEdit);
-        return intent;
-    }
-    private void getDataFromIntent(){
-        Intent intent = getIntent();
-        isEditConfigMode = intent.getBooleanExtra(ISEDITCONFIGMODECODE, true);
-    }
-
+    //Commented out because edit config is contained in GameConfigHistory
+//    public static Intent getIntent(Context context, Boolean isEdit){
+//        Intent intent = new Intent(context, ViewConfigListActivity.class);
+//        intent.putExtra(ISEDITCONFIGMODECODE, isEdit);
+//        return intent;
+//    }
+//    private void getDataFromIntent(){
+//        Intent intent = getIntent();
+//        isEditConfigMode = intent.getBooleanExtra(ISEDITCONFIGMODECODE, true);
+//    }
+//
 
     @Override
     protected void onResume(){
@@ -50,18 +52,21 @@ public class ViewConfigListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getDataFromIntent();
-        ActionBar toolbar = getSupportActionBar();
-        if(isEditConfigMode){
-            toolbar.setTitle("Edit Config List");
-        }
-        else{
-            toolbar.setTitle("View Config List");
-        }
-        toolbar.setDisplayHomeAsUpEnabled(true);
-
         setContentView(R.layout.activity_edit_configured_list);
+
+        isEditConfigMode = true; //not sure if needed setting to true so FAB is visible
+//        getDataFromIntent();
+        ActionBar toolbar = getSupportActionBar();
+        toolbar.setTitle("Configured Games");
+
+        //Commented out because edit config is contained in GameConfigHistory
+//        if(isEditConfigMode){
+//            toolbar.setTitle("Edit Config List");
+//        }
+//        else{
+//            toolbar.setTitle("View Config List");
+//        }
+//        toolbar.setDisplayHomeAsUpEnabled(true);
         createFloatingActionButton();
 
     }
@@ -85,18 +90,21 @@ public class ViewConfigListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if(isEditConfigMode){
-                Intent intent = EditConfigActivity.getIntent(
+                //change activity code. I think the position extra can be the "key" to the
+                // ArrayList so we know which GameConfig to edit.
+                Intent intent = GameConfigHistory.getIntent(
                         ViewConfigListActivity.this, position);
-                startActivity(intent);}
+                startActivity(intent);
 
-
-                //List View Component
-                else{
-
-
-                }
+                //Commented out because edit config is contained in GameConfigHistory
+//                if(isEditConfigMode){
+//                Intent intent = EditConfigActivity.getIntent(
+//                        ViewConfigListActivity.this, position);
+//                startActivity(intent);}
+//                //List View Component
+//                else{
+//
+//                }
 
             }
         });

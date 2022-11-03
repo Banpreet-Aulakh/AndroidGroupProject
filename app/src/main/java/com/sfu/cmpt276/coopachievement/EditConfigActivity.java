@@ -35,6 +35,7 @@ public class EditConfigActivity extends AppCompatActivity {
         intent.putExtra(positionCodeName, position);
         return intent;
     }
+
     private void getDataFromIntent(){
         Intent intent = getIntent();
 
@@ -115,7 +116,7 @@ public class EditConfigActivity extends AppCompatActivity {
                         Toast.makeText(EditConfigActivity.this, "Great Score less than Poor Score?",
                                 Toast.LENGTH_LONG).show();
                     }
-                    finish();
+//                    finish();
 
                 }
                 else{
