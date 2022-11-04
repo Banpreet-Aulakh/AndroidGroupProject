@@ -2,7 +2,7 @@ package com.sfu.cmpt276.coopachievement.model;
 
 import java.util.ArrayList;
 /*
-    Singleton class is responsible for storing one singleton data for game configs.
+    Singleton class is responsible for storing one singleton data for game config.
 */
 
 public class Singleton {
