@@ -87,7 +87,8 @@ public class GameHistoryActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(GameHistoryActivity.this, "Go to Add Game Activity", Toast.LENGTH_SHORT).show();
+               Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
+               startActivity(intent);
             }
         });
     }
@@ -104,10 +105,15 @@ public class GameHistoryActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.game_history_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
                 TextView textView = (TextView) view;
-                String message = "You clicked " + i + " which is string: " + textView.getText().toString();
+                String message = "You clicked " + index + " which is string: " + textView.getText().toString();
                 Toast.makeText(GameHistoryActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                //go to edit game activity (new game activity with extra)
+                Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
+                intent.putExtra("index", index);
+                startActivity(intent);
             }
         });
     }

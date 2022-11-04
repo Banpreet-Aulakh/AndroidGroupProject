@@ -12,6 +12,7 @@
     <string name="total_score">Total score</string>
     <string name="num_players"># players</string>
     <string name="empty_string">-</string>
-
+    <string name="score">score</string>
+    <string name="players">players</string>
 
 </resources>

@@ -1,14 +1,14 @@
-package com.sfu.cmpt276.coopachievement;
+package com.sfu.cmpt276.coopachievement.model;
 
 import android.content.Context;
 import android.content.Intent;
 
 public class GamePlayed {
+
     private int totalScore;
     private int numPlayers;
     private String achievement;
     private String [] achievements = {};
-    //private GameType game;
 
     public int getTotalScore() {
         return totalScore;
