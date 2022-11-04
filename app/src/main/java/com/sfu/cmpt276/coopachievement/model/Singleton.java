@@ -1,6 +1,9 @@
 package com.sfu.cmpt276.coopachievement.model;
 
 import java.util.ArrayList;
+/*
+    Singleton class is responsible for storing one singleton data for game config
+*/
 
 public class Singleton {
     ArrayList<GameConfig> gameConfigs = new ArrayList<>();
@@ -27,6 +30,13 @@ public class Singleton {
     public void removeConfig(int index) {
         gameConfigs.remove(index);
     }
+
+    public void setGameConfigs(ArrayList<GameConfig> arr){
+        //shared preference call
+        this.gameConfigs = arr;
+    }
+
+    //print listview of game configs
 
     public String[] getStringArray() {
         String[] tempArray = new String[gameConfigs.size()];
