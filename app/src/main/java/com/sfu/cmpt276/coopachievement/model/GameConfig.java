@@ -8,6 +8,7 @@ import java.util.ArrayList;
 */
 
 public class GameConfig {
+    private final int MAX_THRESHOLD = 8;
     private String gameName;
     private GameHistory gameHistory;
 
@@ -17,8 +18,27 @@ public class GameConfig {
 
 
     public ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
-        // math function for calculating achievement threshold
-        // push each threshold into an int array
+        int range = greatScore - poorScore ;
+        int remainder = range % MAX_THRESHOLD;
+        int lowerBound = poorScore;
+        achievement_Thresholds.add(lowerBound);
+
+        int boundary = (int) Math.floor(range/MAX_THRESHOLD);
+
+        //adding threshold corresponding to the remainder value
+        for (int i = 0; i < remainder ;i++){
+            lowerBound +=boundary+1;
+            achievement_Thresholds.add(lowerBound);
+        }
+        //adding leftover threshold
+        for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
+            lowerBound += boundary;
+            achievement_Thresholds.add(lowerBound);
+        }
+
+        //adding upperbound threshold
+        achievement_Thresholds.add(greatScore);
+
         return achievement_Thresholds;
     }
 
