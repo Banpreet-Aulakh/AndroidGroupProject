@@ -8,8 +8,8 @@ import java.util.ArrayList;
 */
 
 public class GameConfig {
-    String gameName;
-    public GameHistory gameHistory;
+    private String gameName;
+    private GameHistory gameHistory;
 
     int greatScore;
     int poorScore;
@@ -25,6 +25,9 @@ public class GameConfig {
     //call instance from game history
     public GameHistory getGameHistory() {
         return gameHistory;
+    }
+    public void setGameHistory(GameHistory history){
+        this.gameHistory = history;
     }
 
     public String getGameName(){

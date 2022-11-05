@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
-import com.sfu.cmpt276.coopachievement.model.GamesPlayed;
+import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 
 /*
 The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
@@ -76,9 +76,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         /*
         Stub method will use the Game instance model methods to update achievements based on config
         */
-        gameHistory.getGameHistory().clear();
+        gameHistory.getGameHistoryList().clear();
         for (int i = 0; i < 10; i++){
-            gameHistory.getGameHistory().add(new GamesPlayed());
+            gameHistory.getGameHistoryList().add(new GamePlayed());
         }
     }
 
@@ -87,7 +87,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(GameHistoryActivity.this, "Go to Add Game Activity", Toast.LENGTH_SHORT).show();
+               Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
+               intent.putExtra("configIndex", position);
+               startActivity(intent);
             }
         });
     }
@@ -104,10 +106,16 @@ public class GameHistoryActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.game_history_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
                 TextView textView = (TextView) view;
-                String message = "You clicked " + i + " which is string: " + textView.getText().toString();
+                String message = "You clicked " + index + " which is string: " + textView.getText().toString();
                 Toast.makeText(GameHistoryActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                //go to edit game activity (new game activity with extra)
+                Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
+                intent.putExtra("historyIndex", index);
+                intent.putExtra("configIndex", position);
+                startActivity(intent);
             }
         });
     }
