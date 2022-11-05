@@ -55,7 +55,7 @@ public class NewGameActivity extends AppCompatActivity {
             //get the specific game played that was clicked on
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
             numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
-            totalScore.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
+            totalScore.setText(""+currentGame.getTotalScore(), TextView.BufferType.EDITABLE);
             toolbar.setTitle("Edit Game");
 
         }else{
