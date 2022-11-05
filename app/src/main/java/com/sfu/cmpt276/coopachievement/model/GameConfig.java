@@ -21,23 +21,23 @@ public class GameConfig {
         int range = greatScore - poorScore ;
         int remainder = range % MAX_THRESHOLD;
         int lowerBound = poorScore;
+        achievement_Thresholds.add(lowerBound);
 
         int boundary = (int) Math.floor(range/MAX_THRESHOLD);
 
         //adding threshold corresponding to the remainder value
         for (int i = 0; i < remainder ;i++){
-            achievement_Thresholds.add(lowerBound);
             lowerBound +=boundary+1;
-
+            achievement_Thresholds.add(lowerBound);
         }
         //adding leftover threshold
         for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
-            achievement_Thresholds.add(lowerBound);
             lowerBound += boundary;
+            achievement_Thresholds.add(lowerBound);
         }
 
         //adding upperbound threshold
-        //achievement_Thresholds.add(greatScore);
+        achievement_Thresholds.add(greatScore);
 
         return achievement_Thresholds;
     }
