@@ -49,6 +49,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
+        toolbar.setDisplayHomeAsUpEnabled(true);
 
         //history index default to -1 for new game, otherwise is index of game we are editing
         if(historyIndex != -1){
@@ -90,6 +91,10 @@ public class NewGameActivity extends AppCompatActivity {
                     finish();
                 }
                 return true;
+            case android.R.id.home:
+                finish();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
