@@ -8,6 +8,7 @@ import java.util.ArrayList;
 */
 
 public class GameConfig {
+    private final int MAX_THRESHOLD = 8;
     private String gameName;
     private GameHistory gameHistory;
 
@@ -16,9 +17,28 @@ public class GameConfig {
     ArrayList<Integer> achievement_Thresholds=new ArrayList<Integer>();
 
 
-    public ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
-        // math function for calculating achievement threshold
-        // push each threshold into an int array
+    private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
+        int range = greatScore - poorScore ;
+        int remainder = range % MAX_THRESHOLD;
+        int lowerBound = poorScore;
+
+        int boundary = (int) Math.floor(range/MAX_THRESHOLD);
+
+        //adding threshold corresponding to the remainder value
+        for (int i = 0; i < remainder ;i++){
+            achievement_Thresholds.add(lowerBound);
+            lowerBound +=boundary+1;
+
+        }
+        //adding leftover threshold
+        for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
+            achievement_Thresholds.add(lowerBound);
+            lowerBound += boundary;
+        }
+
+        //adding upperbound threshold
+        //achievement_Thresholds.add(greatScore);
+
         return achievement_Thresholds;
     }
 
@@ -51,6 +71,14 @@ public class GameConfig {
     @Override
     public String toString(){
         return gameName;
+    }
+
+    public void setAchievement_Thresholds(ArrayList<Integer> arr){
+        this.achievement_Thresholds=arr;
+    }
+
+    public ArrayList<Integer> getAchievement_Thresholds(){
+        return achievement_Thresholds;
     }
 
 }
