@@ -118,8 +118,6 @@ public class GameHistoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
                 TextView textView = (TextView) view;
-                String message = "You clicked " + index + " which is string: " + textView.getText().toString();
-                Toast.makeText(GameHistoryActivity.this, message, Toast.LENGTH_SHORT).show();
 
                 //go to edit game activity (new game activity with extra)
                 Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);

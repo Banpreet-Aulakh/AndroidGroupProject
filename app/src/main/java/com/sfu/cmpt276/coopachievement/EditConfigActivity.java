@@ -154,7 +154,7 @@ public class EditConfigActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(EditConfigActivity.this, "Great Score is less than Poor Score" +
-                                "Or the range is less than 8",
+                                " Or the range is less than 8",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
