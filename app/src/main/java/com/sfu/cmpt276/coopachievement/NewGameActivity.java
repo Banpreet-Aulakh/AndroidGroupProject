@@ -114,7 +114,6 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
-
     public static Intent makeIntent(Context context) {
         return new Intent(context, NewGameActivity.class);
     }
@@ -135,7 +134,7 @@ public class NewGameActivity extends AppCompatActivity {
             String gameNumPlayers = numPlayers.getText().toString().trim();
 
             if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty()) {
-                //currentGame.setAchievementLevel(gameConfiguration.getAchievementBoundaries(), achievementsList);
+                currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
                 displayAchievementText.setText(currentGame.getAchievementName());
 
             }else{

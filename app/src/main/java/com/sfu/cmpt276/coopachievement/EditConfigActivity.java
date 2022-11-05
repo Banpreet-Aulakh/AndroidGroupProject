@@ -145,6 +145,7 @@ public class EditConfigActivity extends AppCompatActivity {
                             GameHistory historyInstance = new GameHistory(gameName);
                             game.setGameHistory(historyInstance);
                             gameConfigList.addConfig(game);
+                            game.setAchievement_Thresholds();
                         }
                         else {
 

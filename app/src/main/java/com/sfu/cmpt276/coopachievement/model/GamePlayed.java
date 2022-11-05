@@ -7,6 +7,7 @@ import android.os.Build;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class GamePlayed {
@@ -37,17 +38,18 @@ public class GamePlayed {
     public String getAchievementName(){
         return achievementName;
     }
+
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
 
-    public void setAchievementLevel(int boundariesList[], String namesList[]){
-
+    public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
         int i = 0;
         int level = 0;
+        double averagePlayerScore = totalScore/numPlayers;
 
         while(i < MAX_ACHIEVEMENT) {
-            if(totalScore > boundariesList[i]){
+            if(averagePlayerScore > boundariesList.get(i)){
                 level = i;
             }
             i++;
