@@ -50,10 +50,9 @@ public class GamePlayed {
             if(totalScore > boundariesList[i]){
                 level = i;
             }
-
             i++;
         }
-        achievementName = namesList[i];
+        achievementName = namesList[level];
     }
 
     public GamePlayed() {
