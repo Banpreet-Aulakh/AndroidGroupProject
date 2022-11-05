@@ -2,13 +2,22 @@ package com.sfu.cmpt276.coopachievement.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class GamePlayed {
 
     private int totalScore;
     private int numPlayers;
     private String achievement;
-    private String [] achievements = {};
+    private static final String DATE_FORMAT = "MMM dd @ HH:mm";
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    private static String timePlayed;
 
     public int getTotalScore() {
         return totalScore;
@@ -31,16 +40,23 @@ public class GamePlayed {
     }
 
     private void setAchievementLevel(){
-
+        int i = 0;
     }
 
-
-    public GamePlayed(int totalScore, int numPlayers, String achievement) {
-        this.totalScore = totalScore;
-        this.numPlayers = numPlayers;
-        this.achievement = achievement;
+    public GamePlayed() {
+        this.totalScore = 0;
+        this.numPlayers = 0;
+        this.achievement = "";
+        LocalDateTime tmp = LocalDateTime.now();
+        this.timePlayed = tmp.format(formatter);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "GamePlayed{" +
+                "totalScore=" + totalScore +
+                ", numPlayers=" + numPlayers +
+                ", achievement='" + achievement + '\'' +
+                '}';
+    }
 }

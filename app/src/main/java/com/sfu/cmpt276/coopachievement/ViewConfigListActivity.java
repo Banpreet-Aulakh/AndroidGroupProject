@@ -54,7 +54,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_configured_list);
 
         isEditConfigMode = true; //not sure if needed setting to true so FAB is visible
-//        getDataFromIntent();
+//      getDataFromIntent();
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Configured Games");
 

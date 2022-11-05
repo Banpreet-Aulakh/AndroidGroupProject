@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
-import com.sfu.cmpt276.coopachievement.model.GamesPlayed;
+import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 
 /*
 The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
@@ -78,7 +78,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         */
         gameHistory.getGameHistory().clear();
         for (int i = 0; i < 10; i++){
-            gameHistory.getGameHistory().add(new GamesPlayed());
+            gameHistory.getGameHistory().add(new GamePlayed());
         }
     }
 
@@ -88,6 +88,7 @@ public class GameHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
+               intent.putExtra("configIndex", position);
                startActivity(intent);
             }
         });
@@ -112,7 +113,8 @@ public class GameHistoryActivity extends AppCompatActivity {
 
                 //go to edit game activity (new game activity with extra)
                 Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
-                intent.putExtra("index", index);
+                intent.putExtra("historyIndex", index);
+                intent.putExtra("configIndex", position);
                 startActivity(intent);
             }
         });

@@ -20,7 +20,7 @@ public class Singleton {
         return instance;
     }
 
-    public ArrayList<GameConfig> getGameConfig(){
+    public ArrayList<GameConfig> getGameConfigList(){
         return gameConfigs;
     }
 

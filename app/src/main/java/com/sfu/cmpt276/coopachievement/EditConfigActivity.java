@@ -70,7 +70,7 @@ public class EditConfigActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         if(!isCreateConfig){
-            getMenuInflater().inflate(R.menu.menu_config_edit,menu);
+            getMenuInflater().inflate(R.menu.menu_config_edit, menu);
         }
         else{
             getMenuInflater().inflate(R.menu.menu_config_create, menu);
