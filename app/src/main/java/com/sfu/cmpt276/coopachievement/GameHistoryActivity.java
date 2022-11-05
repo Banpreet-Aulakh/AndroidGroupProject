@@ -76,9 +76,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         /*
         Stub method will use the Game instance model methods to update achievements based on config
         */
-        gameHistory.getGameHistory().clear();
+        gameHistory.getGameHistoryList().clear();
         for (int i = 0; i < 10; i++){
-            gameHistory.getGameHistory().add(new GamePlayed());
+            gameHistory.getGameHistoryList().add(new GamePlayed());
         }
     }
 

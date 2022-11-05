@@ -30,10 +30,10 @@
 
     <EditText
         android:id="@+id/totalScoreEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="48dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="200dp"
         android:ems="10"
         android:hint="@string/score"
         android:inputType="number"
@@ -42,10 +42,10 @@
 
     <EditText
         android:id="@+id/numPlayersEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="48dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="268dp"
         android:ems="10"
         android:hint="@string/num_players"
         android:inputType="number"
@@ -53,21 +53,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+        android:id="@+id/displayAchievementText"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="288dp"
-        android:layout_marginTop="364dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="356dp"
         android:text="@string/empty_string"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/achievementLevelTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/achievement_level"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"

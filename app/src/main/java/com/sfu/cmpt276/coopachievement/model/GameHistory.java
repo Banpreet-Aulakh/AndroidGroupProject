@@ -17,7 +17,7 @@ public class GameHistory {
         this.configName = configName;
     }
 
-    public ArrayList<GamePlayed> getGameHistory() {
+    public ArrayList<GamePlayed> getGameHistoryList() {
         return gamesPlayedList;
     }
 
@@ -25,8 +25,7 @@ public class GameHistory {
         gamesPlayedList.add(game);
     }
 
-    public void removePlayedGame(int index) {
-        gamesPlayedList.remove(index);
+    public void removePlayedGame(int index) {gamesPlayedList.remove(index);
     }
 
     public void setConfigName(String configName) {

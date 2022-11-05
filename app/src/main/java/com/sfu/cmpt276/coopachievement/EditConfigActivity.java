@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
+import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 public class EditConfigActivity extends AppCompatActivity {
@@ -141,6 +142,8 @@ public class EditConfigActivity extends AppCompatActivity {
                         game.setPoorScore(poorScore);
                         game.setGreatScore(greatScore);
                         if(isCreateConfig){
+                            GameHistory historyInstance = new GameHistory(gameName);
+                            game.setGameHistory(historyInstance);
                             gameConfigList.addConfig(game);
                         }
                         finish();

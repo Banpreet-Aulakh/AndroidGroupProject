@@ -16,17 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
-import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
-import java.util.List;
-
 public class NewGameActivity extends AppCompatActivity {
     private Singleton configList;
-    private GameConfig configuration;
+    private GameConfig gameConfiguration;
     private GamePlayed currentGame;
-    private GameHistory gamesPlayedList;
     private EditText numPlayers;
     private EditText totalScore;
     private TextView displayAchievementText;
@@ -36,26 +32,32 @@ public class NewGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         configList = Singleton.getInstance();
         setContentView(R.layout.activity_new_game);
         Intent intent = getIntent();
         configIndex = intent.getIntExtra("configIndex", -1);
         historyIndex = intent.getIntExtra("historyIndex", -1);
+
         numPlayers = findViewById(R.id.numPlayersEditText);
         totalScore = findViewById(R.id.totalScoreEditText);
+        displayAchievementText = findViewById(R.id.displayAchievementText);
 
         numPlayers.addTextChangedListener(checkFinished);
         totalScore.addTextChangedListener(checkFinished);
 
-        //configuration = configList.getGameConfigList().get(configIndex);
 
+        gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
 
+        //history index default to -1 for new game, otherwise is index of game we are editing
         if(historyIndex != -1){
-            //numPlayers.setText(//""+Game.getNumPlayers(), TextView.BufferType.EDITABLE);
-            //totalScore.setText(//??+Game.getNumPlayers(), TextView.BufferType.EDITABLE);
+            //get the specific game played that was clicked on
+            this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
+            numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
+            totalScore.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
             toolbar.setTitle("Edit Game");
-            //this.currentGame = configList.getGameConfigList().get(configIndex).getGameHistory().getGame(historyIndex);
+
         }else{
             toolbar.setTitle("New Game: ");
             this.currentGame = new GamePlayed();
@@ -76,8 +78,16 @@ public class NewGameActivity extends AppCompatActivity {
                 }else{
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
                     currentGame.setTotalScore(getIntFromEditText(totalScore));
-                    gamesPlayedList.addPlayedGame(currentGame);
+                    if(historyIndex == -1){
+                        gameConfiguration.getGameHistory().addPlayedGame(currentGame);
+                    }else{
+                        System.out.println("INDEX WAS NOT -1");
+                    }
+
+
+
                 }
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -105,7 +115,7 @@ public class NewGameActivity extends AppCompatActivity {
             String gameNumPlayers = numPlayers.getText().toString().trim();
 
             if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty()) {
-
+                displayAchievementText.setText("achievement Text Here");
             }
         }
 

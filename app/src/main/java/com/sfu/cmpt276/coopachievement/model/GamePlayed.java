@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import androidx.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
+
 public class GamePlayed {
 
     private int totalScore;
@@ -17,7 +16,7 @@ public class GamePlayed {
     private String achievement;
     private static final String DATE_FORMAT = "MMM dd @ HH:mm";
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-    private static String timePlayed;
+    private String timePlayed;
 
     public int getTotalScore() {
         return totalScore;
@@ -49,6 +48,7 @@ public class GamePlayed {
         this.achievement = "";
         LocalDateTime tmp = LocalDateTime.now();
         this.timePlayed = tmp.format(formatter);
+        System.out.println("created Game played class instance");
     }
 
     @Override
@@ -57,6 +57,7 @@ public class GamePlayed {
                 "totalScore=" + totalScore +
                 ", numPlayers=" + numPlayers +
                 ", achievement='" + achievement + '\'' +
+                ", timePlayed='" + timePlayed + '\'' +
                 '}';
     }
 }
