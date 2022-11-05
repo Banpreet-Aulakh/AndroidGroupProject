@@ -172,7 +172,10 @@ public class EditConfigActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
                 gameConfigList.removeConfig(position);
-                finish();
+                Intent intent = new Intent(this, ViewConfigListActivity.class);
+                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                EditConfigActivity.this.finish();
                 return true;
 
             case android.R.id.home:
