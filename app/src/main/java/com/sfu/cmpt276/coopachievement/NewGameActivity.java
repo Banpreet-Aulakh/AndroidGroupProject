@@ -59,7 +59,7 @@ public class NewGameActivity extends AppCompatActivity {
             toolbar.setTitle("Edit Game");
 
         }else{
-            toolbar.setTitle("New Game: ");
+            toolbar.setTitle("New Game");
             this.currentGame = new GamePlayed();
         }
     }
@@ -78,16 +78,9 @@ public class NewGameActivity extends AppCompatActivity {
                 }else{
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
                     currentGame.setTotalScore(getIntFromEditText(totalScore));
-                    if(historyIndex == -1){
-                        gameConfiguration.getGameHistory().addPlayedGame(currentGame);
-                    }else{
-                        System.out.println("INDEX WAS NOT -1");
-                    }
-
-
-
+                    gameConfiguration.getGameHistory().addPlayedGame(currentGame);
+                    finish();
                 }
-                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -116,6 +109,8 @@ public class NewGameActivity extends AppCompatActivity {
 
             if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty()) {
                 displayAchievementText.setText("achievement Text Here");
+            }else{
+                displayAchievementText.setText(getResources().getString(R.string.empty_string));
             }
         }
 
