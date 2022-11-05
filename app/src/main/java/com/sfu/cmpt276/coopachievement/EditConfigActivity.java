@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -143,6 +144,7 @@ public class EditConfigActivity extends AppCompatActivity {
                         if(isCreateConfig){
                             gameConfigList.addConfig(game);
                         }
+                        ViewConfigListActivity.saveData(EditConfigActivity.this);
                         finish();
 
                     }
@@ -166,6 +168,7 @@ public class EditConfigActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
                 gameConfigList.removeConfig(position);
+                ViewConfigListActivity.saveData(EditConfigActivity.this);
                 finish();
                 return true;
 

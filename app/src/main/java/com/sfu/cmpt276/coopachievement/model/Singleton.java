@@ -23,7 +23,7 @@ public class Singleton {
     public ArrayList<GameConfig> getGameConfigList(){
         return gameConfigs;
     }
-
+    public void setnewGameConfigList(ArrayList<GameConfig> newConfigList){gameConfigs = newConfigList;}
     public void addConfig(GameConfig config){
         gameConfigs.add(config);
     }
