@@ -9,7 +9,7 @@ game history being stored in the Singleton GameType class.
 
 public class GameHistory {
 
-    ArrayList<GamesPlayed> gamesPlayedList = new ArrayList<GamesPlayed>();
+    ArrayList<GamePlayed> gamesPlayedList = new ArrayList<GamePlayed>();
 
     String configName;
 
@@ -17,18 +17,20 @@ public class GameHistory {
         this.configName = configName;
     }
 
-    public ArrayList<GamesPlayed> getGameHistory() {
+    public ArrayList<GamePlayed> getGameHistoryList() {
         return gamesPlayedList;
     }
 
-    public void addPlayedGame(GamesPlayed game) {
+    public void addPlayedGame(GamePlayed game) {
         gamesPlayedList.add(game);
     }
 
-    public void removePlayedGame(int index) {
-        gamesPlayedList.remove(index);
+    public void removePlayedGame(int index) {gamesPlayedList.remove(index);
     }
 
+    public void setGamePlayed(int index, GamePlayed game){
+        gamesPlayedList.set(index, game);
+    }
     public void setConfigName(String configName) {
         this.configName = configName;
     }
