@@ -109,6 +109,7 @@ public class EditConfigActivity extends AppCompatActivity {
                     //Final Check
                     if(greatScore > poorScore) {
 
+
                         //Put gameName, greatScore, and poorScore into singleton here.
 
                     }
