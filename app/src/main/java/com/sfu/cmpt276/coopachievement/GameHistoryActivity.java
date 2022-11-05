@@ -54,6 +54,8 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
 
+        getDataFromIntent();
+
         singleton = Singleton.getInstance();
         gameConfig = singleton.getGameConfigList().get(position);
         gameHistory = gameConfig.getGameHistory();
