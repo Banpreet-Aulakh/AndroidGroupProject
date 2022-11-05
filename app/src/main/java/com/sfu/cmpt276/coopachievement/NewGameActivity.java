@@ -75,10 +75,18 @@ public class NewGameActivity extends AppCompatActivity {
             case R.id.saveGame:
                 if(totalScore.getText().toString().isEmpty() || numPlayers.getText().toString().isEmpty()){
                     Toast.makeText(NewGameActivity.this, "Error: Empty game elements", Toast.LENGTH_LONG).show();
-                }else{
-                    currentGame.setNumPlayers(getIntFromEditText(numPlayers));
-                    currentGame.setTotalScore(getIntFromEditText(totalScore));
-                    gameConfiguration.getGameHistory().addPlayedGame(currentGame);
+                } else {
+
+                    if (historyIndex != -1) {
+                        currentGame.setNumPlayers(getIntFromEditText(numPlayers));
+                        currentGame.setTotalScore(getIntFromEditText(totalScore));
+                        gameConfiguration.getGameHistory().setGamePlayed(historyIndex, currentGame);
+                    }
+                    else {
+                        currentGame.setNumPlayers(getIntFromEditText(numPlayers));
+                        currentGame.setTotalScore(getIntFromEditText(totalScore));
+                        gameConfiguration.getGameHistory().addPlayedGame(currentGame);
+                    }
                     finish();
                 }
                 return true;

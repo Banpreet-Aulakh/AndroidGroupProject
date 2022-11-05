@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
+import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 /*
 The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
@@ -30,7 +32,8 @@ public class GameHistoryActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION";
     private int position;
     private GameHistory gameHistory;
-
+    private Singleton singleton;
+    private GameConfig gameConfig;
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, GameHistoryActivity.class);
@@ -49,6 +52,11 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
 
+        singleton = Singleton.getInstance();
+        gameConfig = singleton.getGameConfigList().get(position);
+        gameHistory = gameConfig.getGameHistory();
+        gameHistory.setConfigName(gameConfig.getGameName());
+
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -56,7 +64,6 @@ public class GameHistoryActivity extends AppCompatActivity {
         floatingActionButton();
 
         //STUB GAME HISTORY CODE
-        gameHistory = new GameHistory(new String("Test")); //This will change its name to whatever is saved in config
         String configName = gameHistory.getConfigName();
         ab.setTitle(configName + " History");
 
@@ -76,10 +83,10 @@ public class GameHistoryActivity extends AppCompatActivity {
         /*
         Stub method will use the Game instance model methods to update achievements based on config
         */
-        gameHistory.getGameHistoryList().clear();
-        for (int i = 0; i < 10; i++){
-            gameHistory.getGameHistoryList().add(new GamePlayed());
-        }
+        singleton = Singleton.getInstance();
+        gameConfig = singleton.getGameConfigList().get(position);
+        gameHistory = gameConfig.getGameHistory();
+        gameHistory.setConfigName(gameConfig.getGameName());
     }
 
     private void floatingActionButton() {
