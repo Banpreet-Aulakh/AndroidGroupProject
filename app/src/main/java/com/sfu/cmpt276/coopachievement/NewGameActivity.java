@@ -130,10 +130,13 @@ public class NewGameActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             String gameTotalScore = totalScore.getText().toString().trim();
             String gameNumPlayers = numPlayers.getText().toString().trim();
 
             if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty()) {
+                currentGame.setNumPlayers(getIntFromEditText(numPlayers));
+                currentGame.setTotalScore(getIntFromEditText(totalScore));
                 currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
                 displayAchievementText.setText(currentGame.getAchievementName());
 
