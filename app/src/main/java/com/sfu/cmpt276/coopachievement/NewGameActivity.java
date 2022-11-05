@@ -20,6 +20,7 @@ import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 public class NewGameActivity extends AppCompatActivity {
+    private final int ACHIEVEMENT_LIST_SIZE = 8;
     private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
@@ -29,12 +30,25 @@ public class NewGameActivity extends AppCompatActivity {
     private int historyIndex;
     private int configIndex;
 
+    private String [] achievementsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_game);
+
 
         configList = Singleton.getInstance();
-        setContentView(R.layout.activity_new_game);
+        achievementsList = new String[]{
+                getResources().getString(R.string.horrendous_hagfish),
+                getResources().getString(R.string.bogus_blowfish),
+                getResources().getString(R.string.terrible_trolls),
+                getResources().getString(R.string.goofy_goblins),
+                getResources().getString(R.string.dastardly_dragons),
+                getResources().getString(R.string.awesome_alligators),
+                getResources().getString(R.string.epic_elephants),
+                getResources().getString(R.string.fabulous_fairies)};
+
         Intent intent = getIntent();
         configIndex = intent.getIntExtra("configIndex", -1);
         historyIndex = intent.getIntExtra("historyIndex", -1);
@@ -100,7 +114,6 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
-
     public static Intent makeIntent(Context context) {
         return new Intent(context, NewGameActivity.class);
     }
@@ -117,11 +130,16 @@ public class NewGameActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             String gameTotalScore = totalScore.getText().toString().trim();
             String gameNumPlayers = numPlayers.getText().toString().trim();
 
             if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty()) {
-                displayAchievementText.setText("achievement Text Here");
+                currentGame.setNumPlayers(getIntFromEditText(numPlayers));
+                currentGame.setTotalScore(getIntFromEditText(totalScore));
+                currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
+                displayAchievementText.setText(currentGame.getAchievementName());
+
             }else{
                 displayAchievementText.setText(getResources().getString(R.string.empty_string));
             }
