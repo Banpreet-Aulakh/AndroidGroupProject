@@ -146,6 +146,9 @@ public class EditConfigActivity extends AppCompatActivity {
                             game.setGameHistory(historyInstance);
                             gameConfigList.addConfig(game);
                         }
+                        else {
+
+                        }
                         finish();
 
                     }

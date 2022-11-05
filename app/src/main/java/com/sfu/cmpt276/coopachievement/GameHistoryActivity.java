@@ -34,6 +34,8 @@ public class GameHistoryActivity extends AppCompatActivity {
     private GameHistory gameHistory;
     private Singleton singleton;
     private GameConfig gameConfig;
+    private ActionBar ab;
+
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, GameHistoryActivity.class);
@@ -57,7 +59,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         gameHistory = gameConfig.getGameHistory();
         gameHistory.setConfigName(gameConfig.getGameName());
 
-        ActionBar ab = getSupportActionBar();
+        ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         //Floating Action Button
@@ -87,6 +89,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         gameConfig = singleton.getGameConfigList().get(position);
         gameHistory = gameConfig.getGameHistory();
         gameHistory.setConfigName(gameConfig.getGameName());
+        ab.setTitle(gameHistory.getConfigName() + " History");
     }
 
     private void floatingActionButton() {
