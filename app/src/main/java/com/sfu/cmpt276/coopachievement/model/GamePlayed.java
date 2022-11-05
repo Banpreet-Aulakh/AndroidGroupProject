@@ -10,12 +10,14 @@ import java.time.format.DateTimeFormatter;
 
 
 public class GamePlayed {
-
+    private static final int MAX_ACHIEVEMENT = 8;
     private int totalScore;
     private int numPlayers;
-    private String achievement;
+    private String achievementName;
+
     private static final String DATE_FORMAT = "MMM dd @ HH:mm";
     private String timePlayed;
+
 
     public int getTotalScore() {
         return totalScore;
@@ -25,26 +27,39 @@ public class GamePlayed {
         return numPlayers;
     }
 
-    public String getAchievement() {
-        return achievement;
-    }
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
-
+    public void setAchievementString(String name){
+        achievementName = name;
+    }
+    public String getAchievementName(){
+        return achievementName;
+    }
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
 
-    private void setAchievementLevel(){
+    public void setAchievementLevel(int boundariesList[], String namesList[]){
+
         int i = 0;
+        int level = 0;
+
+        while(i < MAX_ACHIEVEMENT) {
+            if(totalScore > boundariesList[i]){
+                level = i;
+            }
+
+            i++;
+        }
+        achievementName = namesList[i];
     }
 
     public GamePlayed() {
         this.totalScore = 0;
         this.numPlayers = 0;
-        this.achievement = "";
+        this.achievementName = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDateTime tmp = LocalDateTime.now();
         this.timePlayed = tmp.format(formatter);
@@ -56,7 +71,7 @@ public class GamePlayed {
         return "GamePlayed{" +
                 "totalScore=" + totalScore +
                 ", numPlayers=" + numPlayers +
-                ", achievement='" + achievement + '\'' +
+                ", achievement=" + achievementName + '\'' +
                 ", timePlayed='" + timePlayed + '\'' +
                 '}';
     }
