@@ -27,4 +27,27 @@ public class GameConfig {
         return gameHistory;
     }
 
+    public String getGameName(){
+        return gameName;
+    }
+    public int getGreatScore(){
+        return greatScore;
+    }
+    public int getPoorScore(){
+        return poorScore;
+    }
+    public void setGameName(String gameName){
+        this.gameName = gameName;
+    }
+    public void setGreatScore(int greatScore){
+        this.greatScore = greatScore;
+    }
+    public void setPoorScore(int poorScore){
+        this.poorScore = poorScore;
+    }
+    @Override
+    public String toString(){
+        return gameName;
+    }
+
 }

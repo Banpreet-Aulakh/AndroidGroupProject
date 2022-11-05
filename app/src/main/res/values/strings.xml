@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">CoopAchievement</string>
     <string name="add_a_new_game">Add a new Game</string>
+    <string name="game_name">Game Name:</string>
+    <string name="type_name_here">Type Name Here</string>
+    <string name="poor_score">Poor Score:</string>
+    <string name="great_score">Great Score:</string>
+    <string name="blank" />
+    <string name="empty_list_txt">The Application Feels Lonely and Empty</string>
+    <string name="help_create_txt">Press the button to create a game config</string>
     <string name="terrible_trolls">Terrible Trolls</string>
     <string name="goofy_goblins">Goofy Goblins</string>
     <string name="fabulous_fairies">Fabulous Fairies</string>

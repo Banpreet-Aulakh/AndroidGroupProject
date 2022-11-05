@@ -3,49 +3,61 @@ package com.sfu.cmpt276.coopachievement;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sfu.cmpt276.coopachievement.model.GameConfig;
+import com.sfu.cmpt276.coopachievement.model.Singleton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewConfigListActivity extends AppCompatActivity {
-    //Commented out because edit config is contained in GameHistoryActivity
-//    private static final String ISEDITCONFIGMODECODE = "BOOLEAN EDITMODE";
 
     private boolean isEditConfigMode;
 
+    private List<GameConfig> gameList = Singleton.getInstance().getGameConfigList();
 
-    //Comment out
-    private List<String> placeholder = new ArrayList<>();
-
-    //Commented out because edit config is contained in GameHistoryActivity
-//    public static Intent getIntent(Context context, Boolean isEdit){
-//        Intent intent = new Intent(context, ViewConfigListActivity.class);
-//        intent.putExtra(ISEDITCONFIGMODECODE, isEdit);
-//        return intent;
-//    }
-//    private void getDataFromIntent(){
-//        Intent intent = getIntent();
-//        isEditConfigMode = intent.getBooleanExtra(ISEDITCONFIGMODECODE, true);
-//    }
-//
+    private ImageView emptyListImage;
+    private ImageView arrowImage;
+    private TextView emptyListTxt;
+    private TextView helpCreateConfig;
 
     @Override
     protected void onResume(){
         super.onResume();
 
-        //Comment out
-        placeholder.add("Hello");
+        emptyListImage = findViewById(R.id.imgemptyConfigList);
+        arrowImage = findViewById(R.id.imgArrow);
+        emptyListTxt = findViewById(R.id.txtEmptyList);
+        helpCreateConfig = findViewById(R.id.txtHelpCreate);
 
-        populateListView();
-        registerListClick();
+        // :)
+
+        if(gameList.size() == 0){
+
+            emptyListImage.setImageResource(R.drawable.alone);
+            arrowImage.setImageResource(R.drawable.ic_baseline_arrow_forward_24);
+            emptyListTxt.setText(R.string.empty_list_txt);
+            helpCreateConfig.setText(R.string.help_create_txt);
+
+        }
+        else {
+            emptyListImage.setImageResource(0);
+            arrowImage.setImageResource(0);
+            emptyListTxt.setText(getString(R.string.blank));
+            helpCreateConfig.setText(getString(R.string.blank));
+            populateListView();
+            registerListClick();
+        }
     }
 
     @Override
@@ -53,19 +65,10 @@ public class ViewConfigListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_configured_list);
 
-        isEditConfigMode = true; //not sure if needed setting to true so FAB is visible
-//      getDataFromIntent();
+        isEditConfigMode = true;
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Configured Games");
 
-        //Commented out because edit config is contained in GameHistoryActivity
-//        if(isEditConfigMode){
-//            toolbar.setTitle("Edit Config List");
-//        }
-//        else{
-//            toolbar.setTitle("View Config List");
-//        }
-//        toolbar.setDisplayHomeAsUpEnabled(true);
         createFloatingActionButton();
 
     }
@@ -74,10 +77,10 @@ public class ViewConfigListActivity extends AppCompatActivity {
     private void populateListView() {
 
         //Get Singleton Class
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<GameConfig> adapter = new ArrayAdapter<GameConfig>(
                 this,
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                placeholder
+                gameList
         );
 
         ListView list = (ListView) findViewById(R.id.ListEditConfiguredItems);
@@ -95,25 +98,12 @@ public class ViewConfigListActivity extends AppCompatActivity {
                         ViewConfigListActivity.this, position);
                 startActivity(intent);
 
-                //Commented out because edit config is contained in GameHistoryActivity
-//                if(isEditConfigMode){
-//                Intent intent = EditConfigActivity.getIntent(
-//                        ViewConfigListActivity.this, position);
-//                startActivity(intent);}
-//                //List View Component
-//                else{
-//
-//                }
-
             }
         });
     }
     private void createFloatingActionButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCreateConfig);
-        if(!isEditConfigMode) {
-            fab.setVisibility(View.GONE);
-        }
-            fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = EditConfigActivity.getIntent(
@@ -123,10 +113,11 @@ public class ViewConfigListActivity extends AppCompatActivity {
             });
 
     }
-    public static void saveData(){
+    //Call Save Data After saving/editing a config or saving/editing a game played
+    public static void saveData(Context context){
 
     }
-    public static void getData(){
+    public static void getData(Context context){
 
     }
 
