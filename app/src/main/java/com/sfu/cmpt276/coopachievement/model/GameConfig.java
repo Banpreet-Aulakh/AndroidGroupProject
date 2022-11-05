@@ -17,7 +17,7 @@ public class GameConfig {
     ArrayList<Integer> achievement_Thresholds=new ArrayList<Integer>();
 
 
-    public ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
+    private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
         int range = greatScore - poorScore ;
         int remainder = range % MAX_THRESHOLD;
         int lowerBound = poorScore;
@@ -71,6 +71,14 @@ public class GameConfig {
     @Override
     public String toString(){
         return gameName;
+    }
+
+    public void setAchievement_Thresholds(ArrayList<Integer> arr){
+        this.achievement_Thresholds=arr;
+    }
+
+    public ArrayList<Integer> getAchievement_Thresholds(){
+        return achievement_Thresholds;
     }
 
 }
