@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
+import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 /*
 The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
@@ -30,6 +32,9 @@ public class GameHistoryActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION";
     private int position;
     private GameHistory gameHistory;
+    private Singleton singleton;
+    private GameConfig gameConfig;
+    private ActionBar ab;
 
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
@@ -49,14 +54,20 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
 
-        ActionBar ab = getSupportActionBar();
+        getDataFromIntent();
+
+        singleton = Singleton.getInstance();
+        gameConfig = singleton.getGameConfigList().get(position);
+        gameHistory = gameConfig.getGameHistory();
+        gameHistory.setConfigName(gameConfig.getGameName());
+
+        ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         //Floating Action Button
         floatingActionButton();
 
         //STUB GAME HISTORY CODE
-        gameHistory = new GameHistory(new String("Test")); //This will change its name to whatever is saved in config
         String configName = gameHistory.getConfigName();
         ab.setTitle(configName + " History");
 
@@ -76,10 +87,11 @@ public class GameHistoryActivity extends AppCompatActivity {
         /*
         Stub method will use the Game instance model methods to update achievements based on config
         */
-        gameHistory.getGameHistoryList().clear();
-        for (int i = 0; i < 10; i++){
-            gameHistory.getGameHistoryList().add(new GamePlayed());
-        }
+        singleton = Singleton.getInstance();
+        gameConfig = singleton.getGameConfigList().get(position);
+        gameHistory = gameConfig.getGameHistory();
+        gameHistory.setConfigName(gameConfig.getGameName());
+        ab.setTitle(gameHistory.getConfigName() + " History");
     }
 
     private void floatingActionButton() {
@@ -108,8 +120,6 @@ public class GameHistoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
                 TextView textView = (TextView) view;
-                String message = "You clicked " + index + " which is string: " + textView.getText().toString();
-                Toast.makeText(GameHistoryActivity.this, message, Toast.LENGTH_SHORT).show();
 
                 //go to edit game activity (new game activity with extra)
                 Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);

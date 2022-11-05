@@ -146,12 +146,15 @@ public class EditConfigActivity extends AppCompatActivity {
                             game.setGameHistory(historyInstance);
                             gameConfigList.addConfig(game);
                         }
+                        else {
+
+                        }
                         finish();
 
                     }
                     else{
                         Toast.makeText(EditConfigActivity.this, "Great Score is less than Poor Score" +
-                                "Or the range is less than 8",
+                                " Or the range is less than 8",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
@@ -169,7 +172,10 @@ public class EditConfigActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
                 gameConfigList.removeConfig(position);
-                finish();
+                Intent intent = new Intent(this, ViewConfigListActivity.class);
+                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                EditConfigActivity.this.finish();
                 return true;
 
             case android.R.id.home:

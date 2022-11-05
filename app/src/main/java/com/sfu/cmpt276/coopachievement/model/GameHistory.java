@@ -28,6 +28,9 @@ public class GameHistory {
     public void removePlayedGame(int index) {gamesPlayedList.remove(index);
     }
 
+    public void setGamePlayed(int index, GamePlayed game){
+        gamesPlayedList.set(index, game);
+    }
     public void setConfigName(String configName) {
         this.configName = configName;
     }
