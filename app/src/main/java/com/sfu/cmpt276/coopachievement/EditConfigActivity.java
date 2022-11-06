@@ -259,30 +259,8 @@ public class EditConfigActivity extends AppCompatActivity {
                 achievementViews.setText(R.string.zero_points_string);
                 for(int listcounter = 0; listcounter < 8; listcounter++){
                     achievementViews = findViewById(txtThresholdAchievmentID[listcounter + 1]);
-                    achievementViews.setText((thresholdList.get(listcounter) + 1) * numP + getString(R.string.point_string));
+                    achievementViews.setText((thresholdList.get(listcounter + 1) + 1) * numP + getString(R.string.point_string));
                 }
-
-                /*
-                TextView lowlyView = findViewById(R.id.config_lowly_leech_val);
-                lowlyView.setText(R.string.zero_points_string);
-                TextView horrendousView = findViewById(R.id.config_horrendous_val);
-                horrendousView.setText((thresholdList.get(0) + 1) * numP + getString(R.string.point_string));
-                TextView bogusView = findViewById(R.id.config_bogus_val);
-                bogusView.setText((thresholdList.get(1) + 1)* numP + getString(R.string.point_string));
-                TextView terribleView = findViewById(R.id.config_terrible_val);
-                terribleView.setText((thresholdList.get(2) + 1) * numP + 1 + getString(R.string.point_string));
-                TextView goofyView = findViewById(R.id.config_goofy_val);
-                goofyView.setText((thresholdList.get(3) + 1) * numP + 1 + getString(R.string.point_string));
-                TextView dastardlyView = findViewById(R.id.config_dastardly_val);
-                dastardlyView.setText((thresholdList.get(4) + 1) * numP+ getString(R.string.point_string));
-                TextView awesomeView = findViewById(R.id.config_awesome_val);
-                awesomeView.setText((thresholdList.get(5) + 1) * numP + getString(R.string.point_string));
-                TextView epicView = findViewById(R.id.config_epic_val);
-                epicView.setText((thresholdList.get(6) + 1) * numP + getString(R.string.point_string));
-                TextView fabulousView = findViewById(R.id.config_fabulous_val);
-                fabulousView.setText((thresholdList.get(7) + 1) * numP + getString(R.string.point_string));
-                 */
-
 
             }
         }
