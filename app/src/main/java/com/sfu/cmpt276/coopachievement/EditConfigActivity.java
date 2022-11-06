@@ -148,7 +148,8 @@ public class EditConfigActivity extends AppCompatActivity {
                             game.setAchievement_Thresholds();
                         }
                         else {
-
+                            game.getAchievement_Thresholds().clear();
+                            game.setAchievement_Thresholds();
                         }
                         finish();
 

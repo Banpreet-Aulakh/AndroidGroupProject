@@ -28,13 +28,14 @@ selects the game configuration in the previous screen's menu.
  */
 
 public class GameHistoryActivity extends AppCompatActivity {
-
+    private final int ACHIEVEMENT_LIST_SIZE = 8;
     private final static String positionCodeName = "POSITION";
     private int position;
     private GameHistory gameHistory;
     private Singleton singleton;
     private GameConfig gameConfig;
     private ActionBar ab;
+    private String [] achievementsList;
 
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
@@ -54,6 +55,15 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
 
+        achievementsList = new String[]{
+                getResources().getString(R.string.horrendous_hagfish),
+                getResources().getString(R.string.bogus_blowfish),
+                getResources().getString(R.string.terrible_trolls),
+                getResources().getString(R.string.goofy_goblins),
+                getResources().getString(R.string.dastardly_dragons),
+                getResources().getString(R.string.awesome_alligators),
+                getResources().getString(R.string.epic_elephants),
+                getResources().getString(R.string.fabulous_fairies)};
         getDataFromIntent();
 
         singleton = Singleton.getInstance();
@@ -92,6 +102,10 @@ public class GameHistoryActivity extends AppCompatActivity {
         gameHistory = gameConfig.getGameHistory();
         gameHistory.setConfigName(gameConfig.getGameName());
         ab.setTitle(gameHistory.getConfigName() + " History");
+
+        for(int i = 0; i < gameHistory.getGameHistoryList().size(); i++){
+            gameHistory.getGameHistoryList().get(i).setAchievementLevel(gameConfig.getAchievement_Thresholds(), achievementsList);
+        }
     }
 
     private void floatingActionButton() {
