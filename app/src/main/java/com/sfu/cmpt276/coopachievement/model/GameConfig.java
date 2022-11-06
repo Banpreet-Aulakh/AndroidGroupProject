@@ -12,9 +12,9 @@ public class GameConfig {
     private String gameName;
     private GameHistory gameHistory;
 
-    int greatScore;
-    int poorScore;
-    ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
+    private int greatScore;
+    private int poorScore;
+    private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
 
 
     private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
@@ -68,6 +68,7 @@ public class GameConfig {
     public void setPoorScore(int poorScore){
         this.poorScore = poorScore;
     }
+
     @Override
     public String toString(){
         return gameName;

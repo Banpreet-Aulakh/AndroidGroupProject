@@ -23,5 +23,8 @@
     <string name="score">score</string>
     <string name="players">players</string>
     <string name="achievement_level">Achievement Level</string>
+    <string name="config_achievement_title">Achievement Thresholds</string>
+    <string name="zero_points_string">0 Points</string>
+    <string name="point_string">\ Points</string>
 
 </resources>
