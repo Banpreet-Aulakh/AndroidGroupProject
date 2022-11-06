@@ -67,6 +67,13 @@ public class ViewConfigListActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        //Save instance code here
+        super.onBackPressed();
+        finishAffinity();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_configured_list);

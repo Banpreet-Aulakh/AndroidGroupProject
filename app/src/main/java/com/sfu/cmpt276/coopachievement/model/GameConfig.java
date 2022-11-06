@@ -8,23 +8,46 @@ import java.util.ArrayList;
 */
 
 public class GameConfig {
-    String gameName;
-    public GameHistory gameHistory;
+    private final int MAX_THRESHOLD = 8;
+    private String gameName;
+    private GameHistory gameHistory;
 
-    int greatScore;
-    int poorScore;
-    ArrayList<Integer> achievement_Thresholds=new ArrayList<Integer>();
+    private int greatScore;
+    private int poorScore;
+    private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
 
 
-    public ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
-        // math function for calculating achievement threshold
-        // push each threshold into an int array
+    private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
+        int range = greatScore - poorScore ;
+        int remainder = range % MAX_THRESHOLD;
+        int lowerBound = poorScore;
+        achievement_Thresholds.add(lowerBound);
+
+        int boundary = (int) Math.floor(range/MAX_THRESHOLD);
+
+        //adding threshold corresponding to the remainder value
+        for (int i = 0; i < remainder ;i++){
+            lowerBound +=boundary+1;
+            achievement_Thresholds.add(lowerBound);
+        }
+        //adding leftover threshold
+        for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
+            lowerBound += boundary;
+            achievement_Thresholds.add(lowerBound);
+        }
+
+        //adding upperbound threshold
+        //achievement_Thresholds.add(greatScore);
+
         return achievement_Thresholds;
     }
 
     //call instance from game history
     public GameHistory getGameHistory() {
         return gameHistory;
+    }
+    public void setGameHistory(GameHistory history){
+        this.gameHistory = history;
     }
 
     public String getGameName(){
@@ -45,9 +68,18 @@ public class GameConfig {
     public void setPoorScore(int poorScore){
         this.poorScore = poorScore;
     }
+
     @Override
     public String toString(){
         return gameName;
+    }
+
+    public void setAchievement_Thresholds(){
+        this.achievement_Thresholds = calculateAchievementThreshold(greatScore, poorScore);
+    }
+
+    public ArrayList<Integer> getAchievement_Thresholds(){
+        return achievement_Thresholds;
     }
 
 }

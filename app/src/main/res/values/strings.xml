@@ -7,5 +7,24 @@
     <string name="great_score">Great Score:</string>
     <string name="blank" />
     <string name="empty_list_txt">The Application Feels Lonely and Empty</string>
-    <string name="help_create_txt">Press the button to create a game</string>
+    <string name="help_create_txt">Press the button to create a game config</string>
+    <string name="terrible_trolls">Terrible Trolls</string>
+    <string name="goofy_goblins">Goofy Goblins</string>
+    <string name="fabulous_fairies">Fabulous Fairies</string>
+    <string name="dastardly_dragons">Dastardly Dragons</string>
+    <string name="horrendous_hagfish">Horrendous Hagfish</string>
+    <string name="epic_elephants">Epic Elephants</string>
+    <string name="awesome_alligators">Awesome Alligators</string>
+    <string name="bogus_blowfish">Bogus Blowfish</string>
+    <string name="lowly_leech">Lowly Leech</string>
+    <string name="total_score">Total score</string>
+    <string name="num_players"># players</string>
+    <string name="empty_string">-</string>
+    <string name="score">score</string>
+    <string name="players">players</string>
+    <string name="achievement_level">Achievement Level</string>
+    <string name="config_achievement_title">Achievement Thresholds</string>
+    <string name="zero_points_string">0 Points</string>
+    <string name="point_string">\ Points</string>
+
 </resources>
