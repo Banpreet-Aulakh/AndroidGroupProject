@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,17 +15,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewConfigListActivity extends AppCompatActivity {
 
     private boolean isEditConfigMode;
-
-    private List<GameConfig> gameList = Singleton.getInstance().getGameConfigList();
+    private static Singleton singleton = Singleton.getInstance();
+    private static ArrayList<GameConfig> gameList = singleton.getGameConfigList();
 
     private ImageView emptyListImage;
     private ImageView arrowImage;
@@ -34,7 +40,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-
+        getData(ViewConfigListActivity.this);
         emptyListImage = findViewById(R.id.imgemptyConfigList);
         arrowImage = findViewById(R.id.imgArrow);
         emptyListTxt = findViewById(R.id.txtEmptyList);
@@ -55,9 +61,9 @@ public class ViewConfigListActivity extends AppCompatActivity {
             arrowImage.setImageResource(0);
             emptyListTxt.setText(getString(R.string.blank));
             helpCreateConfig.setText(getString(R.string.blank));
-            populateListView();
-            registerListClick();
         }
+        populateListView();
+        registerListClick();
     }
 
     @Override
@@ -122,10 +128,26 @@ public class ViewConfigListActivity extends AppCompatActivity {
     }
     //Call Save Data After saving/editing a config or saving/editing a game played
     public static void saveData(Context context){
+        SharedPreferences pref = context.getSharedPreferences("Object Preference", MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(gameList);
+        edit.putString("SAVEDLIST", json);
+        edit.apply();
 
     }
     public static void getData(Context context){
+        SharedPreferences pref = context.getSharedPreferences("Object Preference", MODE_PRIVATE);
+        Gson gson = new Gson();
 
+        String json = pref.getString("SAVEDLIST",null);
+
+        Type type = new TypeToken<ArrayList<GameConfig>>() {}.getType();
+
+        if(json != null){
+        gameList = gson.fromJson(json, type);
+        singleton.setnewGameConfigList(gameList);
+        }
     }
 
 

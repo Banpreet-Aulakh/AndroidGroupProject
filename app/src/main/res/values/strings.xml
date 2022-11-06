@@ -26,5 +26,7 @@
     <string name="config_achievement_title">Achievement Thresholds</string>
     <string name="zero_points_string">0 Points</string>
     <string name="point_string">\ Points</string>
+    <string name="edit_game">Edit Game</string>
+    <string name="new_game">New Game</string>
 
 </resources>

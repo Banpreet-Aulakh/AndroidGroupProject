@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,17 @@ public class EditConfigActivity extends AppCompatActivity {
     private Singleton gameConfigList = Singleton.getInstance();
     private GameConfig game;
 
+    private int [] txtThresholdAchievmentID = {
+            R.id.config_lowly_leech_val,
+            R.id.config_horrendous_val,
+            R.id.config_bogus_val,
+            R.id.config_terrible_val,
+            R.id.config_goofy_val,
+            R.id.config_dastardly_val,
+            R.id.config_awesome_val,
+            R.id.config_epic_val,
+            R.id.config_fabulous_val
+    };
     //Index of Array, if position = -1, you are creating a new config
     private int position;
     private boolean isCreateConfig;
@@ -42,6 +54,9 @@ public class EditConfigActivity extends AppCompatActivity {
     private EditText poorEditTxt;
     private EditText greatEditTxt;
     private EditText numPlayers;
+
+    private TextView achievementViews;
+
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, EditConfigActivity.class);
         intent.putExtra(positionCodeName, position);
@@ -90,7 +105,10 @@ public class EditConfigActivity extends AppCompatActivity {
         toolbar.setDisplayHomeAsUpEnabled(true);
 
     }
+
+    //Get Values from a gameconfig to Edit
     private void setEditConfigValues(){
+
         game = gameConfigList.getGameConfigList().get(position);
 
         gameName = game.getGameName();
@@ -103,6 +121,7 @@ public class EditConfigActivity extends AppCompatActivity {
 
     }
 
+    //ToolBar for Save and Delete Button
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         if(!isCreateConfig){
@@ -114,11 +133,14 @@ public class EditConfigActivity extends AppCompatActivity {
 
         return true;
     }
-
-
-    //Singleton Class Here...
+    //Save / Delete Game
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        //Get Input
+        gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
+        poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
+        greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
+
         //Convert to String
         gameName = gameEditTxt.getText().toString();
         poorScoreTxt = poorEditTxt.getText().toString();
@@ -157,12 +179,14 @@ public class EditConfigActivity extends AppCompatActivity {
                             game.getAchievement_Thresholds().clear();
                             game.setAchievement_Thresholds();
                         }
+
+                        ViewConfigListActivity.saveData(EditConfigActivity.this);
                         finish();
 
                     }
                     else{
                         Toast.makeText(EditConfigActivity.this, "Great Score is less than Poor Score" +
-                                " Or the range is less than 8",
+                                "Or the range is less than 8",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
@@ -171,6 +195,8 @@ public class EditConfigActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
                 return true;
+
+
             case R.id.deleteConfig:
 
                 //Remove index from singleton
@@ -178,6 +204,7 @@ public class EditConfigActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
 
                 gameConfigList.removeConfig(position);
+                ViewConfigListActivity.saveData(EditConfigActivity.this);
                 Intent intent = new Intent(this, ViewConfigListActivity.class);
                 startActivity(intent);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -192,13 +219,12 @@ public class EditConfigActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    //Display Achievement Ranges when all values are put in
     private TextWatcher checkFinished = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
-
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
@@ -228,30 +254,16 @@ public class EditConfigActivity extends AppCompatActivity {
                 ArrayList<Integer> thresholdList = game.getAchievement_Thresholds();
 
                 int numP = Integer.parseInt(numPlayers.getText().toString());
-                TextView lowlyView = findViewById(R.id.config_lowly_leech_val);
-                lowlyView.setText(R.string.zero_points_string);
-                TextView horrendousView = findViewById(R.id.config_horrendous_val);
-                horrendousView.setText((thresholdList.get(0) + 1) * numP + getString(R.string.point_string));
-                TextView bogusView = findViewById(R.id.config_bogus_val);
-                bogusView.setText((thresholdList.get(1) + 1)* numP + getString(R.string.point_string));
-                TextView terribleView = findViewById(R.id.config_terrible_val);
-                terribleView.setText((thresholdList.get(2) + 1) * numP + 1 + getString(R.string.point_string));
-                TextView goofyView = findViewById(R.id.config_goofy_val);
-                goofyView.setText((thresholdList.get(3) + 1) * numP + 1 + getString(R.string.point_string));
-                TextView dastardlyView = findViewById(R.id.config_dastardly_val);
-                dastardlyView.setText((thresholdList.get(4) + 1) * numP+ getString(R.string.point_string));
-                TextView awesomeView = findViewById(R.id.config_awesome_val);
-                awesomeView.setText((thresholdList.get(5) + 1) * numP + getString(R.string.point_string));
-                TextView epicView = findViewById(R.id.config_epic_val);
-                epicView.setText((thresholdList.get(6) + 1) * numP + getString(R.string.point_string));
-                TextView fabulousView = findViewById(R.id.config_fabulous_val);
-                fabulousView.setText((thresholdList.get(7) + 1) * numP + getString(R.string.point_string));
 
-
+                achievementViews = findViewById(txtThresholdAchievmentID[0]);
+                achievementViews.setText(R.string.zero_points_string);
+                for(int listcounter = 0; listcounter < 8; listcounter++){
+                    achievementViews = findViewById(txtThresholdAchievmentID[listcounter + 1]);
+                    achievementViews.setText((thresholdList.get(listcounter + 1) + 1) * numP + getString(R.string.point_string));
+                }
 
             }
         }
-
         @Override
         public void afterTextChanged(Editable editable) {
 

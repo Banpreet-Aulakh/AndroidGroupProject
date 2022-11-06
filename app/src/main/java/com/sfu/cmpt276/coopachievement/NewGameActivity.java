@@ -72,10 +72,10 @@ public class NewGameActivity extends AppCompatActivity {
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
             numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
             totalScore.setText(""+currentGame.getTotalScore(), TextView.BufferType.EDITABLE);
-            toolbar.setTitle("Edit Game");
+            toolbar.setTitle(R.string.edit_game);
 
         }else{
-            toolbar.setTitle("New Game");
+            toolbar.setTitle(R.string.new_game);
             this.currentGame = new GamePlayed();
         }
     }
@@ -103,6 +103,7 @@ public class NewGameActivity extends AppCompatActivity {
                         currentGame.setTotalScore(getIntFromEditText(totalScore));
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
                     }
+                    ViewConfigListActivity.saveData(NewGameActivity.this);
                     finish();
                 }
                 return true;
