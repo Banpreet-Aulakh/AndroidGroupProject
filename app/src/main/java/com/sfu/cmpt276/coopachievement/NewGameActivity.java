@@ -40,6 +40,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         configList = Singleton.getInstance();
         achievementsList = new String[]{
+                getResources().getString(R.string.lowly_leech),
                 getResources().getString(R.string.horrendous_hagfish),
                 getResources().getString(R.string.bogus_blowfish),
                 getResources().getString(R.string.terrible_trolls),

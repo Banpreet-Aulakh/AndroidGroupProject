@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class GamePlayed {
-    private static final int MAX_ACHIEVEMENT = 8;
+    private static final int MAX_ACHIEVEMENT = 9;
     private int totalScore;
     private int numPlayers;
     private String achievementName;
@@ -44,9 +44,13 @@ public class GamePlayed {
     }
 
     public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
-        int i = 0;
-        int level = 0;
         double averagePlayerScore = totalScore/numPlayers;
+        if (averagePlayerScore < boundariesList.get(0)) {
+            achievementName = namesList[0];
+            return;
+        }
+        int i = 1;
+        int level = 1;
 
         while(i < MAX_ACHIEVEMENT) {
             if(averagePlayerScore > boundariesList.get(i)){

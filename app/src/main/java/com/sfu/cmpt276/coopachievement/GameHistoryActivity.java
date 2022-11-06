@@ -56,6 +56,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_config_history);
 
         achievementsList = new String[]{
+                getResources().getString(R.string.lowly_leech),
                 getResources().getString(R.string.horrendous_hagfish),
                 getResources().getString(R.string.bogus_blowfish),
                 getResources().getString(R.string.terrible_trolls),
