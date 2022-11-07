@@ -21,6 +21,12 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 import java.util.ArrayList;
 
+/*
+ * EditConfig Activity is responsible for creating new config and editing an already created
+ * config. Data includes the name of a game, input data of great and poor score, number of player
+ * as well as printing dynamically all the achievement threshold
+ */
+
 public class EditConfigActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
 
@@ -38,7 +44,7 @@ public class EditConfigActivity extends AppCompatActivity {
             R.id.config_epic_val,
             R.id.config_fabulous_val
     };
-    //Index of Array, if position = -1, you are creating a new config
+    //Index of config array, if position = -1, you are creating a new config
     private int position;
     private boolean isCreateConfig;
 

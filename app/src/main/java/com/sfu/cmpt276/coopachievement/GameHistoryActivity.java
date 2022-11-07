@@ -23,9 +23,10 @@ import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 /*
-The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
-selects the game configuration in the previous screen's menu.
- */
+* The GameHistory Activity is responsible for displaying the instances of GamesPlayed
+* in the GameHistory Class in a List Format.This is shown after a user selects the game configuration
+* in the previous screen's menu.
+*/
 
 public class GameHistoryActivity extends AppCompatActivity {
     private final int ACHIEVEMENT_LIST_SIZE = 8;

@@ -3,8 +3,8 @@ package com.sfu.cmpt276.coopachievement.model;
 import java.util.ArrayList;
 
 /*
-    Game config class is responsible for storing all data needed for configuration of a game
-    including calculating and storing achievement thresholds
+* Game config class is responsible for storing all data needed for configuration of a game
+* including calculating and storing achievement thresholds
 */
 
 public class GameConfig {
@@ -35,9 +35,6 @@ public class GameConfig {
             lowerBound += boundary;
             achievement_Thresholds.add(lowerBound);
         }
-
-        //adding upperbound threshold
-        //achievement_Thresholds.add(greatScore);
 
         return achievement_Thresholds;
     }

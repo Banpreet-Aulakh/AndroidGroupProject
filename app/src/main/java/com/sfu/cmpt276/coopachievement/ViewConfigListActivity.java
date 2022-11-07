@@ -26,6 +26,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+ * The ViewConfigList Activity is serving as the first activity on the main menu
+ * for the 1st iteration. Responsible for creating a new config
+ * or printing the list of available configs,
+ * which user can edit a config by clicking the corresponding list view item
+ */
+
 public class ViewConfigListActivity extends AppCompatActivity {
 
     private boolean isEditConfigMode;
@@ -46,10 +54,8 @@ public class ViewConfigListActivity extends AppCompatActivity {
         emptyListTxt = findViewById(R.id.txtEmptyList);
         helpCreateConfig = findViewById(R.id.txtHelpCreate);
 
-        // :)
-
+        //default screen if no configs are available
         if(gameList.size() == 0){
-
             emptyListImage.setImageResource(R.drawable.alone);
             arrowImage.setImageResource(R.drawable.ic_baseline_arrow_forward_24);
             emptyListTxt.setText(R.string.empty_list_txt);
@@ -105,7 +111,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //change activity code. I think the position extra can be the "key" to the
+                //change activity code. Position extra is the "key" to the
                 // ArrayList so we know which GameConfig to edit.
                 Intent intent = GameHistoryActivity.getIntent(
                         ViewConfigListActivity.this, position);
@@ -146,7 +152,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
 
         if(json != null){
         gameList = gson.fromJson(json, type);
-        singleton.setnewGameConfigList(gameList);
+        singleton.setNewGameConfigList(gameList);
         }
     }
 
