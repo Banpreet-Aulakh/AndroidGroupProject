@@ -12,9 +12,9 @@ public class GameConfig {
     private String gameName;
     private GameHistory gameHistory;
 
-    int greatScore;
-    int poorScore;
-    ArrayList<Integer> achievement_Thresholds=new ArrayList<Integer>();
+    private int greatScore;
+    private int poorScore;
+    private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
 
 
     private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
@@ -37,7 +37,7 @@ public class GameConfig {
         }
 
         //adding upperbound threshold
-        achievement_Thresholds.add(greatScore);
+        //achievement_Thresholds.add(greatScore);
 
         return achievement_Thresholds;
     }
@@ -68,13 +68,14 @@ public class GameConfig {
     public void setPoorScore(int poorScore){
         this.poorScore = poorScore;
     }
+
     @Override
     public String toString(){
         return gameName;
     }
 
-    public void setAchievement_Thresholds(ArrayList<Integer> arr){
-        this.achievement_Thresholds=arr;
+    public void setAchievement_Thresholds(){
+        this.achievement_Thresholds = calculateAchievementThreshold(greatScore, poorScore);
     }
 
     public ArrayList<Integer> getAchievement_Thresholds(){

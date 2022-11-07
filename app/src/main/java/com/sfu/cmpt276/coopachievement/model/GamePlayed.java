@@ -7,15 +7,18 @@ import android.os.Build;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class GamePlayed {
-
+    private static final int MAX_ACHIEVEMENT = 9;
     private int totalScore;
     private int numPlayers;
-    private String achievement;
+    private String achievementName;
+
     private static final String DATE_FORMAT = "MMM dd @ HH:mm";
     private String timePlayed;
+
 
     public int getTotalScore() {
         return totalScore;
@@ -25,26 +28,43 @@ public class GamePlayed {
         return numPlayers;
     }
 
-    public String getAchievement() {
-        return achievement;
-    }
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+    public void setAchievementString(String name){
+        achievementName = name;
+    }
+    public String getAchievementName(){
+        return achievementName;
     }
 
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
 
-    private void setAchievementLevel(){
-        int i = 0;
+    public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
+        double averagePlayerScore = totalScore/numPlayers;
+        if (averagePlayerScore < boundariesList.get(0)) {
+            achievementName = namesList[0];
+            return;
+        }
+        int i = 1;
+        int level = 1;
+
+        while(i < MAX_ACHIEVEMENT) {
+            if(averagePlayerScore > boundariesList.get(i)){
+                level = i;
+            }
+            i++;
+        }
+        achievementName = namesList[level];
     }
 
     public GamePlayed() {
         this.totalScore = 0;
         this.numPlayers = 0;
-        this.achievement = "";
+        this.achievementName = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDateTime tmp = LocalDateTime.now();
         this.timePlayed = tmp.format(formatter);
@@ -56,7 +76,7 @@ public class GamePlayed {
         return "GamePlayed{" +
                 "totalScore=" + totalScore +
                 ", numPlayers=" + numPlayers +
-                ", achievement='" + achievement + '\'' +
+                ", achievement=" + achievementName + '\'' +
                 ", timePlayed='" + timePlayed + '\'' +
                 '}';
     }
