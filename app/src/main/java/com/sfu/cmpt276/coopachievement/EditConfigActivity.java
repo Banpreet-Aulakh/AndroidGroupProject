@@ -171,7 +171,6 @@ public class EditConfigActivity extends AppCompatActivity {
 
                     if(greatScore > poorScore && greatScore-poorScore > 8) {
 
-
                         //Put gameName, greatScore, and poorScore into singleton here.
                         game.setGameName(gameName);
                         game.setPoorScore(poorScore);
