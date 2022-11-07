@@ -55,11 +55,12 @@ public class GamePlayed {
             return;
         }
         int i = 1;
-        int level = 1;
+        int level = 8;
 
         while(i < MAX_ACHIEVEMENT) {
-            if(averagePlayerScore > boundariesList.get(i)){
+            if(averagePlayerScore < boundariesList.get(i)){
                 level = i;
+                break;
             }
             i++;
         }
