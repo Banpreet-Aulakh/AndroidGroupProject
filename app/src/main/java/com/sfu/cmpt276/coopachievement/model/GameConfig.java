@@ -24,6 +24,7 @@ public class GameConfig {
 
         int boundary = (int) Math.floor(range/MAX_THRESHOLD);
         achievement_Thresholds.add(lowerBound);
+
         //adding threshold corresponding to the remainder value
         for (int i = 0; i < remainder ;i++){
             lowerBound +=boundary+1;
