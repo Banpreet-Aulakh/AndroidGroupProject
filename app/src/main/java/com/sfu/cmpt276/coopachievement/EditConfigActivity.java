@@ -259,7 +259,7 @@ public class EditConfigActivity extends AppCompatActivity {
                 achievementViews.setText(R.string.zero_points_string);
                 for(int listcounter = 0; listcounter < 8; listcounter++){
                     achievementViews = findViewById(txtThresholdAchievmentID[listcounter + 1]);
-                    achievementViews.setText((thresholdList.get(listcounter + 1) + 1) * numP + getString(R.string.point_string));
+                    achievementViews.setText((thresholdList.get(listcounter)) * numP + getString(R.string.point_string));
                 }
 
             }
