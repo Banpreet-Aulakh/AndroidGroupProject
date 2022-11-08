@@ -38,6 +38,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private GameConfig gameConfig;
     private ActionBar ab;
     private String [] achievementsList;
+    private TextView noItemView;
 
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
@@ -56,7 +57,8 @@ public class GameHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
-
+        noItemView = findViewById(R.id.no_items_history_text);
+        noItemView.setVisibility(View.INVISIBLE);
         achievementsList = new String[]{
                 getResources().getString(R.string.lowly_leech),
                 getResources().getString(R.string.horrendous_hagfish),
@@ -74,6 +76,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         gameHistory = gameConfig.getGameHistory();
         gameHistory.setConfigName(gameConfig.getGameName());
 
+        if(gameHistory.getGameHistoryList().size() == 0){
+            noItemView.setVisibility(View.VISIBLE);
+        }
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -94,6 +99,10 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onResume();
         updateGameAchievements();
         populateListView(gameHistory);
+        noItemView.setVisibility(View.INVISIBLE);
+        if(gameHistory.getGameHistoryList().size() == 0){
+            noItemView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateGameAchievements() {
