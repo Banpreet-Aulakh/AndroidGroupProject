@@ -99,11 +99,11 @@ public class EditConfigActivity extends AppCompatActivity {
         greatEditTxt.addTextChangedListener(checkFinished);
 
         if(isCreateConfig){
-            toolbar.setTitle("Create Config");
+            toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
         }
         else{
-            toolbar.setTitle("Edit Config");
+            toolbar.setTitle(R.string.edit_config_title);
             setEditConfigValues();
 
         }
@@ -157,8 +157,9 @@ public class EditConfigActivity extends AppCompatActivity {
             case R.id.saveConfig:
 
                 //Save item. Check Items are valid
-                if(!gameName.equals("") && !poorScoreTxt.equals("") && !greatScoreTxt.equals("")){
-                    Toast.makeText(EditConfigActivity.this, "Saving",
+                if(!gameName.equals(getString(R.string.blank)) && !poorScoreTxt.equals(getString(R.string.blank))
+                        && !greatScoreTxt.equals(getString(R.string.blank))){
+                    Toast.makeText(EditConfigActivity.this, getString(R.string.save_config),
                             Toast.LENGTH_LONG).show();
 
                     //Convert String to int
@@ -191,13 +192,12 @@ public class EditConfigActivity extends AppCompatActivity {
 
                     }
                     else{
-                        Toast.makeText(EditConfigActivity.this, "Great Score is less than Poor Score" +
-                                "Or the range is less than 8",
+                        Toast.makeText(EditConfigActivity.this, getString(R.string.great_score_config),
                                 Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
-                    Toast.makeText(EditConfigActivity.this, "Missing Parameters",
+                    Toast.makeText(EditConfigActivity.this, getString(R.string.missing_parameter_config),
                             Toast.LENGTH_LONG).show();
                 }
                 return true;
@@ -206,7 +206,7 @@ public class EditConfigActivity extends AppCompatActivity {
             case R.id.deleteConfig:
 
                 //Remove index from singleton
-                Toast.makeText(EditConfigActivity.this, "Deleting",
+                Toast.makeText(EditConfigActivity.this, getString(R.string.delete_config),
                         Toast.LENGTH_LONG).show();
 
                 gameConfigList.removeConfig(position);
