@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,7 +23,6 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /*
@@ -49,10 +47,11 @@ public class ViewConfigListActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         getData(ViewConfigListActivity.this);
-        emptyListImage = findViewById(R.id.imgemptyConfigList);
+
+        emptyListImage = findViewById(R.id.imgemptyGameHistoryList);
         arrowImage = findViewById(R.id.imgArrow);
         emptyListTxt = findViewById(R.id.txtEmptyList);
-        helpCreateConfig = findViewById(R.id.txtHelpCreate);
+        helpCreateConfig = findViewById(R.id.txtHelpCreateGameConfig);
 
         //default screen if no configs are available
         if(gameList.size() == 0){

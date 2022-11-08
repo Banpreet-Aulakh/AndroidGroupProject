@@ -29,5 +29,11 @@
     <string name="edit_game">Edit Game</string>
     <string name="new_game">New Game</string>
     <string name="no_history_available_use_the_button_to_add_a_new_game">No History Available! Use the \'+\' button to add a new game.</string>
+    <string name="edit_config_title">Edit Config</string>
+    <string name="create_config_title">Create Config</string>
+    <string name="save_config">Saving</string>
+    <string name="great_score_config">Great Score is less than Poor Score or the range is less than 8</string>
+    <string name="missing_parameter_config">Missing Parameters</string>
+    <string name="delete_config">Deleting</string>
 
 </resources>
