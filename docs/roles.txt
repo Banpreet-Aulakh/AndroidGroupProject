@@ -1,0 +1,4 @@
+Product owner: Banpreet
+Scrum Master: Dante
+Repository Manager: Danny
+Team member: Preston
