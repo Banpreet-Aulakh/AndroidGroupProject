@@ -27,7 +27,7 @@ public class GamePlayed {
     public int getNumPlayers() {
         return numPlayers;
     }
-    
+
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
