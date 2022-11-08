@@ -47,6 +47,23 @@ public class GamePlayed {
         this.numPlayers = numPlayers;
     }
 
+    public String checkAchievementLevel(ArrayList<Integer>boundariesList, String namesList[], int numberPlayers, int combinedScore){
+        double averagePlayerScore = combinedScore/numberPlayers;
+        if (averagePlayerScore < boundariesList.get(0)) {
+            return namesList[0];
+        }
+        int i = 1;
+        int level = 8;
+        while(i < MAX_ACHIEVEMENT) {
+            if(averagePlayerScore < boundariesList.get(i)){
+                level = i;
+                break;
+            }
+            i++;
+        }
+        return namesList[level];
+    }
+
     public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
         double averagePlayerScore = totalScore/numPlayers;
         if (averagePlayerScore < boundariesList.get(0)) {

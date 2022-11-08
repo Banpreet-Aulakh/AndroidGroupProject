@@ -35,5 +35,6 @@
     <string name="great_score_config">Great Score is less than Poor Score or the range is less than 8</string>
     <string name="missing_parameter_config">Missing Parameters</string>
     <string name="delete_config">Deleting</string>
+    <string name="zero_error">Error: cannot have 0 players</string>
 
 </resources>

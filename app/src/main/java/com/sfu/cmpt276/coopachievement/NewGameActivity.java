@@ -96,8 +96,11 @@ public class NewGameActivity extends AppCompatActivity {
             case R.id.saveGame:
                 if(totalScore.getText().toString().isEmpty() || numPlayers.getText().toString().isEmpty()){
                     Toast.makeText(NewGameActivity.this, "Error: Empty game elements", Toast.LENGTH_LONG).show();
-                } else {
+                }else if(getIntFromEditText(numPlayers) == 0){
 
+                    Toast.makeText(NewGameActivity.this, getString(R.string.zero_error),Toast.LENGTH_LONG).show();
+
+                }else{
                     if (historyIndex != -1) {
                         currentGame.setNumPlayers(getIntFromEditText(numPlayers));
                         currentGame.setTotalScore(getIntFromEditText(totalScore));
@@ -141,11 +144,10 @@ public class NewGameActivity extends AppCompatActivity {
             String gameTotalScore = totalScore.getText().toString().trim();
             String gameNumPlayers = numPlayers.getText().toString().trim();
 
-            if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty()) {
-                currentGame.setNumPlayers(getIntFromEditText(numPlayers));
-                currentGame.setTotalScore(getIntFromEditText(totalScore));
-                currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
-                displayAchievementText.setText(currentGame.getAchievementName());
+            if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
+                int numberPlayers = getIntFromEditText(numPlayers);
+                int combinedScore = getIntFromEditText(totalScore);
+                displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
 
             }else{
                 displayAchievementText.setText(getResources().getString(R.string.empty_string));
