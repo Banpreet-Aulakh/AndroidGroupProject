@@ -23,7 +23,7 @@ public class Singleton {
     public ArrayList<GameConfig> getGameConfigList(){
         return gameConfigs;
     }
-    public void setnewGameConfigList(ArrayList<GameConfig> newConfigList){gameConfigs = newConfigList;}
+    public void setNewGameConfigList(ArrayList<GameConfig> newConfigList){gameConfigs = newConfigList;}
     public void addConfig(GameConfig config){
         gameConfigs.add(config);
     }
@@ -37,7 +37,6 @@ public class Singleton {
     }
 
     //print listview of game configs
-
     public String[] getStringArray() {
         String[] tempArray = new String[gameConfigs.size()];
         for (int i = 0; i < gameConfigs.size(); i++) {

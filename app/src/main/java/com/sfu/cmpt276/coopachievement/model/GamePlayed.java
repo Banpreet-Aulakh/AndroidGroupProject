@@ -8,7 +8,12 @@ import android.os.Build;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
+/*
+* GamePlayed Class is responsible for storing and printing the input of the total score
+* and the number of player from New Game Activity while getting the
+* corresponding achievement name from the string.xml
+* and record its time stamp
+*/
 
 public class GamePlayed {
     private static final int MAX_ACHIEVEMENT = 9;

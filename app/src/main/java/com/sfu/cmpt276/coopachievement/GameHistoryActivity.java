@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +24,10 @@ import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 /*
-The GameHistoryActivity Activity is responsible for displaying the instances of GamesPlayed in the GameHistory Class in a List Format. This is shown after a user
-selects the game configuration in the previous screen's menu.
- */
+* The GameHistory Activity is responsible for displaying the instances of GamesPlayed
+* in the GameHistory Class in a List Format.This is shown after a user selects the game configuration
+* in the previous screen's menu.
+*/
 
 public class GameHistoryActivity extends AppCompatActivity {
     private final int ACHIEVEMENT_LIST_SIZE = 8;
@@ -36,6 +38,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private GameConfig gameConfig;
     private ActionBar ab;
     private String [] achievementsList;
+    private TextView noItemView;
 
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
@@ -54,7 +57,8 @@ public class GameHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_config_history);
-
+        noItemView = findViewById(R.id.no_items_history_text);
+        noItemView.setVisibility(View.INVISIBLE);
         achievementsList = new String[]{
                 getResources().getString(R.string.lowly_leech),
                 getResources().getString(R.string.horrendous_hagfish),
@@ -72,6 +76,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         gameHistory = gameConfig.getGameHistory();
         gameHistory.setConfigName(gameConfig.getGameName());
 
+        if(gameHistory.getGameHistoryList().size() == 0){
+            noItemView.setVisibility(View.VISIBLE);
+        }
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -92,6 +99,10 @@ public class GameHistoryActivity extends AppCompatActivity {
         super.onResume();
         updateGameAchievements();
         populateListView(gameHistory);
+        noItemView.setVisibility(View.INVISIBLE);
+        if(gameHistory.getGameHistoryList().size() == 0){
+            noItemView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateGameAchievements() {

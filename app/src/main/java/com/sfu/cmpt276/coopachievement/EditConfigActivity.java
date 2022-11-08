@@ -21,6 +21,12 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 import java.util.ArrayList;
 
+/*
+ * EditConfig Activity is responsible for creating new config and editing an already created
+ * config. Data includes the name of a game, input data of great and poor score, number of player
+ * as well as printing dynamically all the achievement threshold
+ */
+
 public class EditConfigActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
 
@@ -38,7 +44,7 @@ public class EditConfigActivity extends AppCompatActivity {
             R.id.config_epic_val,
             R.id.config_fabulous_val
     };
-    //Index of Array, if position = -1, you are creating a new config
+    //Index of config array, if position = -1, you are creating a new config
     private int position;
     private boolean isCreateConfig;
 
@@ -93,11 +99,11 @@ public class EditConfigActivity extends AppCompatActivity {
         greatEditTxt.addTextChangedListener(checkFinished);
 
         if(isCreateConfig){
-            toolbar.setTitle("Create Config");
+            toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
         }
         else{
-            toolbar.setTitle("Edit Config");
+            toolbar.setTitle(R.string.edit_config_title);
             setEditConfigValues();
 
         }
@@ -151,8 +157,9 @@ public class EditConfigActivity extends AppCompatActivity {
             case R.id.saveConfig:
 
                 //Save item. Check Items are valid
-                if(!gameName.equals("") && !poorScoreTxt.equals("") && !greatScoreTxt.equals("")){
-                    Toast.makeText(EditConfigActivity.this, "Saving",
+                if(!gameName.equals(getString(R.string.blank)) && !poorScoreTxt.equals(getString(R.string.blank))
+                        && !greatScoreTxt.equals(getString(R.string.blank))){
+                    Toast.makeText(EditConfigActivity.this, getString(R.string.save_config),
                             Toast.LENGTH_LONG).show();
 
                     //Convert String to int
@@ -185,13 +192,12 @@ public class EditConfigActivity extends AppCompatActivity {
 
                     }
                     else{
-                        Toast.makeText(EditConfigActivity.this, "Great Score is less than Poor Score" +
-                                "Or the range is less than 8",
+                        Toast.makeText(EditConfigActivity.this, getString(R.string.great_score_config),
                                 Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
-                    Toast.makeText(EditConfigActivity.this, "Missing Parameters",
+                    Toast.makeText(EditConfigActivity.this, getString(R.string.missing_parameter_config),
                             Toast.LENGTH_LONG).show();
                 }
                 return true;
@@ -200,7 +206,7 @@ public class EditConfigActivity extends AppCompatActivity {
             case R.id.deleteConfig:
 
                 //Remove index from singleton
-                Toast.makeText(EditConfigActivity.this, "Deleting",
+                Toast.makeText(EditConfigActivity.this, getString(R.string.delete_config),
                         Toast.LENGTH_LONG).show();
 
                 gameConfigList.removeConfig(position);
@@ -257,11 +263,10 @@ public class EditConfigActivity extends AppCompatActivity {
 
                 achievementViews = findViewById(txtThresholdAchievmentID[0]);
                 achievementViews.setText(R.string.zero_points_string);
-                for(int listcounter = 0; listcounter < 8; listcounter++){
-                    achievementViews = findViewById(txtThresholdAchievmentID[listcounter + 1]);
-                    achievementViews.setText((thresholdList.get(listcounter)) * numP + getString(R.string.point_string));
+                for(int listCounter = 0; listCounter < 8; listCounter++){
+                    achievementViews = findViewById(txtThresholdAchievmentID[listCounter + 1]);
+                    achievementViews.setText((thresholdList.get(listCounter)) * numP + getString(R.string.point_string));
                 }
-
             }
         }
         @Override

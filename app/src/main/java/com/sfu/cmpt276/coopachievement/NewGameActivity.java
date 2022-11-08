@@ -19,6 +19,11 @@ import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
+/*
+ * The NewGame Activity is responsible for taking user's total score input and number of player
+ * before dynamically printing out the achievement level that the user acquired.
+ */
+
 public class NewGameActivity extends AppCompatActivity {
     private final int ACHIEVEMENT_LIST_SIZE = 8;
     private Singleton configList;

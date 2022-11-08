@@ -3,8 +3,8 @@ package com.sfu.cmpt276.coopachievement.model;
 import java.util.ArrayList;
 
 /*
-    Game config class is responsible for storing all data needed for configuration of a game
-    including calculating and storing achievement thresholds
+* Game config class is responsible for storing all data needed for configuration of a game
+* including calculating and storing achievement thresholds
 */
 
 public class GameConfig {
@@ -21,23 +21,22 @@ public class GameConfig {
         int range = greatScore - poorScore ;
         int remainder = range % MAX_THRESHOLD;
         int lowerBound = poorScore;
-        achievement_Thresholds.add(lowerBound);
 
         int boundary = (int) Math.floor(range/MAX_THRESHOLD);
+        achievement_Thresholds.add(lowerBound);
 
         //adding threshold corresponding to the remainder value
         for (int i = 0; i < remainder ;i++){
             lowerBound +=boundary+1;
             achievement_Thresholds.add(lowerBound);
+
         }
         //adding leftover threshold
         for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
             lowerBound += boundary;
             achievement_Thresholds.add(lowerBound);
-        }
 
-        //adding upperbound threshold
-        //achievement_Thresholds.add(greatScore);
+        }
 
         return achievement_Thresholds;
     }
