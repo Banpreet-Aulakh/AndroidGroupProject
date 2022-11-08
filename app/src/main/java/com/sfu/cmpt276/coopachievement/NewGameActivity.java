@@ -154,6 +154,7 @@ public class NewGameActivity extends AppCompatActivity {
             }
         }
 
+        
         @Override
         public void afterTextChanged(Editable editable) {
 
