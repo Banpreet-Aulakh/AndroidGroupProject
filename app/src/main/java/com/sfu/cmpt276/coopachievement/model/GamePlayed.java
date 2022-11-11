@@ -43,6 +43,7 @@ public class GamePlayed {
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
+
     public void setAchievementString(String name){
         achievementName = name;
     }
@@ -81,6 +82,7 @@ public class GamePlayed {
     }
     public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
         double averagePlayerScore = totalScore/numPlayers;
+
         if (averagePlayerScore < boundariesList.get(0)) {
             achievementName = namesList[0];
             return;

@@ -34,7 +34,6 @@ public class NewGameActivity extends AppCompatActivity {
     private EditText numPlayers;
     private EditText totalScore;
     private TextView displayAchievementText;
-    private RadioGroup difficultyRadioGroup;
     private int historyIndex;
     private int configIndex;
     private int selectedDifficultyButton;
@@ -74,7 +73,7 @@ public class NewGameActivity extends AppCompatActivity {
         gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
         toolbar.setDisplayHomeAsUpEnabled(true);
-        difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
+        RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
         setupDifficultyRadioButtons();
 
         //history index default to -1 for new game, otherwise is index of game we are editing
@@ -107,7 +106,7 @@ public class NewGameActivity extends AppCompatActivity {
             String difficulty = difficulties[i];
 
             RadioButton button = new RadioButton(this);
-            button.setText(difficulties[i]);
+            button.setText(difficulty);
 
             int difficultySetting = i;
             button.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +152,9 @@ public class NewGameActivity extends AppCompatActivity {
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
                     currentGame.setTotalScore(getIntFromEditText(totalScore));
                     currentGame.setDifficulty(selectedDifficultyButton);
+                    gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
+                    currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
+
                     if (historyIndex != -1) {
                         gameConfiguration.getGameHistory().setGamePlayed(historyIndex, currentGame);
                     }

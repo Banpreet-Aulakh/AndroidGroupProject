@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,8 @@ public class EditConfigActivity extends AppCompatActivity {
     private EditText greatEditTxt;
     private EditText numPlayers;
 
+    private int selectedDifficultyButton;
+
     private TextView achievementViews;
 
     public static Intent getIntent(Context context, int position){
@@ -98,6 +102,7 @@ public class EditConfigActivity extends AppCompatActivity {
         poorEditTxt.addTextChangedListener(checkFinished);
         greatEditTxt.addTextChangedListener(checkFinished);
 
+        setupDifficultyRadioButtons();
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
@@ -225,6 +230,30 @@ public class EditConfigActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    private void setupDifficultyRadioButtons() {
+        RadioGroup group = findViewById(R.id.difficultyRadioGroup);
+
+        String[] difficulties = getResources().getStringArray(R.array.difficulty_settings);
+
+        for(int i = 0; i < difficulties.length; i++){
+            String difficulty = difficulties[i];
+
+            RadioButton button = new RadioButton(this);
+            button.setText(difficulty);
+
+            int difficultySetting = i;
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedDifficultyButton = difficultySetting;
+                }
+            });
+            group.addView(button);
+        }
+        RadioButton button = (RadioButton) group.getChildAt(1);
+        button.setChecked(true);
+    }
+
     //Display Achievement Ranges when all values are put in
     private TextWatcher checkFinished = new TextWatcher() {
         @Override
@@ -256,7 +285,7 @@ public class EditConfigActivity extends AppCompatActivity {
                 }
 
                 game.getAchievement_Thresholds().clear();
-                game.setAchievement_Thresholds(0);
+                game.setAchievement_Thresholds(selectedDifficultyButton);
                 ArrayList<Integer> thresholdList = game.getAchievement_Thresholds();
 
                 int numP = Integer.parseInt(numPlayers.getText().toString());

@@ -24,20 +24,20 @@ public class GameConfig {
         int lowerBound = poorScore;
         double multiplier;
         if(difficulty == 0){
-            multiplier = 1.25;
+            multiplier = 0.75;
         }else if (difficulty == 1){
             multiplier = 1.0;
         }else{
-            multiplier = 0.75;
+            multiplier = 1.25;
         }
 
 
-        int boundary = (int) Math.floor((range/MAX_THRESHOLD));
+        int boundary = (int) Math.floor((range/MAX_THRESHOLD)*multiplier);
         achievement_Thresholds.add(lowerBound);
 
         //adding threshold corresponding to the remainder value
         for (int i = 0; i < remainder ;i++){
-            lowerBound +=boundary+1;
+            lowerBound += boundary+1;
             achievement_Thresholds.add(lowerBound);
 
         }
@@ -46,7 +46,6 @@ public class GameConfig {
             lowerBound += boundary;
             achievement_Thresholds.add(lowerBound);
         }
-
 
         return achievement_Thresholds;
     }
