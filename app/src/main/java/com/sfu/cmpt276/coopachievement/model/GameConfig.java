@@ -17,12 +17,22 @@ public class GameConfig {
     private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
 
 
-    private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore) {
+    //difficulty: easy:0, medium:1, hard:2
+    private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore, int difficulty) {
         int range = greatScore - poorScore ;
         int remainder = range % MAX_THRESHOLD;
         int lowerBound = poorScore;
+        double multiplier;
+        if(difficulty == 0){
+            multiplier = 1.25;
+        }else if (difficulty == 1){
+            multiplier = 1.0;
+        }else{
+            multiplier = 0.75;
+        }
 
-        int boundary = (int) Math.floor(range/MAX_THRESHOLD);
+
+        int boundary = (int) Math.floor((range/MAX_THRESHOLD));
         achievement_Thresholds.add(lowerBound);
 
         //adding threshold corresponding to the remainder value
@@ -35,8 +45,8 @@ public class GameConfig {
         for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
             lowerBound += boundary;
             achievement_Thresholds.add(lowerBound);
-
         }
+
 
         return achievement_Thresholds;
     }
@@ -73,8 +83,8 @@ public class GameConfig {
         return gameName;
     }
 
-    public void setAchievement_Thresholds(){
-        this.achievement_Thresholds = calculateAchievementThreshold(greatScore, poorScore);
+    public void setAchievement_Thresholds(int difficulty){
+        this.achievement_Thresholds = calculateAchievementThreshold(greatScore, poorScore, difficulty);
     }
 
     public ArrayList<Integer> getAchievement_Thresholds(){

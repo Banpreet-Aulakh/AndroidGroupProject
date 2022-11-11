@@ -180,11 +180,11 @@ public class EditConfigActivity extends AppCompatActivity {
                             GameHistory historyInstance = new GameHistory(gameName);
                             game.setGameHistory(historyInstance);
                             gameConfigList.addConfig(game);
-                            game.setAchievement_Thresholds();
+                            game.setAchievement_Thresholds(0);
                         }
                         else {
                             game.getAchievement_Thresholds().clear();
-                            game.setAchievement_Thresholds();
+                            game.setAchievement_Thresholds(0);
                         }
 
                         ViewConfigListActivity.saveData(EditConfigActivity.this);
@@ -256,7 +256,7 @@ public class EditConfigActivity extends AppCompatActivity {
                 }
 
                 game.getAchievement_Thresholds().clear();
-                game.setAchievement_Thresholds();
+                game.setAchievement_Thresholds(0);
                 ArrayList<Integer> thresholdList = game.getAchievement_Thresholds();
 
                 int numP = Integer.parseInt(numPlayers.getText().toString());

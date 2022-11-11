@@ -11,7 +11,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +28,16 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
  */
 
 public class NewGameActivity extends AppCompatActivity {
-    private final int ACHIEVEMENT_LIST_SIZE = 8;
     private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
     private EditText totalScore;
     private TextView displayAchievementText;
+    private RadioGroup difficultyRadioGroup;
     private int historyIndex;
     private int configIndex;
+    private int selectedDifficultyButton;
 
     private String [] achievementsList;
 
@@ -70,6 +74,8 @@ public class NewGameActivity extends AppCompatActivity {
         gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
         toolbar.setDisplayHomeAsUpEnabled(true);
+        difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
+        setupDifficultyRadioButtons();
 
         //history index default to -1 for new game, otherwise is index of game we are editing
         if(historyIndex != -1){
@@ -79,11 +85,54 @@ public class NewGameActivity extends AppCompatActivity {
             totalScore.setText(""+currentGame.getTotalScore(), TextView.BufferType.EDITABLE);
             toolbar.setTitle(R.string.edit_game);
 
+            //set radio group button as checked
+            RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(currentGame.getDifficulty());
+            button.setChecked(true);
+
         }else{
             toolbar.setTitle(R.string.new_game);
             this.currentGame = new GamePlayed();
+            //Index 1: medium difficulty by default
+            RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(1);
+            button.setChecked(true);
         }
     }
+
+    private void setupDifficultyRadioButtons() {
+        RadioGroup group = findViewById(R.id.difficultyRadioGroup);
+
+        String[] difficulties = getResources().getStringArray(R.array.difficulty_settings);
+
+        for(int i = 0; i < difficulties.length; i++){
+            String difficulty = difficulties[i];
+
+            RadioButton button = new RadioButton(this);
+            button.setText(difficulties[i]);
+
+            int difficultySetting = i;
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedDifficultyButton = difficultySetting;
+                    String gameTotalScore = totalScore.getText().toString().trim();
+                    String gameNumPlayers = numPlayers.getText().toString().trim();
+                    if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
+                        int numberPlayers = getIntFromEditText(numPlayers);
+                        int combinedScore = getIntFromEditText(totalScore);
+                        gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
+                        displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
+
+                    }else{
+                        displayAchievementText.setText(getResources().getString(R.string.empty_string));
+                    }
+                }
+            });
+            group.addView(button);
+        }
+    }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_game_played, menu);
@@ -101,14 +150,13 @@ public class NewGameActivity extends AppCompatActivity {
                     Toast.makeText(NewGameActivity.this, getString(R.string.zero_error),Toast.LENGTH_LONG).show();
 
                 }else{
+                    currentGame.setNumPlayers(getIntFromEditText(numPlayers));
+                    currentGame.setTotalScore(getIntFromEditText(totalScore));
+                    currentGame.setDifficulty(selectedDifficultyButton);
                     if (historyIndex != -1) {
-                        currentGame.setNumPlayers(getIntFromEditText(numPlayers));
-                        currentGame.setTotalScore(getIntFromEditText(totalScore));
                         gameConfiguration.getGameHistory().setGamePlayed(historyIndex, currentGame);
                     }
                     else {
-                        currentGame.setNumPlayers(getIntFromEditText(numPlayers));
-                        currentGame.setTotalScore(getIntFromEditText(totalScore));
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
                     }
                     ViewConfigListActivity.saveData(NewGameActivity.this);
@@ -132,6 +180,8 @@ public class NewGameActivity extends AppCompatActivity {
         String value = input.getText().toString();
         return Integer.parseInt(value);
     }
+
+
     private TextWatcher checkFinished = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -147,6 +197,7 @@ public class NewGameActivity extends AppCompatActivity {
             if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                 int numberPlayers = getIntFromEditText(numPlayers);
                 int combinedScore = getIntFromEditText(totalScore);
+                gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
                 displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
 
             }else{

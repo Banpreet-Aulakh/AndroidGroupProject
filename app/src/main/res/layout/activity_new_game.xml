@@ -28,6 +28,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalScoreTextView" />
 
+    <TextView
+        android:id="@+id/difficultyTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/difficulty"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numPlayersTextview" />
+
     <EditText
         android:id="@+id/totalScoreEditText"
         android:layout_width="150dp"
@@ -53,24 +64,35 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/achievementLevelTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="188dp"
+        android:text="@string/achievement_level"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numPlayersTextview" />
+
+    <TextView
         android:id="@+id/displayAchievementText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="192dp"
         android:text="@string/empty_string"
+        android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numPlayersEditText" />
 
-    <TextView
-        android:id="@+id/achievementLevelTextview"
+    <RadioGroup
+        android:id="@+id/difficultyRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/achievement_level"
-        android:textSize="20sp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numPlayersTextview" />
+        app:layout_constraintTop_toBottomOf="@+id/difficultyTextview" />
 </androidx.constraintlayout.widget.ConstraintLayout>
