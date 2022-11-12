@@ -28,9 +28,9 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
  */
 
 public class NewGameActivity extends AppCompatActivity {
-    static private int EASY = 0;
-    static private int MEDIUM = 1;
-    static private int HARD = 2;
+    final static  private int EASY = 0;
+    final static private int MEDIUM = 1;
+    final static private int HARD = 2;
     private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
@@ -186,7 +186,9 @@ public class NewGameActivity extends AppCompatActivity {
         String value = input.getText().toString();
         return Integer.parseInt(value);
     }
-    //helper function to show the correct achievement level
+
+
+    //helper function to show the correct achievement level to screen
     private void displayAchievementLevel(){
         String gameTotalScore = totalScore.getText().toString().trim();
         String gameNumPlayers = numPlayers.getText().toString().trim();
@@ -201,6 +203,8 @@ public class NewGameActivity extends AppCompatActivity {
             displayAchievementText.setText(getResources().getString(R.string.empty_string));
         }
     }
+
+
     private TextWatcher checkFinished = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

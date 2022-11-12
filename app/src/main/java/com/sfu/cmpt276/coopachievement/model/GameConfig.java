@@ -11,7 +11,9 @@ public class GameConfig {
     private final int MAX_THRESHOLD = 8;
     private String gameName;
     private GameHistory gameHistory;
-
+    private final static double EASY = 0.75;
+    private final static double MEDIUM = 1.0;
+    private final static double HARD = 1.25;
     private int greatScore;
     private int poorScore;
     private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
@@ -24,12 +26,13 @@ public class GameConfig {
         int remainder = range % MAX_THRESHOLD;
         int lowerBound = poorScore;
         double multiplier;
+
         if(difficulty == 0){
-            multiplier = 0.75;
+            multiplier = EASY;
         }else if (difficulty == 1){
-            multiplier = 1.0;
+            multiplier = MEDIUM;
         }else{
-            multiplier = 1.25;
+            multiplier = HARD;
         }
 
 

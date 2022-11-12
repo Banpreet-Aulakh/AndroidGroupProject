@@ -71,6 +71,7 @@ public class GamePlayed {
         }
         return namesList[level];
     }
+
     private String getDifficultyAsString(){
         if(difficulty == 0){
             return "Easy";
@@ -80,6 +81,7 @@ public class GamePlayed {
             return "Hard";
         }
     }
+
     public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
         double averagePlayerScore = totalScore/numPlayers;
 
