@@ -28,6 +28,9 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
  */
 
 public class NewGameActivity extends AppCompatActivity {
+    static private int EASY = 0;
+    static private int MEDIUM = 1;
+    static private int HARD = 2;
     private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
@@ -92,8 +95,9 @@ public class NewGameActivity extends AppCompatActivity {
             toolbar.setTitle(R.string.new_game);
             this.currentGame = new GamePlayed();
             //Index 1: medium difficulty by default
-            RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(1);
+            RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(MEDIUM);
             button.setChecked(true);
+            selectedDifficultyButton = MEDIUM;
         }
     }
 
@@ -120,7 +124,7 @@ public class NewGameActivity extends AppCompatActivity {
                         int combinedScore = getIntFromEditText(totalScore);
                         gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
                         displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
-
+                        displayAchievementLevel();
                     }else{
                         displayAchievementText.setText(getResources().getString(R.string.empty_string));
                     }
@@ -182,8 +186,21 @@ public class NewGameActivity extends AppCompatActivity {
         String value = input.getText().toString();
         return Integer.parseInt(value);
     }
+    //helper function to show the correct achievement level
+    private void displayAchievementLevel(){
+        String gameTotalScore = totalScore.getText().toString().trim();
+        String gameNumPlayers = numPlayers.getText().toString().trim();
 
+        if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
+            int numberPlayers = getIntFromEditText(numPlayers);
+            int combinedScore = getIntFromEditText(totalScore);
+            gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
+            displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
 
+        }else{
+            displayAchievementText.setText(getResources().getString(R.string.empty_string));
+        }
+    }
     private TextWatcher checkFinished = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -192,22 +209,8 @@ public class NewGameActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            String gameTotalScore = totalScore.getText().toString().trim();
-            String gameNumPlayers = numPlayers.getText().toString().trim();
-
-            if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
-                int numberPlayers = getIntFromEditText(numPlayers);
-                int combinedScore = getIntFromEditText(totalScore);
-                gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
-                displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
-
-            }else{
-                displayAchievementText.setText(getResources().getString(R.string.empty_string));
-            }
+            displayAchievementLevel();
         }
-
-
 
         @Override
         public void afterTextChanged(Editable editable) {
