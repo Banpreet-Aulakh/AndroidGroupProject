@@ -43,6 +43,11 @@ public class ViewConfigListActivity extends AppCompatActivity {
     private TextView emptyListTxt;
     private TextView helpCreateConfig;
 
+    public static Intent makeIntent(Context context, String config_list) {
+        Intent intent = new Intent(context, ViewConfigListActivity.class);
+        return intent;
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -70,13 +75,14 @@ public class ViewConfigListActivity extends AppCompatActivity {
         populateListView();
         registerListClick();
     }
+// todo Need to make sure back press does not break code
 
-    @Override
+  @Override
     public void onBackPressed() {
-        //Save instance code here
-        super.onBackPressed();
-        finishAffinity();
-    }
+     //Save instance code here
+      super.onBackPressed();
+      finishAndRemoveTask();
+   }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
