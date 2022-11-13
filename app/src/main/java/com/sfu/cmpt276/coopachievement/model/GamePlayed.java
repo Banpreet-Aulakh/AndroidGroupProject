@@ -20,11 +20,18 @@ public class GamePlayed {
     private int totalScore;
     private int numPlayers;
     private String achievementName;
+    private int difficulty;
 
     private static final String DATE_FORMAT = "MMM dd @ HH:mm";
     private String timePlayed;
 
+    public int getDifficulty(){
+        return difficulty;
+    }
 
+    public void setDifficulty(int level){
+        difficulty = level;
+    }
     public int getTotalScore() {
         return totalScore;
     }
@@ -36,6 +43,7 @@ public class GamePlayed {
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
+
     public void setAchievementString(String name){
         achievementName = name;
     }
@@ -64,8 +72,19 @@ public class GamePlayed {
         return namesList[level];
     }
 
+    private String getDifficultyAsString(){
+        if(difficulty == 0){
+            return "Easy";
+        }else if(difficulty == 1){
+            return "Medium";
+        }else{
+            return "Hard";
+        }
+    }
+
     public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
         double averagePlayerScore = totalScore/numPlayers;
+
         if (averagePlayerScore < boundariesList.get(0)) {
             achievementName = namesList[0];
             return;
@@ -87,10 +106,10 @@ public class GamePlayed {
         this.totalScore = 0;
         this.numPlayers = 0;
         this.achievementName = "";
+        this.difficulty = 1;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDateTime tmp = LocalDateTime.now();
         this.timePlayed = tmp.format(formatter);
-        System.out.println("created Game played class instance");
     }
 
     @Override
@@ -98,6 +117,7 @@ public class GamePlayed {
         return "GamePlayed{" +
                 "totalScore=" + totalScore +
                 ", numPlayers=" + numPlayers +
+                ", difficulty=" + getDifficultyAsString() +
                 ", achievement=" + achievementName + '\'' +
                 ", timePlayed='" + timePlayed + '\'' +
                 '}';

@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,9 @@ import java.util.ArrayList;
 
 public class EditConfigActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
-
+    static private int EASY = 0;
+    static private int MEDIUM = 1;
+    static private int HARD = 2;
     private Singleton gameConfigList = Singleton.getInstance();
     private GameConfig game;
 
@@ -60,6 +64,8 @@ public class EditConfigActivity extends AppCompatActivity {
     private EditText poorEditTxt;
     private EditText greatEditTxt;
     private EditText numPlayers;
+
+    private int selectedDifficultyButton;
 
     private TextView achievementViews;
 
@@ -98,6 +104,7 @@ public class EditConfigActivity extends AppCompatActivity {
         poorEditTxt.addTextChangedListener(checkFinished);
         greatEditTxt.addTextChangedListener(checkFinished);
 
+
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
@@ -105,9 +112,9 @@ public class EditConfigActivity extends AppCompatActivity {
         else{
             toolbar.setTitle(R.string.edit_config_title);
             setEditConfigValues();
-
         }
-
+        setupDifficultyRadioButtons(game);
+        selectedDifficultyButton = MEDIUM;
         toolbar.setDisplayHomeAsUpEnabled(true);
 
     }
@@ -180,11 +187,11 @@ public class EditConfigActivity extends AppCompatActivity {
                             GameHistory historyInstance = new GameHistory(gameName);
                             game.setGameHistory(historyInstance);
                             gameConfigList.addConfig(game);
-                            game.setAchievement_Thresholds();
+                            game.setAchievement_Thresholds(0);
                         }
                         else {
                             game.getAchievement_Thresholds().clear();
-                            game.setAchievement_Thresholds();
+                            game.setAchievement_Thresholds(0);
                         }
 
                         ViewConfigListActivity.saveData(EditConfigActivity.this);
@@ -225,6 +232,72 @@ public class EditConfigActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //function changes the achievement thresholds, called when radio button difficulty is changed or textfield changes
+    private void populateAchievementThresholds(){
+        gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
+        poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
+        greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
+
+        gameName = gameEditTxt.getText().toString();
+        poorScoreTxt = poorEditTxt.getText().toString();
+        greatScoreTxt = greatEditTxt.getText().toString();
+
+        if(!gameEditTxt.getText().toString().isEmpty()
+                && !greatEditTxt.getText().toString().isEmpty()
+                && !poorEditTxt.getText().toString().isEmpty()
+                && !numPlayers.getText().toString().isEmpty()) {
+
+            greatScore = Integer.parseInt(greatScoreTxt);
+            poorScore = Integer.parseInt(poorScoreTxt);
+            if(greatScore > poorScore && greatScore-poorScore > 8) {
+                //Put gameName, greatScore, and poorScore into singleton here.
+                game.setGameName(gameName);
+                game.setPoorScore(poorScore);
+                game.setGreatScore(greatScore);
+            }
+
+            game.getAchievement_Thresholds().clear();
+            game.setAchievement_Thresholds(selectedDifficultyButton);
+            ArrayList<Integer> thresholdList = game.getAchievement_Thresholds();
+
+            int numP = Integer.parseInt(numPlayers.getText().toString());
+
+            achievementViews = findViewById(txtThresholdAchievmentID[0]);
+            achievementViews.setText(R.string.zero_points_string);
+            for(int listCounter = 0; listCounter < 8; listCounter++){
+                achievementViews = findViewById(txtThresholdAchievmentID[listCounter + 1]);
+                achievementViews.setText((thresholdList.get(listCounter)) * numP + getString(R.string.point_string));
+            }
+        }
+    }
+
+    private void setupDifficultyRadioButtons(GameConfig configuration) {
+        RadioGroup group = findViewById(R.id.difficultyRadioGroup);
+
+        String[] difficulties = getResources().getStringArray(R.array.difficulty_settings);
+
+        for(int i = 0; i < difficulties.length; i++){
+            String difficulty = difficulties[i];
+
+            RadioButton button = new RadioButton(this);
+            button.setText(difficulty);
+
+            int difficultySetting = i;
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedDifficultyButton = difficultySetting;
+                    configuration.setAchievement_Thresholds(selectedDifficultyButton);
+                    populateAchievementThresholds();
+                }
+            });
+            group.addView(button);
+        }
+        RadioButton button = (RadioButton) group.getChildAt(MEDIUM);
+        button.setChecked(true);
+    }
+
     //Display Achievement Ranges when all values are put in
     private TextWatcher checkFinished = new TextWatcher() {
         @Override
@@ -233,41 +306,7 @@ public class EditConfigActivity extends AppCompatActivity {
         }
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
-            poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
-            greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
-
-            gameName = gameEditTxt.getText().toString();
-            poorScoreTxt = poorEditTxt.getText().toString();
-            greatScoreTxt = greatEditTxt.getText().toString();
-
-            if(!gameEditTxt.getText().toString().isEmpty()
-                    && !greatEditTxt.getText().toString().isEmpty()
-                    && !poorEditTxt.getText().toString().isEmpty()
-                    && !numPlayers.getText().toString().isEmpty()) {
-
-                greatScore = Integer.parseInt(greatScoreTxt);
-                poorScore = Integer.parseInt(poorScoreTxt);
-                if(greatScore > poorScore && greatScore-poorScore > 8) {
-                    //Put gameName, greatScore, and poorScore into singleton here.
-                    game.setGameName(gameName);
-                    game.setPoorScore(poorScore);
-                    game.setGreatScore(greatScore);
-                }
-
-                game.getAchievement_Thresholds().clear();
-                game.setAchievement_Thresholds();
-                ArrayList<Integer> thresholdList = game.getAchievement_Thresholds();
-
-                int numP = Integer.parseInt(numPlayers.getText().toString());
-
-                achievementViews = findViewById(txtThresholdAchievmentID[0]);
-                achievementViews.setText(R.string.zero_points_string);
-                for(int listCounter = 0; listCounter < 8; listCounter++){
-                    achievementViews = findViewById(txtThresholdAchievmentID[listCounter + 1]);
-                    achievementViews.setText((thresholdList.get(listCounter)) * numP + getString(R.string.point_string));
-                }
-            }
+           populateAchievementThresholds();
         }
         @Override
         public void afterTextChanged(Editable editable) {
