@@ -37,5 +37,8 @@
     <string name="delete_config">Deleting</string>
     <string name="zero_error">Error: cannot have 0 players</string>
     <string name="difficulty">Difficulty</string>
+    <string name="new_game_zero_players">Error: Empty game elements</string>
+    <string name="initial_player_text_list">Score</string>
+    <string name="player_1_initial_list_text">Player 1</string>
 
 </resources>

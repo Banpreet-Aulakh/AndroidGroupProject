@@ -57,7 +57,10 @@ public class GamePlayed {
 
     }
     public ArrayList<Integer> getListScore(){
-        return getListScore();
+        if(listScore != null){
+            return listScore;
+        }
+        return new ArrayList<Integer>();
     }
 
     public void setAchievementString(String name){
@@ -149,4 +152,7 @@ public class GamePlayed {
         return true;
     }
 
+    public void setListScore(ArrayList<Integer> playerScoreArray) {
+        this.listScore = playerScoreArray;
+    }
 }
