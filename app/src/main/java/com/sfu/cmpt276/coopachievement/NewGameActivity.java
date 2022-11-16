@@ -135,7 +135,7 @@ public class NewGameActivity extends AppCompatActivity {
                     String gameNumPlayers = numPlayers.getText().toString().trim();
                     if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
-                        int combinedScore = totalScore; // changed for branch
+                        int combinedScore = currentGame.getTotalScore(); // changed for branch
                         gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
                         displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
                         displayAchievementLevel();
@@ -209,7 +209,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);
-            int combinedScore = totalScore; //Changed for branch
+            int combinedScore = currentGame.getTotalScore(); //Changed for branch
             gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
             displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
 
