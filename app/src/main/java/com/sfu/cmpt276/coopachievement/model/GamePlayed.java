@@ -18,6 +18,8 @@ import java.util.ArrayList;
 public class GamePlayed {
     private static final int MAX_ACHIEVEMENT = 9;
     private int totalScore;
+    //Added list parameter to class
+    private ArrayList<Integer> listScore;
     private int numPlayers;
     private String achievementName;
     private int difficulty;
@@ -40,8 +42,22 @@ public class GamePlayed {
         return numPlayers;
     }
 
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
+    //New Stuff
+    public void setTotalScore(ArrayList<Integer> listScore) {
+        this.listScore = listScore;
+        if(!isValidScoresList()){
+            totalScore = -1;
+        }
+        else{
+            totalScore = 0;
+            for(int i = 0; i < numPlayers; i++){
+                totalScore += listScore.get(i);
+            }
+        }
+
+    }
+    public ArrayList<Integer> getListScore(){
+        return getListScore();
     }
 
     public void setAchievementString(String name){
@@ -122,4 +138,15 @@ public class GamePlayed {
                 ", timePlayed='" + timePlayed + '\'' +
                 '}';
     }
+
+    //New Stuff
+    public boolean isValidScoresList(){
+        for(int i = 0; i < numPlayers; i++){
+            if(listScore.get(i) == -1){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

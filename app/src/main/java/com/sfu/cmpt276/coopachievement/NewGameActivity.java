@@ -4,15 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,6 +26,8 @@ import android.widget.Toast;
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
+
+import java.util.ArrayList;
 
 /*
  * The NewGame Activity is responsible for taking user's total score input and number of player
@@ -35,19 +42,22 @@ public class NewGameActivity extends AppCompatActivity {
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
-    private EditText totalScore;
+    private int numPlayersInt;
+    private ArrayList<Integer> playerScoreArray;
+//    private EditText totalScore;
+    private int totalScore;
     private TextView displayAchievementText;
     private int historyIndex;
     private int configIndex;
     private int selectedDifficultyButton;
-
+    ComplexAdapter complexAdapter;
     private String [] achievementsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
-
+        playerScoreArray = new ArrayList<Integer>();
 
         configList = Singleton.getInstance();
         achievementsList = new String[]{
@@ -61,16 +71,19 @@ public class NewGameActivity extends AppCompatActivity {
                 getResources().getString(R.string.epic_elephants),
                 getResources().getString(R.string.fabulous_fairies)};
 
+         complexAdapter = new ComplexAdapter(NewGameActivity.this,
+                R.layout.player_score_row, playerScoreArray);
+
         Intent intent = getIntent();
         configIndex = intent.getIntExtra("configIndex", -1);
         historyIndex = intent.getIntExtra("historyIndex", -1);
 
         numPlayers = findViewById(R.id.numPlayersEditText);
-        totalScore = findViewById(R.id.totalScoreEditText);
+//        totalScore = findViewById(R.id.totalScoreEditText);
         displayAchievementText = findViewById(R.id.displayAchievementText);
 
         numPlayers.addTextChangedListener(checkFinished);
-        totalScore.addTextChangedListener(checkFinished);
+//        totalScore.addTextChangedListener(checkFinished);
 
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
@@ -84,7 +97,7 @@ public class NewGameActivity extends AppCompatActivity {
             //get the specific game played that was clicked on
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
             numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
-            totalScore.setText(""+currentGame.getTotalScore(), TextView.BufferType.EDITABLE);
+//            totalScore.setText(""+currentGame.getTotalScore(), TextView.BufferType.EDITABLE);
             toolbar.setTitle(R.string.edit_game);
 
             //set radio group button as checked
@@ -100,6 +113,7 @@ public class NewGameActivity extends AppCompatActivity {
             selectedDifficultyButton = MEDIUM;
         }
     }
+
 
     private void setupDifficultyRadioButtons() {
         RadioGroup group = findViewById(R.id.difficultyRadioGroup);
@@ -117,11 +131,11 @@ public class NewGameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     selectedDifficultyButton = difficultySetting;
-                    String gameTotalScore = totalScore.getText().toString().trim();
+                    String gameTotalScore = "" + totalScore; // changed for branch
                     String gameNumPlayers = numPlayers.getText().toString().trim();
                     if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
-                        int combinedScore = getIntFromEditText(totalScore);
+                        int combinedScore = totalScore; // changed for branch
                         gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
                         displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
                         displayAchievementLevel();
@@ -146,7 +160,7 @@ public class NewGameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
             case R.id.saveGame:
-                if(totalScore.getText().toString().isEmpty() || numPlayers.getText().toString().isEmpty()){
+                if(false || numPlayers.getText().toString().isEmpty()){ //changed for branch
                     Toast.makeText(NewGameActivity.this, "Error: Empty game elements", Toast.LENGTH_LONG).show();
                 }else if(getIntFromEditText(numPlayers) == 0){
 
@@ -154,7 +168,7 @@ public class NewGameActivity extends AppCompatActivity {
 
                 }else{
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
-                    currentGame.setTotalScore(getIntFromEditText(totalScore));
+//                    currentGame.setTotalScore(getIntFromEditText(totalScore));
                     currentGame.setDifficulty(selectedDifficultyButton);
                     gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
                     currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
@@ -190,12 +204,12 @@ public class NewGameActivity extends AppCompatActivity {
 
     //helper function to show the correct achievement level to screen
     private void displayAchievementLevel(){
-        String gameTotalScore = totalScore.getText().toString().trim();
+        String gameTotalScore = totalScore+""; //changed for branch
         String gameNumPlayers = numPlayers.getText().toString().trim();
 
         if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);
-            int combinedScore = getIntFromEditText(totalScore);
+            int combinedScore = totalScore; //Changed for branch
             gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
             displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
 
@@ -213,7 +227,26 @@ public class NewGameActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            displayAchievementLevel();
+//            displayAchievementLevel(); // move to new code once implemented
+            if(!numPlayers.getText().toString().isEmpty()) {
+                numPlayersInt = Integer.parseInt(numPlayers.getText().toString());
+            }
+            else{
+                TextView updateTotalScore = findViewById(R.id.txtTotalScore);
+                updateTotalScore.setText("-");
+                numPlayersInt = 0;
+                ListView list = findViewById(R.id.listViewPlayers);
+                list.setAdapter(null);
+            }
+            if(numPlayersInt != 0){
+                playerScoreArray.clear();
+                for(int j = 0; j < numPlayersInt; j++){
+                    playerScoreArray.add(-1);
+                }
+                currentGame.setNumPlayers(numPlayersInt);
+                ListView list = findViewById(R.id.listViewPlayers);
+                list.setAdapter(complexAdapter);
+            }
         }
 
         @Override
@@ -221,4 +254,69 @@ public class NewGameActivity extends AppCompatActivity {
 
         }
     };
+
+    private class ComplexAdapter extends ArrayAdapter<Integer> {
+        private Context contextMain;
+        private int resourceLayout;
+
+        public ComplexAdapter(Context context, int resourceLayout, ArrayList<Integer> values) {
+            super(context, resourceLayout, values);
+            this.contextMain = context;
+            this.resourceLayout = resourceLayout;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View itemView = convertView;
+            if (itemView == null) {
+                LayoutInflater inflater = LayoutInflater.from(contextMain);
+                itemView = inflater.inflate(resourceLayout, parent, false);
+            }
+
+            TextView playerText = itemView.findViewById(R.id.playerNumber);
+
+            EditText getScore = itemView.findViewById(R.id.getPlayerScore);
+
+
+            playerText.setText("Player " + (position+1) + " Score:");
+
+            TextView updateTotalScore = (TextView) ((Activity)contextMain).findViewById(R.id.txtTotalScore);
+
+            getScore.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String getScoreString = getScore.getText().toString();
+
+                    //Change Values
+                    if(getScoreString.equals("")){
+                        playerScoreArray.set(position,-1);
+                        currentGame.setTotalScore(playerScoreArray);
+                    }
+                    else{
+                        playerScoreArray.set(position, Integer.parseInt(getScoreString));
+                        currentGame.setTotalScore(playerScoreArray);
+                    }
+
+                    //Update Application
+                    if(currentGame.isValidScoresList()){
+                        updateTotalScore.setText(Integer.toString(currentGame.getTotalScore()));
+                        displayAchievementLevel();
+                    }
+                    else{
+                        updateTotalScore.setText("");
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            return itemView;
+        }
+    }
 }

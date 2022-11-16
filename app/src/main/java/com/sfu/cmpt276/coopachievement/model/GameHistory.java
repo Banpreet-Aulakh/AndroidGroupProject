@@ -25,8 +25,7 @@ public class GameHistory {
         gamesPlayedList.add(game);
     }
 
-    public void removePlayedGame(int index) {gamesPlayedList.remove(index);
-    }
+    public void removePlayedGame(int index) {gamesPlayedList.remove(index);}
 
     public void setGamePlayed(int index, GamePlayed game){
         gamesPlayedList.set(index, game);
