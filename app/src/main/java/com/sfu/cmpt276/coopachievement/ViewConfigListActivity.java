@@ -75,12 +75,13 @@ public class ViewConfigListActivity extends AppCompatActivity {
         populateListView();
         registerListClick();
     }
-// todo Need to make sure back press does not break code
+// todo Need to make sure finish Affinity and back press does not break code
 
   @Override
     public void onBackPressed() {
      //Save instance code here
       super.onBackPressed();
+      //finishAffinity();
       finishAndRemoveTask();
    }
 

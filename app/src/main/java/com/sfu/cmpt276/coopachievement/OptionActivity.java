@@ -15,14 +15,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class OptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static OptionActivity instance = null;
-    private String selectedAchievement,selectedTheme;
-    private TextView tvAchievement,tvTheme;
-    private Spinner achievementSpinner,themeSpinner;
-    private ArrayAdapter<CharSequence> achievementAdapter,themeAdapter;
+    private String selectedTheme;
+    private TextView achievementStringList ;
+    private Spinner themeSpinner;
+    private ArrayAdapter<CharSequence> themeAdapter;
+    private String [] theme1Array;
+    private String [] theme2Array;
+    private String [] theme3Array;
+
+    private static final String GENERAL_PREFS_NAME = "AppPrefs";
+    private static final String THEME_KEY = "Theme Choice";
+
+
 
     public static OptionActivity getInstance() {
         if(instance == null) {
@@ -39,90 +45,66 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Option");
 
-        achievementSpinner = findViewById(R.id.achievement_spinner);
-        achievementAdapter = ArrayAdapter.createFromResource(this,R.array.achievement_levels,
+        themeSpinner = findViewById(R.id.theme_spinner);
+        themeAdapter= ArrayAdapter.createFromResource(this,R.array.theme_choice,
                 android.R.layout.simple_spinner_item);
-        achievementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        achievementSpinner.setAdapter(achievementAdapter);
-        achievementSpinner.setOnItemSelectedListener(this);
+        themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        themeSpinner.setAdapter(themeAdapter);
+        themeSpinner.setOnItemSelectedListener(this);
+
 
     }
 
     public static Intent makeIntent(Context context, String s) {
         Intent intent = new Intent(context, OptionActivity.class);
         //intent.putExtra(EXTRA_TITLE, s);
-
         return intent;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        themeSpinner = findViewById(R.id.theme_spinner);
 
-        selectedAchievement = achievementSpinner.getSelectedItem().toString();
+
+        selectedTheme = themeSpinner.getSelectedItem().toString();
 
         int parentID=parent.getId();
-        if(parentID ==R.id.achievement_spinner){
-            switch (selectedAchievement){
-                case"Select Achievement":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                    R.array.default_theme_array,android.R.layout.simple_spinner_dropdown_item);
+        if(parentID ==R.id.theme_spinner){
+            switch (selectedTheme){
+                case "Mythical":
+                    theme1Array = getResources().getStringArray(R.array.mythical);
+                    StringBuilder builder1 = new StringBuilder();
+                    for (String s:theme1Array){
+                        builder1.append(s);
+                        builder1.append("\n");
+                    }
+                    achievementStringList = findViewById(R.id.tvAchievementList);
+                    achievementStringList.setText(builder1.toString());
+
                     break;
-                case "Lowly Leech":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.lowly_leech_themes_array,android.R.layout.simple_spinner_dropdown_item);
+                case "Animal":
+                   theme2Array = getResources().getStringArray(R.array.animal);
+                    StringBuilder builder2 = new StringBuilder();
+                    for (String s:theme2Array){
+                        builder2.append(s);
+                        builder2.append("\n");
+                    }
+                    achievementStringList = findViewById(R.id.tvAchievementList);
+                    achievementStringList.setText(builder2.toString());
                     break;
-                case "Horrendous Hagfish":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.horrendous_hagfish_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Bogus Blowfish":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.bogus_blowfish_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Terrible Trolls":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.terrible_trolls_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Goofy Goblins":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.goofy_goblins_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Dastardly Dragons":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.dastardly_dragons_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Awesome Alligators":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.awesome_alligators_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Epic Elephants":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.epic_elephants_themes_array,android.R.layout.simple_spinner_dropdown_item);
-                    break;
-                case "Fabulous Fairies":
-                    themeAdapter = ArrayAdapter.createFromResource(parent.getContext(),
-                            R.array.fabulous_fairies_themes_array,android.R.layout.simple_spinner_dropdown_item);
+                case "Alien":
+                    theme3Array = getResources().getStringArray(R.array.alien);
+                    StringBuilder builder3 = new StringBuilder();
+                    for (String s:theme3Array){
+                        builder3.append(s);
+                        builder3.append("\n");
+                    }
+                    achievementStringList = findViewById(R.id.tvAchievementList);
+                    achievementStringList.setText(builder3.toString());
                     break;
 
                 default:
                     break;
             }
-            themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            themeSpinner.setAdapter(themeAdapter);
-
-            themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    selectedTheme = themeSpinner.getSelectedItem().toString();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
 
             Button saveButton= findViewById(R.id.saveOptionBtn);
             saveButton.setOnClickListener(new View.OnClickListener() {

@@ -37,67 +37,52 @@
     <string name="delete_config">Deleting</string>
     <string name="zero_error">Error: cannot have 0 players</string>
     
-    <string-array name="achievement_levels">
-        <item>Select Achievement</item>
-        <item>Lowly Leech</item>
-        <item>Horrendous Hagfish</item>
-        <item>Bogus Blowfish</item>
-        <item>Terrible Trolls</item>
-        <item>Goofy Goblins</item>
-        <item>Dastardly Dragons</item>
-        <item>Awesome Alligators</item>
-        <item>Epic Elephants</item>
-        <item>Fabulous Fairies</item>
+    <string-array name="theme_choice">
+        <item>Mythical</item>
+        <item>Animal</item>
+        <item>Alien </item>
     </string-array>
 
-    <string-array name="default_theme_array">
-       <item>Select Theme</item>
+    <string-array name="mythical">
+        <item>myth a </item>
+        <item>myth b</item>
+        <item>myth c</item>
+        <item>myth d</item>
+        <item>myth e</item>
+        <item>myth f</item>
+        <item>myth g</item>
+        <item>myth h</item>
+        <item>myth i</item>
     </string-array>
 
-    <string-array name="lowly_leech_themes_array">
-        <item>Lowly Leech 1</item>
-        <item>Lowly Leech 2</item>
-        <item>Lowly Leech 3</item>
+    <string-array name="animal">
+        <item>animal a</item>
+        <item>animal b</item>
+        <item>animal c</item>
+        <item>animal d</item>
+        <item>animal e</item>
+        <item>animal f</item>
+        <item>animal g</item>
+        <item>animal h</item>
+        <item>animal i</item>
     </string-array>
-    <string-array name="horrendous_hagfish_themes_array">
-        <item>Horrendous Hagfish 1</item>
-        <item>Horrendous Hagfish 2</item>
-        <item>Horrendous Hagfish 3</item>
+
+    <string-array name="alien">
+        <item>alien a</item>
+        <item>alien b</item>
+        <item>alien c</item>
+        <item>alien d</item>
+        <item>alien e</item>
+        <item>alien f</item>
+        <item>alien g</item>
+        <item>alien h</item>
+        <item>alien i</item>
     </string-array>
-    <string-array name="bogus_blowfish_themes_array">
-        <item>Bogus Blowfish 1</item>
-        <item>Bogus Blowfish 2</item>
-        <item>Bogus Blowfish 3</item>
-    </string-array>
-    <string-array name="terrible_trolls_themes_array">
-        <item>Terrible Trolls 1</item>
-        <item>Terrible Trolls 2</item>
-        <item>Terrible Trolls 3</item>
-    </string-array>
-    <string-array name="goofy_goblins_themes_array">
-        <item>Goofy Goblins 1</item>
-        <item>Goofy Goblins 2</item>
-        <item>Goofy Goblins 3</item>
-    </string-array>
-    <string-array name="dastardly_dragons_themes_array">
-        <item>Dastardly Dragons 1</item>
-        <item>Dastardly Dragons 2</item>
-        <item>Dastardly Dragons 3</item>
-    </string-array>
-    <string-array name="awesome_alligators_themes_array">
-        <item>Awesome Alligators 1</item>
-        <item>Awesome Alligators 2</item>
-        <item>Awesome Alligators 3</item>
-    </string-array>
-    <string-array name="epic_elephants_themes_array">
-        <item>Epic Elephants 1</item>
-        <item>Epic Elephants 2</item>
-        <item>Epic Elephants 3</item>
-    </string-array>
-    <string-array name="fabulous_fairies_themes_array">
-        <item>Fabulous Fairies 1</item>
-        <item>Fabulous Fairies 2</item>
-        <item>Fabulous Fairies 3</item>
-    </string-array>
+
+
+
+
+
+
 
 </resources>
