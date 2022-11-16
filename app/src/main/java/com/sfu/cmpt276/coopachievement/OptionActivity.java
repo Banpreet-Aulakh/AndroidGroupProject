@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +29,7 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
 
     private static final String GENERAL_PREFS_NAME = "AppPrefs";
     private static final String THEME_KEY = "Theme Choice";
+    private String themeText;
 
 
 
@@ -64,7 +67,6 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
         selectedTheme = themeSpinner.getSelectedItem().toString();
 
         int parentID=parent.getId();
@@ -82,7 +84,7 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
 
                     break;
                 case "Animal":
-                   theme2Array = getResources().getStringArray(R.array.animal);
+                    theme2Array = getResources().getStringArray(R.array.animal);
                     StringBuilder builder2 = new StringBuilder();
                     for (String s:theme2Array){
                         builder2.append(s);
@@ -106,15 +108,19 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
                     break;
             }
 
-            Button saveButton= findViewById(R.id.saveOptionBtn);
-            saveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(OptionActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                    finishAndRemoveTask();
-                }
-            });
         }
+
+        Button saveButton= findViewById(R.id.saveOptionBtn);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(OptionActivity.this, "Saved : " + selectedTheme, Toast.LENGTH_SHORT).show();
+                saveData(position,THEME_KEY);
+                final MediaPlayer scan = MediaPlayer.create(OptionActivity.this,R.raw.scan);
+                scan.start();
+                finish();
+            }
+        });
 
     }
 
@@ -122,4 +128,19 @@ public class OptionActivity extends AppCompatActivity implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    public void saveData(int position, String key ) {
+        SharedPreferences prefs = this.getSharedPreferences(GENERAL_PREFS_NAME,MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(key,position);
+        themeSpinner.setSelection(position);
+        editor.apply();
+    }
+
+    static public int getData(Context context, String key, int id){
+        SharedPreferences prefs = context.getSharedPreferences(GENERAL_PREFS_NAME,MODE_PRIVATE);
+        context.getResources().getInteger(id);
+        return prefs.getInt(key,0);
+    }
+
+
 }
