@@ -42,7 +42,6 @@ public class NewGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
 
-
         configList = Singleton.getInstance();
         achievementsList = new String[]{
                 getResources().getString(R.string.lowly_leech),

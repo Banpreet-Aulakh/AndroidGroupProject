@@ -36,6 +36,7 @@
     <string name="missing_parameter_config">Missing Parameters</string>
     <string name="delete_config">Deleting</string>
     <string name="zero_error">Error: cannot have 0 players</string>
+    <string name="confirm_text">Theme saved! Exit to main menu? </string>
     
     <string-array name="theme_choice">
         <item>Mythical</item>
