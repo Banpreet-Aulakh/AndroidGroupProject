@@ -37,5 +37,10 @@
     <string name="delete_config">Deleting</string>
     <string name="zero_error">Error: cannot have 0 players</string>
     <string name="difficulty">Difficulty</string>
+    <string name="time_played">Time Played</string>
+    <string name="achivement">Achivement</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="number_of_players">Number of Players</string>
+    <string name="game_number">Game Number</string>
 
 </resources>
