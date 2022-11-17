@@ -34,7 +34,6 @@ import java.util.ArrayList;
  * before dynamically printing out the achievement level that the user acquired.
  */
 
-//TODO: Fix bug where when you change numPlayers text and press back button while editing, ListScores is set to -1 for all.
 public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
@@ -55,6 +54,7 @@ public class NewGameActivity extends AppCompatActivity {
     private ListView list;
     private TextView updateTotalScore;
     private boolean initialize;
+    private ArrayList<Integer> editOriginalArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +99,6 @@ public class NewGameActivity extends AppCompatActivity {
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
             toolbar.setTitle(R.string.edit_game);
             numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
-//            totalScore.setText(""+currentGame.getTotalScore(), TextView.BufferType.EDITABLE);
             displayAchievementText.setText(currentGame.getAchievementName());
             //set radio group button as checked
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(currentGame.getDifficulty());
@@ -113,6 +112,10 @@ public class NewGameActivity extends AppCompatActivity {
             complexAdapter = new ComplexAdapter(NewGameActivity.this,
                     R.layout.player_score_row, tempArray);
             playerScoreArray = currentGame.getListScore();
+
+            // original array in case of back button press cloned
+            editOriginalArray = (ArrayList<Integer>) currentGame.getListScore().clone();
+
             numPlayersInt = currentGame.getNumPlayers();
             currentGame.setNumPlayers(numPlayersInt);
             ListView list = findViewById(R.id.listViewPlayers);
@@ -200,6 +203,10 @@ public class NewGameActivity extends AppCompatActivity {
                 }
                 return true;
             case android.R.id.home:
+                if(historyIndex != -1){
+                    currentGame.setNumPlayers(editOriginalArray.size());
+                    currentGame.setListScore(editOriginalArray);
+                }
                 finish();
                 return true;
 
