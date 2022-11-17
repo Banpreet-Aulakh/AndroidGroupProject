@@ -1,4 +1,4 @@
-Product owner: Date
+Product owner: Dante
 Scrum Master: Banpreet
 Repository Manager: Preston
 Team member: Danny
