@@ -43,8 +43,12 @@ public class ViewConfigListActivity extends AppCompatActivity {
     private TextView emptyListTxt;
     private TextView helpCreateConfig;
 
-    public static Intent makeIntent(Context context, String config_list) {
+    public static final String EXTRA_THEME = "Theme position in Option";
+
+
+    public static Intent makeIntent(Context context, int themeIndex) {
         Intent intent = new Intent(context, ViewConfigListActivity.class);
+        intent.putExtra(EXTRA_THEME,themeIndex);
         return intent;
     }
 
@@ -90,11 +94,18 @@ public class ViewConfigListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_configured_list);
 
+        Intent intent = getIntent();
+        int theme_key = intent.getIntExtra(EXTRA_THEME,0);
+
         isEditConfigMode = true;
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Configured Games");
 
         createFloatingActionButton();
+
+        //Set up for intent theme key
+        //testing only
+
 
     }
 

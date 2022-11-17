@@ -45,7 +45,8 @@ public class MainMenuActivity extends AppCompatActivity {
     private void setupConfigButton() {
         Button btn = findViewById(R.id.configBtn);
         btn.setOnClickListener(v -> {
-            Intent i = ViewConfigListActivity.makeIntent(MainMenuActivity.this,"Config list");
+            int themeIndex=OptionActivity.getData(this,OptionActivity.getThemeKey(),OptionActivity.themeDefault);
+            Intent i = ViewConfigListActivity.makeIntent(MainMenuActivity.this,themeIndex);
             startActivity(i);
         });
     }

@@ -19,6 +19,10 @@ import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /*
  * The NewGame Activity is responsible for taking user's total score input and number of player
  * before dynamically printing out the achievement level that the user acquired.
@@ -35,26 +39,60 @@ public class NewGameActivity extends AppCompatActivity {
     private int historyIndex;
     private int configIndex;
 
-    private String [] achievementsList;
+    private String[] achievementsList;
+    private ArrayList<String> testAchievementList;
+
+    //testing sharedpreference in option
+    public static final String EXTRA_THEME = "Theme position in Option";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
 
-        configList = Singleton.getInstance();
-        achievementsList = new String[]{
-                getResources().getString(R.string.lowly_leech),
-                getResources().getString(R.string.horrendous_hagfish),
-                getResources().getString(R.string.bogus_blowfish),
-                getResources().getString(R.string.terrible_trolls),
-                getResources().getString(R.string.goofy_goblins),
-                getResources().getString(R.string.dastardly_dragons),
-                getResources().getString(R.string.awesome_alligators),
-                getResources().getString(R.string.epic_elephants),
-                getResources().getString(R.string.fabulous_fairies)};
 
+        configList = Singleton.getInstance();
+
+//        achievementsList = new String[]{
+//                getResources().getString(R.string.lowly_leech),
+//                getResources().getString(R.string.horrendous_hagfish),
+//                getResources().getString(R.string.bogus_blowfish),
+//                getResources().getString(R.string.terrible_trolls),
+//                getResources().getString(R.string.goofy_goblins),
+//                getResources().getString(R.string.dastardly_dragons),
+//                getResources().getString(R.string.awesome_alligators),
+//                getResources().getString(R.string.epic_elephants),
+//                getResources().getString(R.string.fabulous_fairies)};
+
+        //set up for changing achievements based on Option theme
         Intent intent = getIntent();
+        int themeIndex=intent.getIntExtra(EXTRA_THEME,0);
+        final int FINAL_THEME_INDEX = themeIndex;
+        if (FINAL_THEME_INDEX ==0)
+        {
+            for (int i = 0;i<R.array.mythical;i++)
+            {
+                String achievement = getResources().getStringArray(R.array.mythical)[i];
+                achievementsList[i]=achievement;
+            }
+        }
+        if (FINAL_THEME_INDEX ==1)
+        {
+            for (int i = 0;i<R.array.mythical;i++)
+            {
+                String achievement = getResources().getStringArray(R.array.animal)[i];
+                achievementsList[i]=achievement;
+            }
+        }
+        if(FINAL_THEME_INDEX==2)
+        {
+            for (int i = 0;i<R.array.mythical;i++)
+            {
+                String achievement = getResources().getStringArray(R.array.alien)[i];
+                achievementsList[i]=achievement;
+            }
+        }
+
         configIndex = intent.getIntExtra("configIndex", -1);
         historyIndex = intent.getIntExtra("historyIndex", -1);
 

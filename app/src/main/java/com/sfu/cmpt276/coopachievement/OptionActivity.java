@@ -24,6 +24,7 @@ public class OptionActivity extends AppCompatActivity {
     private String selectedTheme;
     private TextView achievementStringList ;
     private Spinner themeSpinner;
+    private int themeIndex;
     private ArrayAdapter themeAdapter;
     private String [] theme1Array;
     private String [] theme2Array;
@@ -132,8 +133,12 @@ public class OptionActivity extends AppCompatActivity {
                         getApplicationContext(),
                         R.anim.rotate
                 ));
-                saveData(lastClick,THEME_KEY);
+                themeIndex= themeSpinner.getSelectedItemPosition();
+                saveData(themeIndex);
+
             }
+
+
         });
 
     }
@@ -145,22 +150,23 @@ public class OptionActivity extends AppCompatActivity {
     }
 
 
-    public void saveData(int position, String key ) {
-        SharedPreferences prefs = this.getSharedPreferences(GENERAL_PREFS_NAME,MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(key,position);
+    public void saveData(int position) {
+        prefs = this.getSharedPreferences(GENERAL_PREFS_NAME,MODE_PRIVATE);
+        editor = prefs.edit();
+        editor.putInt("lastClick",position);
         editor.apply();
     }
 
     public static int getData(Context context, String key, int id){
         SharedPreferences prefs = context.getSharedPreferences(GENERAL_PREFS_NAME,MODE_PRIVATE);
         context.getResources().getInteger(id);
-        return prefs.getInt(key,0);
+        return prefs.getInt("lastClick",0);
     }
 
     public static String getThemeKey(){
         return THEME_KEY;
     }
+
 
 
 }
