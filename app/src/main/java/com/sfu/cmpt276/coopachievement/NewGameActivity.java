@@ -34,8 +34,6 @@ import java.util.ArrayList;
  * before dynamically printing out the achievement level that the user acquired.
  */
 
-//TODO: Implement list filling when editing game
-//TODO: Logic for saving games
 public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
@@ -176,7 +174,7 @@ public class NewGameActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.saveGame:
                 if(updateTotalScore.getText().toString().equals("-") || numPlayers.getText().toString().isEmpty()){ //changed for branch
@@ -186,7 +184,6 @@ public class NewGameActivity extends AppCompatActivity {
 
                 }else {
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
-//                    currentGame.setTotalScore(getIntFromEditText(totalScore));
                     currentGame.setListScore(playerScoreArray);
                     currentGame.setDifficulty(selectedDifficultyButton);
                     gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
