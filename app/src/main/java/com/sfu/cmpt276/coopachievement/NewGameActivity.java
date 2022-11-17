@@ -34,6 +34,7 @@ import java.util.ArrayList;
  * before dynamically printing out the achievement level that the user acquired.
  */
 
+//TODO: Fix bug where when you change numPlayers text and press back button while editing, ListScores is set to -1 for all.
 public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
