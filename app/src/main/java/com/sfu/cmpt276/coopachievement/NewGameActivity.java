@@ -124,6 +124,8 @@ public class NewGameActivity extends AppCompatActivity {
             toolbar.setTitle(R.string.new_game);
             initialize = false;
             this.currentGame = new GamePlayed();
+            complexAdapter = new ComplexAdapter(NewGameActivity.this,
+                    R.layout.player_score_row, playerScoreArray);
             //Index 1: medium difficulty by default
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(MEDIUM);
             button.setChecked(true);
@@ -177,12 +179,12 @@ public class NewGameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
             case R.id.saveGame:
-                if(updateTotalScore.getText().toString().isEmpty() || numPlayers.getText().toString().isEmpty()){ //changed for branch
+                if(updateTotalScore.getText().toString().equals("-") || numPlayers.getText().toString().isEmpty()){ //changed for branch
                     Toast.makeText(NewGameActivity.this, R.string.new_game_zero_players, Toast.LENGTH_LONG).show();
                 }else if(getIntFromEditText(numPlayers) == 0){
                     Toast.makeText(NewGameActivity.this, getString(R.string.zero_error),Toast.LENGTH_LONG).show();
 
-                } else {
+                }else {
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
 //                    currentGame.setTotalScore(getIntFromEditText(totalScore));
                     currentGame.setListScore(playerScoreArray);
@@ -247,7 +249,7 @@ public class NewGameActivity extends AppCompatActivity {
             }
             else{
                 TextView updateTotalScore = findViewById(R.id.txtTotalScore);
-                updateTotalScore.setText("-");
+                updateTotalScore.setText(R.string.empty_string);
                 numPlayersInt = 0;
                 list = findViewById(R.id.listViewPlayers);
                 list.setAdapter(null);
