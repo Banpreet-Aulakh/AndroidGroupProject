@@ -1,4 +1,5 @@
-Product owner: Banpreet
-Scrum Master: Dante
-Repository Manager: Danny
-Team member: Preston
+Product owner: Date
+Scrum Master: Banpreet
+Repository Manager: Preston
+Team member: Danny
+
