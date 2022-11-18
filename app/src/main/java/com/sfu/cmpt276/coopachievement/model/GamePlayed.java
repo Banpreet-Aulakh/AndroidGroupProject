@@ -122,4 +122,9 @@ public class GamePlayed {
                 ", timePlayed='" + timePlayed + '\'' +
                 '}';
     }
+
+    public String[] getParamsArray() {
+        String[] params = {""+totalScore, ""+numPlayers, getDifficultyAsString(), ""+achievementName, ""+timePlayed };
+        return params;
+    }
 }
