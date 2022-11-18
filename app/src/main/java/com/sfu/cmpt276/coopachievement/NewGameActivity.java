@@ -1,6 +1,5 @@
 package com.sfu.cmpt276.coopachievement;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,7 +43,6 @@ public class NewGameActivity extends AppCompatActivity {
     private EditText numPlayers;
     private int numPlayersInt;
     private ArrayList<Integer> playerScoreArray;
-    private TextView totalScore;
     private TextView displayAchievementText;
     private int historyIndex;
     private int configIndex;
@@ -54,7 +52,7 @@ public class NewGameActivity extends AppCompatActivity {
     private ListView list;
     private TextView updateTotalScore;
     private boolean initialize;
-    private ArrayList<Integer> editOriginalArray;
+    private ArrayList<Integer> copyOriginalArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +78,9 @@ public class NewGameActivity extends AppCompatActivity {
         historyIndex = intent.getIntExtra("historyIndex", -1);
 
         numPlayers = findViewById(R.id.numPlayersEditText);
-//        totalScore = findViewById(R.id.totalScoreEditText);
         displayAchievementText = findViewById(R.id.displayAchievementText);
 
         numPlayers.addTextChangedListener(checkFinished);
-//        totalScore.addTextChangedListener(checkFinished);
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
@@ -94,6 +90,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         //history index default to -1 for new game, otherwise is index of game we are editing
         if (historyIndex != -1) {
+            //set to true to help initialize values when populating list view
             initialize = true;
             //get the specific game played that was clicked on
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
@@ -113,8 +110,8 @@ public class NewGameActivity extends AppCompatActivity {
                     R.layout.player_score_row, tempArray);
             playerScoreArray = currentGame.getListScore();
 
-            // original array in case of back button press cloned
-            editOriginalArray = (ArrayList<Integer>) currentGame.getListScore().clone();
+            // original array values cloned in case of back button press cloned
+            copyOriginalArray = (ArrayList<Integer>) currentGame.getListScore().clone();
 
             numPlayersInt = currentGame.getNumPlayers();
             currentGame.setNumPlayers(numPlayersInt);
@@ -203,8 +200,8 @@ public class NewGameActivity extends AppCompatActivity {
                 return true;
             case android.R.id.home:
                 if(historyIndex != -1){
-                    currentGame.setNumPlayers(editOriginalArray.size());
-                    currentGame.setTotalScore(editOriginalArray);
+                    currentGame.setNumPlayers(copyOriginalArray.size());
+                    currentGame.setTotalScore(copyOriginalArray);
                 }
                 finish();
                 return true;
@@ -302,6 +299,7 @@ public class NewGameActivity extends AppCompatActivity {
 
             updateTotalScore = (TextView) ((Activity)contextMain).findViewById(R.id.txtTotalScore);
 
+            //Helper code for initializing values in case of editing array
             if(historyIndex != -1 && initialize){
                 getScore.setText(currentGame.getListScore().get(position)+"");
                 if(position == (currentGame.getListScore().size() - 1)){
