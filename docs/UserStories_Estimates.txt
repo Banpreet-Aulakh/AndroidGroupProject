@@ -1,0 +1,78 @@
+User Stories Estimate:
+1 Unit of Work: Changing activity and passing extras.
+
+Feature 1: Game Played Difficulty [15] (Dante)
+
+3 game modes: Easy, Normal, Hard: 75%, 100%, 125% of achievement threshold
+3 Radio buttons? 
+Handle Adjustment in gamePlayed keep other class modification minimal
+Add another parameter to GameConfig calc / Multiply other values on display?
+
+Ideas:
+Dante’s Thoughts 
+Populate Threshold List -> Use Radio Button Parameter stored in GameConfig model and multiply threshold list -> return
+
+What we decided:
+Change setAchievementList - 1 pt
+Radio buttons -  3pts
+Adjust gamePlayed class to include difficulty- 1 pt
+
+Story points: 5 total
+
+Feature 2: Achievement Improvements [20] (Danny)
+
+Achievement Earned: Play sound, show image + animation to celebrate! 
+Select a theme for achievements!
+3 Themes - (9 * 3) 27 strings to theme around! Can be based around anything as long as kind friendly
+Not specific to game config or gamePlayed. Theme used when viewing achievements or recording games
+
+Ideas
+Show animation/ play sound on clicking save button right before calling finish()
+Use Drop-down menu in options activity -> Access through action bar / Specific Options activity
+
+What We Decided:
+Use a main menu. Actually this time!
+Make Options Activity to select the theme
+Use singleton to propagate the theme data through app
+Add methods to choose between themes and return a list for all places strings are needed
+
+Story Points: 3 total
+
+
+Feature 3: Edit Game Played [5]
+We did it!
+
+Story Points: 3 total 
+
+
+Feature 4: Friendly UI [15] (Everyone)
+Make it look good
+Confirm with Brian Fraser 
+Change GameHistory List View to look better
+Changing EditConfigActivity and NewGameActivity to add theming, so redo the UI
+Using Layouts to display Achievement Thresholds in EditConfig Activity
+Consult Dr. Brian on NewGameActivity 
+
+Story Points: 4 total 
+
+
+Feature 5: Score Calculator [15] (Preston and Banpreet)
+Recording gameplay? Allow each score to be entered individually 
+Someone needs to look into how to populate a list of edit texts and access their data
+Change gamePlay class to be able to access individual player scores
+
+What we decided:
+Depending on numPlayers change amount of editTexts shown 
+Maybe create a checkFields method to return boolean for displaying achievements
+Turn gamePlay class points into an array?
+
+Story Points: 8 total
+
+Extra: Development Process [10] 
+Implementing a JUnit test class. (Write as we go)
+Make it for GamePlayed
+
+Story Points: 2 Units
+
+
+

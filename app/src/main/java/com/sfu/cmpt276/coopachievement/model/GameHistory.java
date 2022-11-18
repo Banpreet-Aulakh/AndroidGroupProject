@@ -36,12 +36,12 @@ public class GameHistory {
 
     public String getConfigName() { return configName; }
 
-    public String[] getStringArray() {
-        String[] arr = new String[gamesPlayedList.size()];
-        for (int i = 0; i < gamesPlayedList.size(); i++) {
-            arr[i] = gamesPlayedList.get(i).toString(); // Calls to String method of GamesPLayed NEED TO ADD
+    public ArrayList<String[]> getParamsArrayList() {
+        ArrayList<String[]> paramsList = new ArrayList<>();
+        for(int i = 0; i < gamesPlayedList.size(); i++){
+            paramsList.add(gamesPlayedList.get(i).getParamsArray());
         }
-        return arr;
+        return paramsList;
     }
 
 }

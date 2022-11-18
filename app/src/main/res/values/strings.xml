@@ -40,5 +40,10 @@
     <string name="new_game_zero_players">Error: Empty game elements</string>
     <string name="initial_player_text_list">Score</string>
     <string name="player_1_initial_list_text">Player 1</string>
+    <string name="time_played">Time Played</string>
+    <string name="achivement">Achivement</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="number_of_players">Number of Players</string>
+    <string name="game_number">Game Number</string>
 
 </resources>
