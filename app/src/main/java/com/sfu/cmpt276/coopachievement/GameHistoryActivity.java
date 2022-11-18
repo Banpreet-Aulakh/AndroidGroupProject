@@ -121,6 +121,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         ab.setTitle(gameHistory.getConfigName() + " History");
 
         for(int i = 0; i < gameHistory.getGameHistoryList().size(); i++){
+            gameConfig.setAchievement_Thresholds(gameHistory.getGameHistoryList().get(i).getDifficulty());
             gameHistory.getGameHistoryList().get(i).setAchievementLevel(gameConfig.getAchievement_Thresholds(), achievementsList);
         }
     }
