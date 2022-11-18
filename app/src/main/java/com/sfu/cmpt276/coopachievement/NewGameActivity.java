@@ -151,9 +151,8 @@ public class NewGameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     selectedDifficultyButton = difficultySetting;
-                    String gameTotalScore = "" + totalScore; // changed for branch
                     String gameNumPlayers = numPlayers.getText().toString().trim();
-                    if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
+                    if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
 
                         int combinedScore = currentGame.getTotalScore(); // changed for branch
@@ -205,7 +204,7 @@ public class NewGameActivity extends AppCompatActivity {
             case android.R.id.home:
                 if(historyIndex != -1){
                     currentGame.setNumPlayers(editOriginalArray.size());
-                    currentGame.setListScore(editOriginalArray);
+                    currentGame.setTotalScore(editOriginalArray);
                 }
                 finish();
                 return true;
@@ -227,10 +226,9 @@ public class NewGameActivity extends AppCompatActivity {
 
     //helper function to show the correct achievement level to screen
     private void displayAchievementLevel(){
-        String gameTotalScore = totalScore+""; //changed for branch
         String gameNumPlayers = numPlayers.getText().toString().trim();
 
-        if (!gameTotalScore.isEmpty() && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
+        if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);
             int combinedScore = currentGame.getTotalScore(); //Changed for branch
             gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);

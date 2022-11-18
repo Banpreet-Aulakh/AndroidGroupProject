@@ -155,4 +155,9 @@ public class GamePlayed {
     public void setListScore(ArrayList<Integer> playerScoreArray) {
         this.listScore = playerScoreArray;
     }
+
+    public String[] getParamsArray() {
+        String[] params = {""+totalScore, ""+numPlayers, getDifficultyAsString(), ""+achievementName, ""+timePlayed };
+        return params;
+    }
 }
