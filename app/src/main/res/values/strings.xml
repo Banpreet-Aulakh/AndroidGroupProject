@@ -21,7 +21,7 @@
     <string name="num_players"># players</string>
     <string name="empty_string">-</string>
     <string name="score">score</string>
-    <string name="players">players</string>
+    <string name="players">Players</string>
     <string name="achievement_level">Achievement Level</string>
     <string name="config_achievement_title">Achievement Thresholds</string>
     <string name="zero_points_string">0 Points</string>
@@ -36,8 +36,17 @@
     <string name="missing_parameter_config">Missing Parameters</string>
     <string name="delete_config">Deleting</string>
     <string name="zero_error">Error: cannot have 0 players</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="new_game_zero_players">Error: Empty game elements</string>
+    <string name="initial_player_text_list">Score</string>
+    <string name="player_1_initial_list_text">Player 1</string>
+    <string name="time_played">Time Played</string>
+    <string name="achivement">Achivement</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="number_of_players">Number of Players</string>
+    <string name="game_number">Game Number</string>
     <string name="confirm_text">Theme saved! Exit to main menu? </string>
-    
+
     <string-array name="theme_choice">
         <item>Mythical</item>
         <item>Animal</item>
