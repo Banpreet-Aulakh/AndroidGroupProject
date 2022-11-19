@@ -27,22 +27,22 @@ public class GamePlayed {
     private static final String DATE_FORMAT = "MMM dd @ HH:mm";
     private String timePlayed;
 
-    public int getDifficulty(){
-        return difficulty;
+    public GamePlayed() {
+        this.totalScore = 0;
+        this.numPlayers = 0;
+        this.achievementName = "";
+        this.difficulty = 1;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        LocalDateTime tmp = LocalDateTime.now();
+        this.timePlayed = tmp.format(formatter);
     }
 
     public void setDifficulty(int level){
         difficulty = level;
     }
-    public int getTotalScore() {
-        return totalScore;
+    public void setListScore(ArrayList<Integer> playerScoreArray) {
+        this.listScore = playerScoreArray;
     }
-
-    public int getNumPlayers() {
-        return numPlayers;
-    }
-
-    //New Stuff
     public void setTotalScore(ArrayList<Integer> listScore) {
         this.listScore = listScore;
         if(!isValidScoresList()){
@@ -56,51 +56,15 @@ public class GamePlayed {
         }
 
     }
-    public ArrayList<Integer> getListScore(){
-        if(listScore != null){
-            return listScore;
+    public void setNumPlayers(int numPlayers) {
+        if(numPlayers < 0){
+            throw new IllegalArgumentException("Player Number Out of Bounds");
         }
-        return new ArrayList<Integer>();
+        this.numPlayers = numPlayers;
     }
-
     public void setAchievementString(String name){
         achievementName = name;
     }
-    public String getAchievementName(){
-        return achievementName;
-    }
-
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
-    }
-
-    public String checkAchievementLevel(ArrayList<Integer>boundariesList, String namesList[], int numberPlayers, int combinedScore){
-        double averagePlayerScore = combinedScore/numberPlayers;
-        if (averagePlayerScore < boundariesList.get(0)) {
-            return namesList[0];
-        }
-        int i = 1;
-        int level = 8;
-        while(i < MAX_ACHIEVEMENT) {
-            if(averagePlayerScore < boundariesList.get(i)){
-                level = i;
-                break;
-            }
-            i++;
-        }
-        return namesList[level];
-    }
-
-    private String getDifficultyAsString(){
-        if(difficulty == 0){
-            return "Easy";
-        }else if(difficulty == 1){
-            return "Medium";
-        }else{
-            return "Hard";
-        }
-    }
-
     public void setAchievementLevel(ArrayList<Integer>boundariesList, String namesList[]){
         double averagePlayerScore = totalScore/numPlayers;
 
@@ -121,15 +85,59 @@ public class GamePlayed {
         achievementName = namesList[level];
     }
 
-    public GamePlayed() {
-        this.totalScore = 0;
-        this.numPlayers = 0;
-        this.achievementName = "";
-        this.difficulty = 1;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        LocalDateTime tmp = LocalDateTime.now();
-        this.timePlayed = tmp.format(formatter);
+    public int getDifficulty(){
+        return difficulty;
     }
+    public String getDifficultyAsString(){
+        if(difficulty == 0){
+            return "Easy";
+        }else if(difficulty == 1){
+            return "Medium";
+        }else{
+            return "Hard";
+        }
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+    public ArrayList<Integer> getListScore(){
+        if(listScore != null){
+            return listScore;
+        }
+        return new ArrayList<Integer>();
+    }
+
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    public String getAchievementName(){
+        return achievementName;
+    }
+
+    public String checkAchievementLevel(ArrayList<Integer>boundariesList, String namesList[], int numberPlayers, int combinedScore){
+        double averagePlayerScore = combinedScore/numberPlayers;
+        if (averagePlayerScore < boundariesList.get(0)) {
+            return namesList[0];
+        }
+        int i = 1;
+        int level = 8;
+        while(i < MAX_ACHIEVEMENT) {
+            if(averagePlayerScore < boundariesList.get(i)){
+                level = i;
+                break;
+            }
+            i++;
+        }
+        return namesList[level];
+    }
+    public String[] getParamsArray() {
+        String[] params = {""+totalScore, ""+numPlayers, getDifficultyAsString(), ""+achievementName, ""+timePlayed };
+        return params;
+    }
+
+
 
     @Override
     public String toString() {
@@ -142,7 +150,6 @@ public class GamePlayed {
                 '}';
     }
 
-    //New Stuff
     public boolean isValidScoresList(){
         for(int i = 0; i < numPlayers; i++){
             if(listScore.get(i) == -1){
@@ -152,12 +159,4 @@ public class GamePlayed {
         return true;
     }
 
-    public void setListScore(ArrayList<Integer> playerScoreArray) {
-        this.listScore = playerScoreArray;
-    }
-
-    public String[] getParamsArray() {
-        String[] params = {""+totalScore, ""+numPlayers, getDifficultyAsString(), ""+achievementName, ""+timePlayed };
-        return params;
-    }
 }
