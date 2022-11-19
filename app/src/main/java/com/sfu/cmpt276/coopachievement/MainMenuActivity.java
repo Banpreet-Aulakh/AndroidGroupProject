@@ -54,7 +54,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private void setupOptionButton() {
         Button btn = findViewById(R.id.optionBtn);
         btn.setOnClickListener(v -> {
-            Intent i = OptionActivity.makeIntent(MainMenuActivity.this,"Option");
+            Intent i = OptionActivity.makeIntent(MainMenuActivity.this,0);
             startActivity(i);
         });
 

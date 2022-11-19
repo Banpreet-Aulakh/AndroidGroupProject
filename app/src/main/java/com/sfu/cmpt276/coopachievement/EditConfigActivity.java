@@ -33,7 +33,8 @@ public class EditConfigActivity extends AppCompatActivity {
     private Singleton gameConfigList = Singleton.getInstance();
     private GameConfig game;
 
-    private int [] txtThresholdAchievmentID = {
+
+    private int [] txtThresholdAchievementID = {
             R.id.config_lowly_leech_val,
             R.id.config_horrendous_val,
             R.id.config_bogus_val,
@@ -43,6 +44,18 @@ public class EditConfigActivity extends AppCompatActivity {
             R.id.config_awesome_val,
             R.id.config_epic_val,
             R.id.config_fabulous_val
+    };
+
+    private int[] txtThresholdAchievement={
+            R.id.config_lowly_leech,
+            R.id.config_horrendous_hagfish,
+            R.id.config_bogus_blowfish,
+            R.id.config_terrible_trolls,
+            R.id.config_goofy_goblins,
+            R.id.config_dastardly_dragons,
+            R.id.config_awesome_alligators,
+            R.id.config_epic_elephants,
+            R.id.config_fabulous_fairies
     };
     //Index of config array, if position = -1, you are creating a new config
     private int position;
@@ -97,6 +110,7 @@ public class EditConfigActivity extends AppCompatActivity {
         gameEditTxt.addTextChangedListener(checkFinished);
         poorEditTxt.addTextChangedListener(checkFinished);
         greatEditTxt.addTextChangedListener(checkFinished);
+
 
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
@@ -261,10 +275,10 @@ public class EditConfigActivity extends AppCompatActivity {
 
                 int numP = Integer.parseInt(numPlayers.getText().toString());
 
-                achievementViews = findViewById(txtThresholdAchievmentID[0]);
+                achievementViews = findViewById(txtThresholdAchievementID[0]);
                 achievementViews.setText(R.string.zero_points_string);
                 for(int listCounter = 0; listCounter < 8; listCounter++){
-                    achievementViews = findViewById(txtThresholdAchievmentID[listCounter + 1]);
+                    achievementViews = findViewById(txtThresholdAchievementID[listCounter + 1]);
                     achievementViews.setText((thresholdList.get(listCounter)) * numP + getString(R.string.point_string));
                 }
             }

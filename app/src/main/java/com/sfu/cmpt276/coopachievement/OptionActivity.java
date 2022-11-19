@@ -19,12 +19,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sfu.cmpt276.coopachievement.model.Singleton;
+
 public class OptionActivity extends AppCompatActivity {
     private static OptionActivity instance = null;
     private String selectedTheme;
     private TextView achievementStringList ;
     private Spinner themeSpinner;
-    private int themeIndex;
+    private static int themeIndex;
     private ArrayAdapter themeAdapter;
     private String [] theme1Array;
     private String [] theme2Array;
@@ -136,18 +138,24 @@ public class OptionActivity extends AppCompatActivity {
                 themeIndex= themeSpinner.getSelectedItemPosition();
                 saveData(themeIndex);
 
+                Singleton instance = Singleton.getInstance();
+                instance.setThemeIndex(themeIndex);
+                //toast for ensuring
             }
 
 
         });
 
     }
-
-    public static Intent makeIntent(Context context, String s) {
+    public static int getThemeIndex(){
+        return themeIndex;
+    }
+    public static Intent makeIntent(Context context, int key) {
         Intent intent = new Intent(context, OptionActivity.class);
-        //intent.putExtra(EXTRA_TITLE, s);
+        intent.putExtra(getThemeKey(),getThemeIndex());
         return intent;
     }
+
 
 
     public void saveData(int position) {
@@ -163,9 +171,12 @@ public class OptionActivity extends AppCompatActivity {
         return prefs.getInt("lastClick",0);
     }
 
+
+
     public static String getThemeKey(){
         return THEME_KEY;
     }
+
 
 
 

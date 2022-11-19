@@ -40,7 +40,6 @@ public class NewGameActivity extends AppCompatActivity {
     private int configIndex;
 
     private String[] achievementsList;
-    private ArrayList<String> testAchievementList;
 
     //testing sharedpreference in option
     public static final String EXTRA_THEME = "Theme position in Option";
@@ -49,7 +48,6 @@ public class NewGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
-
 
         configList = Singleton.getInstance();
 
@@ -66,32 +64,21 @@ public class NewGameActivity extends AppCompatActivity {
 
         //set up for changing achievements based on Option theme
         Intent intent = getIntent();
-        int themeIndex=intent.getIntExtra(EXTRA_THEME,0);
+        int themeIndex = configList.getThemeIndex();
         final int FINAL_THEME_INDEX = themeIndex;
         if (FINAL_THEME_INDEX ==0)
         {
-            for (int i = 0;i<R.array.mythical;i++)
-            {
-                String achievement = getResources().getStringArray(R.array.mythical)[i];
-                achievementsList[i]=achievement;
-            }
+            achievementsList = populateAchievement();
         }
         if (FINAL_THEME_INDEX ==1)
         {
-            for (int i = 0;i<R.array.mythical;i++)
-            {
-                String achievement = getResources().getStringArray(R.array.animal)[i];
-                achievementsList[i]=achievement;
-            }
+            achievementsList = populateAchievement();
         }
         if(FINAL_THEME_INDEX==2)
         {
-            for (int i = 0;i<R.array.mythical;i++)
-            {
-                String achievement = getResources().getStringArray(R.array.alien)[i];
-                achievementsList[i]=achievement;
-            }
+            achievementsList = populateAchievement();
         }
+//end of test
 
         configIndex = intent.getIntExtra("configIndex", -1);
         historyIndex = intent.getIntExtra("historyIndex", -1);
@@ -160,6 +147,17 @@ public class NewGameActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //test function to populate achievement array
+    public String []populateAchievement(){
+        String[] list = new String[9];
+        for(int i = 0 ; i<9;i++)
+        {
+            list[i] = getResources().getStringArray(R.array.mythical)[i];
+        }
+        return list;
+    }
+//end of test
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, NewGameActivity.class);
