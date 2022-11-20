@@ -35,7 +35,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION";
     private int position;
     private GameHistory gameHistory;
-    private Singleton singleton;
+    private Singleton singleton = Singleton.getInstance();
     private GameConfig gameConfig;
     private ActionBar ab;
     private String [] achievementsList;
@@ -60,6 +60,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_config_history);
         noItemView = findViewById(R.id.no_items_history_text);
         noItemView.setVisibility(View.INVISIBLE);
+
 
         int themeIndex = singleton.getThemeIndex();
         achievementsList = populateAchievementList(themeIndex);
@@ -91,23 +92,24 @@ public class GameHistoryActivity extends AppCompatActivity {
     }
 
     private String[] populateAchievementList(int themeIndex) {
+        String[] themeArray=getResources().getStringArray(R.array.mythical);
         if(themeIndex== 0){
-            String[] themeArray=getResources().getStringArray(R.array.mythical);
-            return themeArray;
+            String[] arr=getResources().getStringArray(R.array.mythical);
+            return arr;
         }
         if (themeIndex==1)
         {
-            String[] themeArray=getResources().getStringArray(R.array.animal);
-            return themeArray;
+            String[] arr=getResources().getStringArray(R.array.pawpatrol);
+            return arr;
 
         }
         if(themeIndex==2)
         {
-            String[] themeArray=getResources().getStringArray(R.array.mythical);
-            return themeArray;
+            String[] arr=getResources().getStringArray(R.array.dinosaur);
+            return arr;
         }
         else
-            return achievementsList;
+            return themeArray;
     }
 
     @Override
@@ -116,6 +118,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         updateGameAchievements();
         if(gameHistory.getGameHistoryList().size() > 0) {
             populateListView(gameHistory);
+            listOnClick();
         }
         noItemView.setVisibility(View.INVISIBLE);
         if(gameHistory.getGameHistoryList().size() == 0){

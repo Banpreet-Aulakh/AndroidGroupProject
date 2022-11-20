@@ -2,10 +2,12 @@ package com.sfu.cmpt276.coopachievement;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,7 +41,7 @@ public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
     final static private int HARD = 2;
-    private Singleton configList;
+    private Singleton configList = Singleton.getInstance();;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
@@ -58,6 +62,7 @@ public class NewGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         playerScoreArray = new ArrayList<Integer>();
+
 
         configList = Singleton.getInstance();
 
@@ -124,6 +129,13 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
+    private void celebrationMessage() {
+
+        FragmentManager manager = getSupportFragmentManager();
+        MessageFragment dialog = new MessageFragment();
+        dialog.show(manager, "");
+    }
+
     private String[] populateAchievementList(int themeIndex) {
 
         if(themeIndex== 0){
@@ -132,13 +144,13 @@ public class NewGameActivity extends AppCompatActivity {
         }
         if (themeIndex==1)
         {
-            String[] themeArray=getResources().getStringArray(R.array.animal);
+            String[] themeArray=getResources().getStringArray(R.array.pawpatrol);
             return themeArray;
 
         }
         if(themeIndex==2)
         {
-            String[] themeArray=getResources().getStringArray(R.array.mythical);
+            String[] themeArray=getResources().getStringArray(R.array.dinosaur);
             return themeArray;
         }
         else
@@ -161,8 +173,12 @@ public class NewGameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     selectedDifficultyButton = difficultySetting;
+
                     String gameNumPlayers = numPlayers.getText().toString().trim();
 
+//                    if(updateTotalScore==null){
+//                        updateTotalScore=findViewById(R.id.txtTotalScore);
+//                    }
                     if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
 
@@ -209,7 +225,8 @@ public class NewGameActivity extends AppCompatActivity {
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
                     }
                     ViewConfigListActivity.saveData(NewGameActivity.this);
-                    finish();
+                    celebrationMessage();
+
                 }
                 return true;
             case android.R.id.home:
@@ -237,14 +254,21 @@ public class NewGameActivity extends AppCompatActivity {
 
     //helper function to show the correct achievement level to screen
     private void displayAchievementLevel(){
+        Animation scaleUp,scaleDown;
+        scaleUp= AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
         String gameNumPlayers = numPlayers.getText().toString().trim();
+        //test sound and animation here
+        final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
 
         if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);
             int combinedScore = currentGame.getTotalScore(); //Changed for branch
             gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
             displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
-
+            saveSound.start();
+            displayAchievementText.startAnimation(scaleUp);
+            displayAchievementText.startAnimation(scaleDown);
         }else{
             displayAchievementText.setText(getResources().getString(R.string.empty_string));
         }

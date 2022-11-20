@@ -151,7 +151,7 @@ public class EditConfigActivity extends AppCompatActivity {
         }
         if (selectedTheme==1)
         {
-            String[] themeArray=getResources().getStringArray(R.array.animal);
+            String[] themeArray=getResources().getStringArray(R.array.pawpatrol);
             for(int i=0;i<txtThresholdAchievement.length;i++)
             {
                 String temp = themeArray[i];
@@ -162,7 +162,7 @@ public class EditConfigActivity extends AppCompatActivity {
         }
         if(selectedTheme==2)
         {
-            String[] themeArray=getResources().getStringArray(R.array.alien);
+            String[] themeArray=getResources().getStringArray(R.array.dinosaur);
             for(int i=0;i<txtThresholdAchievement.length;i++)
             {
                 String temp = themeArray[i];

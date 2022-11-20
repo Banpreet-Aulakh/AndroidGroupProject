@@ -50,44 +50,44 @@
 
     <string-array name="theme_choice">
         <item>Mythical</item>
-        <item>Animal</item>
-        <item>Alien </item>
+        <item>Paw Patrol</item>
+        <item>Dinosaur </item>
     </string-array>
 
     <string-array name="mythical">
-        <item>myth a </item>
-        <item>myth b</item>
-        <item>myth c</item>
-        <item>myth d</item>
-        <item>myth e</item>
-        <item>myth f</item>
-        <item>myth g</item>
-        <item>myth h</item>
-        <item>myth i</item>
+        <item>Worrying Werewolves </item>
+        <item>Phony Phoenix</item>
+        <item>Messy Mermaids</item>
+        <item>Ethical Elves</item>
+        <item>Friendly Fairies</item>
+        <item>Horrified Hydras</item>
+        <item>Undying Unicorns</item>
+        <item>Destructive Dragons</item>
+        <item>Legendary Leviathan </item>
     </string-array>
 
-    <string-array name="animal">
-        <item>animal a</item>
-        <item>animal b</item>
-        <item>animal c</item>
-        <item>animal d</item>
-        <item>animal e</item>
-        <item>animal f</item>
-        <item>animal g</item>
-        <item>animal h</item>
-        <item>animal i</item>
+    <string-array name="paw_patrol">
+        <item>Horrible Humdinger</item>
+        <item>Rowdy Ruff Pack</item>
+        <item>Confused Copycat</item>
+        <item>Sassy Sweetie</item>
+        <item>Zany Zuma</item>
+        <item>Radiant Rocky</item>
+        <item>Reliable Rubble</item>
+        <item>Super Skye</item>
+        <item>Marvelous Marshal</item>
     </string-array>
 
-    <string-array name="alien">
-        <item>alien a</item>
-        <item>alien b</item>
-        <item>alien c</item>
-        <item>alien d</item>
-        <item>alien e</item>
-        <item>alien f</item>
-        <item>alien g</item>
-        <item>alien h</item>
-        <item>alien i</item>
+    <string-array name="dinosaur">
+        <item>Terrible Tyrannosaurus </item>
+        <item>Tired Pterodactyl </item>
+        <item>Apathetic Allosaurus</item>
+        <item>Drab Dilophosaurus</item>
+        <item>Melancholy Mosasaurus</item>
+        <item>Great Giganotosaurus </item>
+        <item>Terrific Triceratops</item>
+        <item>Super Stegosaurus </item>
+        <item>Valiant velociraptor </item>
     </string-array>
 
 </resources>

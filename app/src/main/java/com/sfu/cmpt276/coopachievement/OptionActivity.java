@@ -95,7 +95,7 @@ public class OptionActivity extends AppCompatActivity {
                             achievementStringList.setText(builder1.toString());
                             break;
                         case "Animal":
-                            theme2Array = getResources().getStringArray(R.array.animal);
+                            theme2Array = getResources().getStringArray(R.array.pawpatrol);
                             StringBuilder builder2 = new StringBuilder();
                             for (String s:theme2Array){
                                 builder2.append(s);
@@ -106,7 +106,7 @@ public class OptionActivity extends AppCompatActivity {
 
                             break;
                         case "Alien":
-                            theme3Array = getResources().getStringArray(R.array.alien);
+                            theme3Array = getResources().getStringArray(R.array.dinosaur);
                             StringBuilder builder3 = new StringBuilder();
                             for (String s:theme3Array){
                                 builder3.append(s);
@@ -144,7 +144,6 @@ public class OptionActivity extends AppCompatActivity {
                 ));
                 themeIndex= themeSpinner.getSelectedItemPosition();
                 saveData(themeIndex);
-
                 Singleton instance = Singleton.getInstance();
                 instance.setThemeIndex(themeIndex);
                 saveButton.startAnimation(scaleUp);
