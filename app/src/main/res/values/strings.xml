@@ -47,11 +47,12 @@
     <string name="game_number">Game Number</string>
     <string name="confirm_text">Theme saved! Exit to main menu? </string>
     <string name="save">Save</string>
+    <string name="you_got_an_achievement">You got an achievement!</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>
         <item>Paw Patrol</item>
-        <item>Dinosaur </item>
+        <item>Dinosaur</item>
     </string-array>
 
     <string-array name="mythical">

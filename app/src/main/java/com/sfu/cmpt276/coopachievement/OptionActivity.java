@@ -94,7 +94,7 @@ public class OptionActivity extends AppCompatActivity {
                             achievementStringList = findViewById(R.id.tvAchievementList);
                             achievementStringList.setText(builder1.toString());
                             break;
-                        case "Animal":
+                        case "Paw Patrol":
                             theme2Array = getResources().getStringArray(R.array.paw_patrol);
                             StringBuilder builder2 = new StringBuilder();
                             for (String s:theme2Array){
@@ -105,7 +105,7 @@ public class OptionActivity extends AppCompatActivity {
                             achievementStringList.setText(builder2.toString());
 
                             break;
-                        case "Alien":
+                        case "Dinosaur":
                             theme3Array = getResources().getStringArray(R.array.dinosaur);
                             StringBuilder builder3 = new StringBuilder();
                             for (String s:theme3Array){
@@ -148,8 +148,6 @@ public class OptionActivity extends AppCompatActivity {
                 instance.setThemeIndex(themeIndex);
                 saveButton.startAnimation(scaleUp);
                 saveButton.startAnimation(scaleDown);
-                //toast for ensuring
-
             }
 
         });
@@ -159,6 +157,7 @@ public class OptionActivity extends AppCompatActivity {
     public static int getThemeIndex(){
         return themeIndex;
     }
+
     public static Intent makeIntent(Context context, int key) {
         Intent intent = new Intent(context, OptionActivity.class);
         intent.putExtra(getThemeKey(),getThemeIndex());

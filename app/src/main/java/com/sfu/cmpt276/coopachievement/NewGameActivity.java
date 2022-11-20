@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,7 +43,7 @@ public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
     final static private int HARD = 2;
-    private Singleton configList = Singleton.getInstance();;
+    private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
@@ -129,11 +131,19 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
-    private void celebrationMessage() {
-
+    public void celebrationMessage() {
         FragmentManager manager = getSupportFragmentManager();
         MessageFragment dialog = new MessageFragment();
         dialog.show(manager, "");
+        final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
+        saveSound.start();
+
+//        Animation scaleUp,scaleDown;
+//        scaleUp=AnimationUtils.loadAnimation(this,R.anim.scale_up);
+//        scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
+//        ImageView ball=findViewById(R.id.image_alertDialog);
+//        ball.startAnimation(scaleUp);
+//        ball.startAnimation(scaleDown);
     }
 
     private String[] populateAchievementList(int themeIndex) {
@@ -176,9 +186,9 @@ public class NewGameActivity extends AppCompatActivity {
 
                     String gameNumPlayers = numPlayers.getText().toString().trim();
 
-//                    if(updateTotalScore==null){
-//                        updateTotalScore=findViewById(R.id.txtTotalScore);
-//                    }
+                    if(updateTotalScore==null){
+                       updateTotalScore=findViewById(R.id.txtTotalScore);
+                   }
                     if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
 
@@ -203,6 +213,7 @@ public class NewGameActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -226,6 +237,8 @@ public class NewGameActivity extends AppCompatActivity {
                     }
                     ViewConfigListActivity.saveData(NewGameActivity.this);
                     celebrationMessage();
+
+
 
                 }
                 return true;
@@ -259,14 +272,15 @@ public class NewGameActivity extends AppCompatActivity {
         scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
         String gameNumPlayers = numPlayers.getText().toString().trim();
         //test sound and animation here
-        final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
+
 
         if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);
             int combinedScore = currentGame.getTotalScore(); //Changed for branch
             gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
-            displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
-            saveSound.start();
+            displayAchievementText.setText(currentGame.checkAchievementLevel(
+                    gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
+
             displayAchievementText.startAnimation(scaleUp);
             displayAchievementText.startAnimation(scaleDown);
         }else{

@@ -3,20 +3,20 @@ package com.sfu.cmpt276.coopachievement;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import org.w3c.dom.Text;
 
 
 /*
@@ -25,12 +25,29 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class MessageFragment extends AppCompatDialogFragment {
 
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         //create view by loading layout
-        @SuppressLint("InflateParams") View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.message_fragment_layout,null);
+        @SuppressLint("InflateParams")
+        View v = LayoutInflater.from(getActivity())
+                .inflate(R.layout.congratulation_layout,null);
+
+        final ImageView dialogImageView= (ImageView) v.findViewById(R.id.image_alertDialog);
+        dialogImageView.setImageResource(R.drawable.alone);
+
+        final TextView tv =(TextView) v.findViewById(R.id.achievement_name);
+        tv.setText("AEEEEE");
+
+        Animation rotateLoop;
+
+        rotateLoop=AnimationUtils.loadAnimation(getActivity(),R.anim.rotate_loop);
+
+
+        dialogImageView.startAnimation(rotateLoop);
+
 
         //create button listener
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -39,18 +56,15 @@ public class MessageFragment extends AppCompatDialogFragment {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         //create dialog when winning to for escaping game, or change setting
-                        TextView tv = getActivity().findViewById(R.id.confirm_text);
-                        tv.setText("Are you sure about that?");
-                        getActivity().finish(); // call only when needed
+                        getActivity().finish();
                         break;
-
                 }
             }
         };
 
         //Build Alert Dialog
         return new AlertDialog.Builder(getActivity())
-                .setTitle("Alert Dialog")
+                .setTitle("YEEEET!")
                 .setView(v)
                 .setPositiveButton(android.R.string.ok,listener)
                 .setIcon(R.drawable.ball)
