@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewGameActivity">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none" >
     <TableLayout
         android:id="@+id/tableLayoutNewGame"
         android:layout_width="match_parent"
@@ -51,7 +54,7 @@
 
             <ListView
                 android:id="@+id/listViewPlayers"
-                android:layout_width="307dp"
+                android:layout_width="match_parent"
                 android:layout_height="225dp"
                 android:layout_column="0"
                 android:layout_marginTop="20dp"
@@ -134,5 +137,5 @@
                 android:textSize="16sp" />
         </TableRow>
     </TableLayout>
-
+</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
