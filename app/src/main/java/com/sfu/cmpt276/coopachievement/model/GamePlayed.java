@@ -51,8 +51,12 @@ public class GamePlayed {
         return achievementName;
     }
 
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
+    public void setNumPlayers(int players) {
+        if(players > 1){
+            throw new IllegalArgumentException("cannot have fewer than one players");
+        }else{
+            this.numPlayers = players;
+        }
     }
 
     public String checkAchievementLevel(ArrayList<Integer>boundariesList, String namesList[], int numberPlayers, int combinedScore){
