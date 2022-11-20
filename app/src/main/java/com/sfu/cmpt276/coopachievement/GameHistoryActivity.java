@@ -103,6 +103,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         updateGameAchievements();
         if(gameHistory.getGameHistoryList().size() > 0) {
             populateListView(gameHistory);
+            listOnClick();
         }
         noItemView.setVisibility(View.INVISIBLE);
         if(gameHistory.getGameHistoryList().size() == 0){
