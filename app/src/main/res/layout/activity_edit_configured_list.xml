@@ -9,26 +9,27 @@
     <ListView
         android:id="@+id/ListEditConfiguredItems"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCreateConfig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="512dp"
         android:backgroundTint="@color/purple_500"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.884"
+        app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.749"
         app:srcCompat="@android:drawable/ic_input_add"
         app:tint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -46,37 +47,39 @@
 
     <TextView
         android:id="@+id/txtEmptyList"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgemptyGameHistoryList"/>
+        app:layout_constraintTop_toBottomOf="@id/imgemptyGameHistoryList" />
 
     <TextView
         android:id="@+id/txtHelpCreateGameConfig"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="524dp"
         android:text="@string/blank"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgArrow"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.755" />
 
     <ImageView
         android:id="@+id/imgArrow"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:layout_marginTop="512dp"
         android:layout_marginEnd="22dp"
         android:contentDescription="@string/blank"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fabCreateConfig"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.751"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

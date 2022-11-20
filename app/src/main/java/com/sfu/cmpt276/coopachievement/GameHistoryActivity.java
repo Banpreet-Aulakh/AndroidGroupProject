@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,6 +104,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         updateGameAchievements();
         if(gameHistory.getGameHistoryList().size() > 0) {
             populateListView(gameHistory);
+            listOnClick();
         }
         noItemView.setVisibility(View.INVISIBLE);
         if(gameHistory.getGameHistoryList().size() == 0){

@@ -137,8 +137,6 @@ public class GamePlayed {
         return params;
     }
 
-
-
     @Override
     public String toString() {
         return "GamePlayed{" +
