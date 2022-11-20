@@ -2,6 +2,7 @@ package com.sfu.cmpt276.coopachievement;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,7 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,6 +59,10 @@ public class OptionActivity extends AppCompatActivity {
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Option");
         toolbar.setDisplayHomeAsUpEnabled(true);
+        Animation scaleUp,scaleDown;
+
+        scaleUp=AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
 
         themeSpinner = findViewById(R.id.theme_spinner);
@@ -140,11 +147,14 @@ public class OptionActivity extends AppCompatActivity {
 
                 Singleton instance = Singleton.getInstance();
                 instance.setThemeIndex(themeIndex);
+                saveButton.startAnimation(scaleUp);
+                saveButton.startAnimation(scaleDown);
                 //toast for ensuring
+
             }
 
-
         });
+
 
     }
     public static int getThemeIndex(){

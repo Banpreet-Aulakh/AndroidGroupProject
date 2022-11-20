@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public class Singleton {
     private ArrayList <GameConfig> gameConfigs = new ArrayList<>();
 
+
+
+    private int themeIndex ;
+
     public int getThemeIndex() {
         return themeIndex;
     }
@@ -15,8 +19,6 @@ public class Singleton {
     public void setThemeIndex(int themeIndex) {
         this.themeIndex = themeIndex;
     }
-
-    private int themeIndex ;
 
     //set up singleton support
     private static Singleton instance;

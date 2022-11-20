@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 
 public class MainMenuActivity extends AppCompatActivity {
+    Singleton instance = Singleton.getInstance();
+    int themeIndex= instance.getThemeIndex();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

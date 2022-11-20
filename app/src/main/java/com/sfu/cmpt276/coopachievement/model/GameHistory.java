@@ -3,9 +3,9 @@ package com.sfu.cmpt276.coopachievement.model;
 import java.util.ArrayList;
 
 /*
-* The GameHistory Class is responsible for storing all the instances of GamesPlayed per configured game. This facilitates instances of each config's
-* game history being stored in the Singleton GameType class.
-*/
+ * The GameHistory Class is responsible for storing all the instances of GamesPlayed per configured game. This facilitates instances of each config's
+ * game history being stored in the Singleton GameType class.
+ */
 
 public class GameHistory {
 

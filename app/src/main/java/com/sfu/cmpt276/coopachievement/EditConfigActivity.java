@@ -80,6 +80,7 @@ public class EditConfigActivity extends AppCompatActivity {
 
     private int selectedDifficultyButton;
 
+
     private TextView achievementViews;
 
     public static Intent getIntent(Context context, int position){
@@ -118,6 +119,7 @@ public class EditConfigActivity extends AppCompatActivity {
         greatEditTxt.addTextChangedListener(checkFinished);
 
 
+
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
@@ -130,6 +132,46 @@ public class EditConfigActivity extends AppCompatActivity {
         setupDifficultyRadioButtons(game);
         selectedDifficultyButton = MEDIUM;
         toolbar.setDisplayHomeAsUpEnabled(true);
+        int selectedTheme =gameConfigList.getThemeIndex();
+
+        checkThemeAndPopulateThreshold(selectedTheme);
+
+    }
+
+    private void checkThemeAndPopulateThreshold(int selectedTheme) {
+        if(selectedTheme == 0){
+            String[] themeArray=getResources().getStringArray(R.array.mythical);
+            for(int i=0;i<txtThresholdAchievement.length;i++)
+            {
+                String temp = themeArray[i];
+                TextView tv = (TextView) findViewById(txtThresholdAchievement[i]);
+                tv.setText(temp);
+            }
+
+        }
+        if (selectedTheme==1)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.animal);
+            for(int i=0;i<txtThresholdAchievement.length;i++)
+            {
+                String temp = themeArray[i];
+                TextView tv = (TextView) findViewById(txtThresholdAchievement[i]);
+                tv.setText(temp);
+            }
+
+        }
+        if(selectedTheme==2)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.alien);
+            for(int i=0;i<txtThresholdAchievement.length;i++)
+            {
+                String temp = themeArray[i];
+                TextView tv = (TextView) findViewById(txtThresholdAchievement[i]);
+                tv.setText(temp);
+            }
+
+        }
+
 
     }
 
@@ -277,10 +319,10 @@ public class EditConfigActivity extends AppCompatActivity {
 
             int numP = Integer.parseInt(numPlayers.getText().toString());
 
-            achievementViews = findViewById(txtThresholdAchievmentID[0]);
+            achievementViews = findViewById(txtThresholdAchievementID[0]);
             achievementViews.setText(R.string.zero_points_string);
             for(int listCounter = 0; listCounter < 8; listCounter++){
-                achievementViews = findViewById(txtThresholdAchievmentID[listCounter + 1]);
+                achievementViews = findViewById(txtThresholdAchievementID[listCounter + 1]);
                 achievementViews.setText((thresholdList.get(listCounter)) * numP + getString(R.string.point_string));
             }
         }

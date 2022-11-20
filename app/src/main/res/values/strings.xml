@@ -46,6 +46,7 @@
     <string name="number_of_players">Number of Players</string>
     <string name="game_number">Game Number</string>
     <string name="confirm_text">Theme saved! Exit to main menu? </string>
+    <string name="save">Save</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>
@@ -88,11 +89,5 @@
         <item>alien h</item>
         <item>alien i</item>
     </string-array>
-
-
-
-
-
-
 
 </resources>

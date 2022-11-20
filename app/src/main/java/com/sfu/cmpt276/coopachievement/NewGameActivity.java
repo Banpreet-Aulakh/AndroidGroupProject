@@ -60,17 +60,9 @@ public class NewGameActivity extends AppCompatActivity {
         playerScoreArray = new ArrayList<Integer>();
 
         configList = Singleton.getInstance();
-        achievementsList = new String[]{
-                getResources().getString(R.string.lowly_leech),
-                getResources().getString(R.string.horrendous_hagfish),
-                getResources().getString(R.string.bogus_blowfish),
-                getResources().getString(R.string.terrible_trolls),
-                getResources().getString(R.string.goofy_goblins),
-                getResources().getString(R.string.dastardly_dragons),
-                getResources().getString(R.string.awesome_alligators),
-                getResources().getString(R.string.epic_elephants),
-                getResources().getString(R.string.fabulous_fairies)};
 
+        int themeIndex = configList.getThemeIndex();
+        achievementsList = populateAchievementList(themeIndex);
 
 
         Intent intent = getIntent();
@@ -132,6 +124,27 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
+    private String[] populateAchievementList(int themeIndex) {
+
+        if(themeIndex== 0){
+            String[] themeArray=getResources().getStringArray(R.array.mythical);
+            return themeArray;
+        }
+        if (themeIndex==1)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.animal);
+            return themeArray;
+
+        }
+        if(themeIndex==2)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.mythical);
+            return themeArray;
+        }
+        else
+            return achievementsList;
+    }
+
     private void setupDifficultyRadioButtons() {
         RadioGroup group = findViewById(R.id.difficultyRadioGroup);
 
@@ -149,6 +162,7 @@ public class NewGameActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     selectedDifficultyButton = difficultySetting;
                     String gameNumPlayers = numPlayers.getText().toString().trim();
+
                     if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
 
