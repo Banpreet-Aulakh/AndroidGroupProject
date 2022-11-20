@@ -151,7 +151,7 @@ public class EditConfigActivity extends AppCompatActivity {
         }
         if (selectedTheme==1)
         {
-            String[] themeArray=getResources().getStringArray(R.array.pawpatrol);
+            String[] themeArray=getResources().getStringArray(R.array.paw_patrol);
             for(int i=0;i<txtThresholdAchievement.length;i++)
             {
                 String temp = themeArray[i];

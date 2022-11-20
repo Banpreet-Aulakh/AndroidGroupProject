@@ -99,7 +99,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         }
         if (themeIndex==1)
         {
-            String[] arr=getResources().getStringArray(R.array.pawpatrol);
+            String[] arr=getResources().getStringArray(R.array.paw_patrol);
             return arr;
 
         }

@@ -95,7 +95,7 @@ public class OptionActivity extends AppCompatActivity {
                             achievementStringList.setText(builder1.toString());
                             break;
                         case "Animal":
-                            theme2Array = getResources().getStringArray(R.array.pawpatrol);
+                            theme2Array = getResources().getStringArray(R.array.paw_patrol);
                             StringBuilder builder2 = new StringBuilder();
                             for (String s:theme2Array){
                                 builder2.append(s);

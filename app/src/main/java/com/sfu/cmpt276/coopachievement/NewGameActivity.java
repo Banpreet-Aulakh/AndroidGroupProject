@@ -144,7 +144,7 @@ public class NewGameActivity extends AppCompatActivity {
         }
         if (themeIndex==1)
         {
-            String[] themeArray=getResources().getStringArray(R.array.pawpatrol);
+            String[] themeArray=getResources().getStringArray(R.array.paw_patrol);
             return themeArray;
 
         }
