@@ -43,7 +43,6 @@ public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
     final static private int HARD = 2;
-    private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
@@ -66,7 +65,7 @@ public class NewGameActivity extends AppCompatActivity {
         playerScoreArray = new ArrayList<Integer>();
 
 
-        configList = Singleton.getInstance();
+        Singleton configList = Singleton.getInstance();
         int themeIndex = configList.getThemeIndex();
         achievementsList = populateAchievementList(themeIndex);
 

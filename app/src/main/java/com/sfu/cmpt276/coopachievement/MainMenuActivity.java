@@ -3,27 +3,11 @@ package com.sfu.cmpt276.coopachievement;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.sfu.cmpt276.coopachievement.model.GameConfig;
-import com.sfu.cmpt276.coopachievement.model.Singleton;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /*
 * Main Menu is responsible for switching between ViewConfigList Activity and Option Activity
@@ -39,6 +23,12 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Main Menu");
+
+        ImageView bugImage = findViewById(R.id.main_banner);
+        bugImage.startAnimation(AnimationUtils.loadAnimation(
+                getApplicationContext(),
+                R.anim.fadein
+        ));
 
 
 
