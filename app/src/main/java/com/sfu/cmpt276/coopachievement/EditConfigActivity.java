@@ -11,7 +11,9 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -319,13 +321,31 @@ public class EditConfigActivity extends AppCompatActivity {
             ArrayList<Integer> thresholdList = game.getAchievement_Thresholds();
 
             int numP = Integer.parseInt(numPlayers.getText().toString());
-
-            achievementViews = findViewById(txtThresholdAchievementID[0]);
-            achievementViews.setText(R.string.zero_points_string);
-            for(int listCounter = 0; listCounter < 8; listCounter++){
-                achievementViews = findViewById(txtThresholdAchievementID[listCounter + 1]);
-                achievementViews.setText((thresholdList.get(listCounter)) * numP + getString(R.string.point_string));
+            String lowlyLeechScore = "Not Possible";
+            if(thresholdList.get(0) != 0){
+                lowlyLeechScore = "0";
             }
+
+            //Change
+            String[] achievementStringList = {
+                    getString(R.string.lowly_leech) + ":    " + lowlyLeechScore,
+                    getString(R.string.horrendous_hagfish) + ":    " + numP * thresholdList.get(0) + "-" + (numP * thresholdList.get(1)-1),
+                    getString(R.string.bogus_blowfish) + ":     " + numP * thresholdList.get(1) + "-" + (numP * thresholdList.get(2)-1),
+                    getString(R.string.terrible_trolls) + ":    " + numP * thresholdList.get(2) + "-" + (numP * thresholdList.get(3)-1),
+                    getString(R.string.goofy_goblins) + ":    " + numP * thresholdList.get(3) + "-" + (numP * thresholdList.get(4)-1),
+                    getString(R.string.dastardly_dragons) + ":    " + numP * thresholdList.get(4) + "-" + (numP * thresholdList.get(5)-1),
+                    getString(R.string.awesome_alligators) + ":    " + numP * thresholdList.get(5) + "-" + (numP * thresholdList.get(6)-1),
+                    getString(R.string.epic_elephants) + ":    " + numP * thresholdList.get(6) + "-" + (numP * thresholdList.get(7)-1),
+                    getString(R.string.fabulous_fairies) + ":  Greater Than " + numP * thresholdList.get(7)
+            };
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    EditConfigActivity.this,
+                    androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                    achievementStringList
+            );
+            ListView achievementListView = findViewById(R.id.listViewAchievements);
+            achievementListView.setAdapter(adapter);
         }
     }
 
