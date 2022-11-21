@@ -23,7 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sfu.cmpt276.coopachievement.model.Singleton;
-
+/*
+* Option Activity is responsible for letting user to choose theme and save it inside singleton class
+* Also lists out the achievement name
+*/
 public class OptionActivity extends AppCompatActivity {
     private static OptionActivity instance = null;
     private String selectedTheme;
@@ -37,7 +40,6 @@ public class OptionActivity extends AppCompatActivity {
 
     private static final String GENERAL_PREFS_NAME = "AppPrefs";
     private static final String THEME_KEY = "Theme Choice";
-    public static final int themeDefault=R.integer.default_spinner_position;
 
     private SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -65,12 +67,14 @@ public class OptionActivity extends AppCompatActivity {
         scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
 
 
+        //set up spinner and adapter
         themeSpinner = findViewById(R.id.theme_spinner);
         themeAdapter= ArrayAdapter.createFromResource(this,R.array.theme_choice,
                 android.R.layout.simple_spinner_item);
         themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         themeSpinner.setAdapter(themeAdapter);
 
+        //get shared preference to save the last position
         prefs=getSharedPreferences("LastSetting",Context.MODE_PRIVATE);
         editor=prefs.edit();
         final int lastClick = prefs.getInt("lastClick",0);
@@ -142,10 +146,12 @@ public class OptionActivity extends AppCompatActivity {
                         getApplicationContext(),
                         R.anim.rotate
                 ));
+
+                //save theme index inside singleton class
                 themeIndex= themeSpinner.getSelectedItemPosition();
-                saveData(themeIndex);
                 Singleton instance = Singleton.getInstance();
                 instance.setThemeIndex(themeIndex);
+
                 saveButton.startAnimation(scaleUp);
                 saveButton.startAnimation(scaleDown);
             }
@@ -179,13 +185,9 @@ public class OptionActivity extends AppCompatActivity {
         return prefs.getInt("lastClick",0);
     }
 
-
-
     public static String getThemeKey(){
         return THEME_KEY;
     }
-
-
 
 
 }

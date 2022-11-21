@@ -46,10 +46,8 @@ public class ViewConfigListActivity extends AppCompatActivity {
     public static final String EXTRA_THEME = "Theme position in Option";
 
 
-    public static Intent makeIntent(Context context, int themeIndex) {
-        Intent intent = new Intent(context, ViewConfigListActivity.class);
-        intent.putExtra(EXTRA_THEME,themeIndex);
-        return intent;
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, ViewConfigListActivity.class);
     }
 
     @Override

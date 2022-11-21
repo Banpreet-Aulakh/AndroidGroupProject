@@ -25,10 +25,13 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/*
+* Main Menu is responsible for switching between ViewConfigList Activity and Option Activity
+*/
 
 public class MainMenuActivity extends AppCompatActivity {
-    Singleton instance = Singleton.getInstance();
-    int themeIndex= instance.getThemeIndex();
+    //Singleton instance = Singleton.getInstance();
+    //int themeIndex= instance.getThemeIndex();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Main Menu");
+
+
 
         setupConfigButton();
         setupOptionButton();
@@ -47,8 +52,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private void setupConfigButton() {
         Button btn = findViewById(R.id.configBtn);
         btn.setOnClickListener(v -> {
-            int themeIndex=OptionActivity.getData(this,OptionActivity.getThemeKey(),OptionActivity.themeDefault);
-            Intent i = ViewConfigListActivity.makeIntent(MainMenuActivity.this,themeIndex);
+            Intent i = ViewConfigListActivity.makeIntent(MainMenuActivity.this);
             startActivity(i);
         });
     }

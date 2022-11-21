@@ -16,15 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.sfu.cmpt276.coopachievement.model.Singleton;
+
 import org.w3c.dom.Text;
 
 
 /*
- * Message Fragment Class: Display congratulations message once player found all mines
+ * Message Fragment Class: Display an alert dialog with override methods to display with sound,
+ * Animation and Images
  */
 
 public class MessageFragment extends AppCompatDialogFragment {
-
 
 
     @NonNull
@@ -35,17 +37,32 @@ public class MessageFragment extends AppCompatDialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.congratulation_layout,null);
 
+        Singleton instance = Singleton.getInstance();
+        int themeIndex = instance.getThemeIndex();
+
         final ImageView dialogImageView= (ImageView) v.findViewById(R.id.image_alertDialog);
-        dialogImageView.setImageResource(R.drawable.alone);
+
+        if (themeIndex==0){
+            dialogImageView.setImageResource(R.drawable.leviathan);
+        }
+        if (themeIndex==1){
+            dialogImageView.setImageResource(R.drawable.pawpatrol);
+        }
+        if (themeIndex==2){
+            dialogImageView.setImageResource(R.drawable.dinosaur);
+        }
+
 
         final TextView tv =(TextView) v.findViewById(R.id.achievement_name);
-        tv.setText("AEEEEE");
+        final TextView achievementName = (TextView) getActivity().findViewById(R.id.displayAchievementText);
 
+        //set achievement gotten inside new game activity
+        String txtAchievementName= achievementName.getText().toString();
+        tv.setText(txtAchievementName);
+
+        //create animation for theme
         Animation rotateLoop;
-
         rotateLoop=AnimationUtils.loadAnimation(getActivity(),R.anim.rotate_loop);
-
-
         dialogImageView.startAnimation(rotateLoop);
 
 
@@ -55,7 +72,7 @@ public class MessageFragment extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        //create dialog when winning to for escaping game, or change setting
+                        //create dialog when clicking save and finish the activity when clicking ok
                         getActivity().finish();
                         break;
                 }

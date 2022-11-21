@@ -50,6 +50,7 @@ public class EditConfigActivity extends AppCompatActivity {
             R.id.config_fabulous_val
     };
 
+    //getting the address of achievement text view and change text based on theme index
     private int[] txtThresholdAchievement={
             R.id.config_lowly_leech,
             R.id.config_horrendous_hagfish,
@@ -175,7 +176,7 @@ public class EditConfigActivity extends AppCompatActivity {
 
     }
 
-    //Get Values from a gameconfig to Edit
+    //Get Values from a game config to Edit
     private void setEditConfigValues(){
 
         game = gameConfigList.getGameConfigList().get(position);

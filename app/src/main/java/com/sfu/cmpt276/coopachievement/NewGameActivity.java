@@ -67,7 +67,6 @@ public class NewGameActivity extends AppCompatActivity {
 
 
         configList = Singleton.getInstance();
-
         int themeIndex = configList.getThemeIndex();
         achievementsList = populateAchievementList(themeIndex);
 
@@ -78,7 +77,6 @@ public class NewGameActivity extends AppCompatActivity {
 
         numPlayers = findViewById(R.id.numPlayersEditText);
         displayAchievementText = findViewById(R.id.displayAchievementText);
-
         numPlayers.addTextChangedListener(checkFinished);
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
@@ -138,12 +136,6 @@ public class NewGameActivity extends AppCompatActivity {
         final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
         saveSound.start();
 
-//        Animation scaleUp,scaleDown;
-//        scaleUp=AnimationUtils.loadAnimation(this,R.anim.scale_up);
-//        scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
-//        ImageView ball=findViewById(R.id.image_alertDialog);
-//        ball.startAnimation(scaleUp);
-//        ball.startAnimation(scaleDown);
     }
 
     private String[] populateAchievementList(int themeIndex) {
@@ -239,7 +231,6 @@ public class NewGameActivity extends AppCompatActivity {
                     celebrationMessage();
 
 
-
                 }
                 return true;
             case android.R.id.home:
@@ -271,8 +262,6 @@ public class NewGameActivity extends AppCompatActivity {
         scaleUp= AnimationUtils.loadAnimation(this,R.anim.scale_up);
         scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
         String gameNumPlayers = numPlayers.getText().toString().trim();
-        //test sound and animation here
-
 
         if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);

@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 
 public class GameHistoryActivity extends AppCompatActivity {
-    private final int ACHIEVEMENT_LIST_SIZE = 8;
+    //private final int ACHIEVEMENT_LIST_SIZE = 8;
     private final static String positionCodeName = "POSITION";
     private int position;
     private GameHistory gameHistory;
@@ -41,6 +41,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private String [] achievementsList;
     private TextView noItemView;
     private ArrayList<String[]> paramsList;
+
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, GameHistoryActivity.class);
@@ -60,9 +61,11 @@ public class GameHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_config_history);
         noItemView = findViewById(R.id.no_items_history_text);
         noItemView.setVisibility(View.INVISIBLE);
+
         singleton = Singleton.getInstance();
         int themeIndex = singleton.getThemeIndex();
-        achievementsList = achievementsList = populateAchievementList(themeIndex);
+        achievementsList = populateAchievementList(themeIndex);
+
         getDataFromIntent();
 
         singleton = Singleton.getInstance();
