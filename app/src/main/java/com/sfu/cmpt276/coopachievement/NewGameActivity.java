@@ -2,10 +2,13 @@ package com.sfu.cmpt276.coopachievement;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,8 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,7 +43,6 @@ public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
     final static private int HARD = 2;
-    private Singleton configList;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
@@ -59,18 +64,10 @@ public class NewGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_game);
         playerScoreArray = new ArrayList<Integer>();
 
-        configList = Singleton.getInstance();
-        achievementsList = new String[]{
-                getResources().getString(R.string.lowly_leech),
-                getResources().getString(R.string.horrendous_hagfish),
-                getResources().getString(R.string.bogus_blowfish),
-                getResources().getString(R.string.terrible_trolls),
-                getResources().getString(R.string.goofy_goblins),
-                getResources().getString(R.string.dastardly_dragons),
-                getResources().getString(R.string.awesome_alligators),
-                getResources().getString(R.string.epic_elephants),
-                getResources().getString(R.string.fabulous_fairies)};
 
+        Singleton configList = Singleton.getInstance();
+        int themeIndex = configList.getThemeIndex();
+        achievementsList = populateAchievementList(themeIndex);
 
 
         Intent intent = getIntent();
@@ -79,7 +76,6 @@ public class NewGameActivity extends AppCompatActivity {
 
         numPlayers = findViewById(R.id.numPlayersEditText);
         displayAchievementText = findViewById(R.id.displayAchievementText);
-
         numPlayers.addTextChangedListener(checkFinished);
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
@@ -132,6 +128,36 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
+    public void celebrationMessage() {
+        FragmentManager manager = getSupportFragmentManager();
+        MessageFragment dialog = new MessageFragment();
+        dialog.show(manager, "");
+        final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
+        saveSound.start();
+
+    }
+
+    private String[] populateAchievementList(int themeIndex) {
+
+        if(themeIndex== 0){
+            String[] themeArray=getResources().getStringArray(R.array.mythical);
+            return themeArray;
+        }
+        if (themeIndex==1)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.paw_patrol);
+            return themeArray;
+
+        }
+        if(themeIndex==2)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.dinosaur);
+            return themeArray;
+        }
+        else
+            return achievementsList;
+    }
+
     private void setupDifficultyRadioButtons() {
         RadioGroup group = findViewById(R.id.difficultyRadioGroup);
 
@@ -148,7 +174,12 @@ public class NewGameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     selectedDifficultyButton = difficultySetting;
+
                     String gameNumPlayers = numPlayers.getText().toString().trim();
+
+                    if(updateTotalScore==null){
+                       updateTotalScore=findViewById(R.id.txtTotalScore);
+                   }
                     if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
                         int numberPlayers = getIntFromEditText(numPlayers);
 
@@ -173,6 +204,7 @@ public class NewGameActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -195,7 +227,9 @@ public class NewGameActivity extends AppCompatActivity {
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
                     }
                     ViewConfigListActivity.saveData(NewGameActivity.this);
-                    finish();
+                    celebrationMessage();
+
+
                 }
                 return true;
             case android.R.id.home:
@@ -223,14 +257,20 @@ public class NewGameActivity extends AppCompatActivity {
 
     //helper function to show the correct achievement level to screen
     private void displayAchievementLevel(){
+        Animation scaleUp,scaleDown;
+        scaleUp= AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scaleDown=AnimationUtils.loadAnimation(this,R.anim.scale_down);
         String gameNumPlayers = numPlayers.getText().toString().trim();
 
         if (!updateTotalScore.getText().toString().equals("-") && !gameNumPlayers.isEmpty() && getIntFromEditText(numPlayers) != 0) {
             int numberPlayers = getIntFromEditText(numPlayers);
             int combinedScore = currentGame.getTotalScore(); //Changed for branch
             gameConfiguration.setAchievement_Thresholds(selectedDifficultyButton);
-            displayAchievementText.setText(currentGame.checkAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
+            displayAchievementText.setText(currentGame.checkAchievementLevel(
+                    gameConfiguration.getAchievement_Thresholds(), achievementsList, numberPlayers, combinedScore));
 
+            displayAchievementText.startAnimation(scaleUp);
+            displayAchievementText.startAnimation(scaleDown);
         }else{
             displayAchievementText.setText(getResources().getString(R.string.empty_string));
         }

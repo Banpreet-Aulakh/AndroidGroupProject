@@ -39,6 +39,8 @@ public class EditConfigActivity extends AppCompatActivity {
     private Singleton gameConfigList = Singleton.getInstance();
     private GameConfig game;
 
+
+
     //Index of config array, if position = -1, you are creating a new config
     private int position;
     private boolean isCreateConfig;
@@ -57,6 +59,7 @@ public class EditConfigActivity extends AppCompatActivity {
     private EditText numPlayers;
 
     private int selectedDifficultyButton;
+
 
     private TextView achievementViews;
 
@@ -96,6 +99,7 @@ public class EditConfigActivity extends AppCompatActivity {
         greatEditTxt.addTextChangedListener(checkFinished);
 
 
+
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
@@ -103,14 +107,18 @@ public class EditConfigActivity extends AppCompatActivity {
         else{
             toolbar.setTitle(R.string.edit_config_title);
             setEditConfigValues();
+
         }
         setupDifficultyRadioButtons(game);
         selectedDifficultyButton = MEDIUM;
         toolbar.setDisplayHomeAsUpEnabled(true);
 
+
     }
 
-    //Get Values from a gameconfig to Edit
+
+
+    //Get Values from a game config to Edit
     private void setEditConfigValues(){
 
         game = gameConfigList.getGameConfigList().get(position);
@@ -258,18 +266,11 @@ public class EditConfigActivity extends AppCompatActivity {
                 lowlyLeechScore = "0";
             }
 
+            int selectedTheme =gameConfigList.getThemeIndex();
+
+
             //Change
-            String[] achievementStringList = {
-                    getString(R.string.lowly_leech) + ":    " + lowlyLeechScore,
-                    getString(R.string.horrendous_hagfish) + ":    " + numP * thresholdList.get(0) + "-" + (numP * thresholdList.get(1)-1),
-                    getString(R.string.bogus_blowfish) + ":     " + numP * thresholdList.get(1) + "-" + (numP * thresholdList.get(2)-1),
-                    getString(R.string.terrible_trolls) + ":    " + numP * thresholdList.get(2) + "-" + (numP * thresholdList.get(3)-1),
-                    getString(R.string.goofy_goblins) + ":    " + numP * thresholdList.get(3) + "-" + (numP * thresholdList.get(4)-1),
-                    getString(R.string.dastardly_dragons) + ":    " + numP * thresholdList.get(4) + "-" + (numP * thresholdList.get(5)-1),
-                    getString(R.string.awesome_alligators) + ":    " + numP * thresholdList.get(5) + "-" + (numP * thresholdList.get(6)-1),
-                    getString(R.string.epic_elephants) + ":    " + numP * thresholdList.get(6) + "-" + (numP * thresholdList.get(7)-1),
-                    getString(R.string.fabulous_fairies) + ":  Greater Than " + numP * thresholdList.get(7)
-            };
+            String[] achievementStringList = checkThemeAndPopulateThreshold(selectedTheme,numP,lowlyLeechScore,thresholdList);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(
                     EditConfigActivity.this,
@@ -279,6 +280,73 @@ public class EditConfigActivity extends AppCompatActivity {
             ListView achievementListView = findViewById(R.id.listViewAchievements);
             achievementListView.setAdapter(adapter);
         }
+    }
+
+        private String[] checkThemeAndPopulateThreshold(int selectedTheme,int numP,String lowlyLeechScore,ArrayList<Integer>thresholdList) {
+
+        String[] tempArray={
+                getString(R.string.lowly_leech) + ":    " + lowlyLeechScore,
+                getString(R.string.horrendous_hagfish) + ":    " + numP * thresholdList.get(0) + "-" + (numP * thresholdList.get(1)-1),
+                getString(R.string.bogus_blowfish) + ":     " + numP * thresholdList.get(1) + "-" + (numP * thresholdList.get(2)-1),
+                getString(R.string.terrible_trolls) + ":    " + numP * thresholdList.get(2) + "-" + (numP * thresholdList.get(3)-1),
+                getString(R.string.goofy_goblins) + ":    " + numP * thresholdList.get(3) + "-" + (numP * thresholdList.get(4)-1),
+                getString(R.string.dastardly_dragons) + ":    " + numP * thresholdList.get(4) + "-" + (numP * thresholdList.get(5)-1),
+                getString(R.string.awesome_alligators) + ":    " + numP * thresholdList.get(5) + "-" + (numP * thresholdList.get(6)-1),
+                getString(R.string.epic_elephants) + ":    " + numP * thresholdList.get(6) + "-" + (numP * thresholdList.get(7)-1),
+                getString(R.string.fabulous_fairies) + ":  Greater Than " + numP * thresholdList.get(7)
+            };;
+
+        if(selectedTheme == 0){
+            String [] resourceArray = getResources().getStringArray(R.array.mythical);
+            String[] themeArray={
+                    resourceArray[0]+ ":    " + lowlyLeechScore,
+                    resourceArray[1] + ":    " + numP * thresholdList.get(0) + "-" + (numP * thresholdList.get(1)-1),
+                    resourceArray[2] + ":     " + numP * thresholdList.get(1) + "-" + (numP * thresholdList.get(2)-1),
+                    resourceArray[3] + ":    " + numP * thresholdList.get(2) + "-" + (numP * thresholdList.get(3)-1),
+                    resourceArray[4] + ":    " + numP * thresholdList.get(3) + "-" + (numP * thresholdList.get(4)-1),
+                    resourceArray[5] + ":    " + numP * thresholdList.get(4) + "-" + (numP * thresholdList.get(5)-1),
+                    resourceArray[6] + ":    " + numP * thresholdList.get(5) + "-" + (numP * thresholdList.get(6)-1),
+                    resourceArray[7] + ":    " + numP * thresholdList.get(6) + "-" + (numP * thresholdList.get(7)-1),
+                    resourceArray[8] + ":  Greater Than " + numP * thresholdList.get(7)
+            };
+            return themeArray;
+
+        }
+        if (selectedTheme==1)
+        {
+            String [] resourceArray = getResources().getStringArray(R.array.paw_patrol);
+            String[] themeArray={
+                    resourceArray[0]+ ":    " + lowlyLeechScore,
+                    resourceArray[1] + ":    " + numP * thresholdList.get(0) + "-" + (numP * thresholdList.get(1)-1),
+                    resourceArray[2] + ":     " + numP * thresholdList.get(1) + "-" + (numP * thresholdList.get(2)-1),
+                    resourceArray[3] + ":    " + numP * thresholdList.get(2) + "-" + (numP * thresholdList.get(3)-1),
+                    resourceArray[4] + ":    " + numP * thresholdList.get(3) + "-" + (numP * thresholdList.get(4)-1),
+                    resourceArray[5] + ":    " + numP * thresholdList.get(4) + "-" + (numP * thresholdList.get(5)-1),
+                    resourceArray[6] + ":    " + numP * thresholdList.get(5) + "-" + (numP * thresholdList.get(6)-1),
+                    resourceArray[7] + ":    " + numP * thresholdList.get(6) + "-" + (numP * thresholdList.get(7)-1),
+                    resourceArray[8] + ":  Greater Than " + numP * thresholdList.get(7)
+            };
+            return themeArray;
+
+        }
+        if(selectedTheme==2)
+        {
+            String [] resourceArray = getResources().getStringArray(R.array.dinosaur);
+            String[] themeArray={
+                    resourceArray[0]+ ":    " + lowlyLeechScore,
+                    resourceArray[1] + ":    " + numP * thresholdList.get(0) + "-" + (numP * thresholdList.get(1)-1),
+                    resourceArray[2] + ":     " + numP * thresholdList.get(1) + "-" + (numP * thresholdList.get(2)-1),
+                    resourceArray[3] + ":    " + numP * thresholdList.get(2) + "-" + (numP * thresholdList.get(3)-1),
+                    resourceArray[4] + ":    " + numP * thresholdList.get(3) + "-" + (numP * thresholdList.get(4)-1),
+                    resourceArray[5] + ":    " + numP * thresholdList.get(4) + "-" + (numP * thresholdList.get(5)-1),
+                    resourceArray[6] + ":    " + numP * thresholdList.get(5) + "-" + (numP * thresholdList.get(6)-1),
+                    resourceArray[7] + ":    " + numP * thresholdList.get(6) + "-" + (numP * thresholdList.get(7)-1),
+                    resourceArray[8] + ":  Greater Than " + numP * thresholdList.get(7)
+            };
+            return themeArray;
+
+        }
+        else return tempArray;
     }
 
     private void setupDifficultyRadioButtons(GameConfig configuration) {

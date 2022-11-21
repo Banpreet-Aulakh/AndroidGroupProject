@@ -45,5 +45,52 @@
     <string name="difficulty_level">Difficulty Level</string>
     <string name="number_of_players">Number of Players</string>
     <string name="game_number">Game Number</string>
+    <string name="confirm_text">Theme saved! Exit to main menu? </string>
+    <string name="save">Save</string>
+    <string name="you_got_an_achievement">You got an achievement!</string>
+    <string name="select_theme">Select Theme :</string>
+    <string name="option">Option</string>
+
+    <string-array name="theme_choice">
+        <item>Mythical</item>
+        <item>Paw Patrol</item>
+        <item>Dinosaur</item>
+    </string-array>
+
+    <string-array name="mythical">
+        <item>Worrying Werewolves </item>
+        <item>Phony Phoenix</item>
+        <item>Messy Mermaids</item>
+        <item>Ethical Elves</item>
+        <item>Friendly Fairies</item>
+        <item>Horrified Hydras</item>
+        <item>Undying Unicorns</item>
+        <item>Destructive Dragons</item>
+        <item>Legendary Leviathan </item>
+    </string-array>
+
+    <string-array name="paw_patrol">
+        <item>Horrible Humdinger</item>
+        <item>Rowdy Ruff Pack</item>
+        <item>Confused Copycat</item>
+        <item>Sassy Sweetie</item>
+        <item>Zany Zuma</item>
+        <item>Radiant Rocky</item>
+        <item>Reliable Rubble</item>
+        <item>Super Skye</item>
+        <item>Marvelous Marshal</item>
+    </string-array>
+
+    <string-array name="dinosaur">
+        <item>Terrible Tyrannosaurus </item>
+        <item>Tired Pterodactyl </item>
+        <item>Apathetic Allosaurus</item>
+        <item>Drab Dilophosaurus</item>
+        <item>Melancholy Mosasaurus</item>
+        <item>Great Giganotosaurus </item>
+        <item>Terrific Triceratops</item>
+        <item>Super Stegosaurus </item>
+        <item>Valiant velociraptor </item>
+    </string-array>
 
 </resources>
