@@ -23,7 +23,7 @@
     <string name="score">score</string>
     <string name="players">Players</string>
     <string name="achievement_level">Achievement Level</string>
-    <string name="config_achievement_title">Achievement Thresholds</string>
+    <string name="config_achievement_title">Achievement Threshold</string>
     <string name="zero_points_string">0 Points</string>
     <string name="point_string">\ Points</string>
     <string name="edit_game">Edit Game</string>
@@ -50,6 +50,10 @@
     <string name="you_got_an_achievement">You got an achievement!</string>
     <string name="select_theme">Select Theme :</string>
     <string name="option">Option</string>
+    <string name="not_possible">Not Possible</string>
+    <string name="zero">0</string>
+    <string name="colon_space">:\u0020\u0020\u0020\u0020\u0020</string>
+    <string name="colon_greater">:  Greater Than\u0020</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>
