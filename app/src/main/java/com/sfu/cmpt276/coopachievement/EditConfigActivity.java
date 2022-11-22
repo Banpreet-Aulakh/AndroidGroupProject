@@ -233,7 +233,7 @@ public class EditConfigActivity extends AppCompatActivity {
     }
 
     //function changes the achievement thresholds, called when radio button difficulty is changed or textfield changes
-    private void populateAchievementRanges(){
+    private void populateAchievementThreshold(){
         gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
         poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
         greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
@@ -263,14 +263,14 @@ public class EditConfigActivity extends AppCompatActivity {
             int numP = Integer.parseInt(numPlayers.getText().toString());
             String lowlyLeechScore = getString(R.string.not_possible);
             if(thresholdList.get(0) != 0){
-                lowlyLeechScore = getString(R.string.zero) + getString(R.string.empty_string) + (thresholdList.get(0)-1);
+                lowlyLeechScore = getString(R.string.zero);
             }
 
             int selectedTheme =gameConfigList.getThemeIndex();
 
 
             //Change
-            String[] achievementStringList = checkThemeAndPopulateRanges(selectedTheme,numP,lowlyLeechScore,thresholdList);
+            String[] achievementStringList = checkThemeAndPopulateThreshold(selectedTheme,numP,lowlyLeechScore,thresholdList);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(
                     EditConfigActivity.this,
@@ -283,7 +283,7 @@ public class EditConfigActivity extends AppCompatActivity {
     }
 
     //Setup AchievementRanges
-    private String[] checkThemeAndPopulateRanges(int selectedTheme, int numP, String lowlyLeechScore, ArrayList<Integer>thresholdList) {
+    private String[] checkThemeAndPopulateThreshold(int selectedTheme, int numP, String lowlyLeechScore, ArrayList<Integer>thresholdList) {
 
             String[] resourceArray = getResources().getStringArray(R.array.mythical);
         if(selectedTheme == 0){
@@ -297,14 +297,14 @@ public class EditConfigActivity extends AppCompatActivity {
         }
         String[] themeArray={
                     resourceArray[0]+ getString(R.string.colon_space) + lowlyLeechScore,
-                    resourceArray[1] + getString(R.string.colon_space) + numP * thresholdList.get(0) + getString(R.string.empty_string) + (numP * thresholdList.get(1)-1),
-                    resourceArray[2] + getString(R.string.colon_space) + numP * thresholdList.get(1) + getString(R.string.empty_string) + (numP * thresholdList.get(2)-1),
-                    resourceArray[3] + getString(R.string.colon_space) + numP * thresholdList.get(2) + getString(R.string.empty_string) + (numP * thresholdList.get(3)-1),
-                    resourceArray[4] + getString(R.string.colon_space) + numP * thresholdList.get(3) + getString(R.string.empty_string) + (numP * thresholdList.get(4)-1),
-                    resourceArray[5] + getString(R.string.colon_space) + numP * thresholdList.get(4) + getString(R.string.empty_string) + (numP * thresholdList.get(5)-1),
-                    resourceArray[6] + getString(R.string.colon_space) + numP * thresholdList.get(5) + getString(R.string.empty_string) + (numP * thresholdList.get(6)-1),
-                    resourceArray[7] + getString(R.string.colon_space)+ numP * thresholdList.get(6) + getString(R.string.empty_string) + (numP * thresholdList.get(7)-1),
-                    resourceArray[8] + getString(R.string.colon_greater) + numP * thresholdList.get(7)};
+                    resourceArray[1] + getString(R.string.colon_space) + numP * thresholdList.get(0),
+                    resourceArray[2] + getString(R.string.colon_space) + numP * thresholdList.get(1),
+                    resourceArray[3] + getString(R.string.colon_space) + numP * thresholdList.get(2),
+                    resourceArray[4] + getString(R.string.colon_space) + numP * thresholdList.get(3),
+                    resourceArray[5] + getString(R.string.colon_space) + numP * thresholdList.get(4),
+                    resourceArray[6] + getString(R.string.colon_space) + numP * thresholdList.get(5),
+                    resourceArray[7] + getString(R.string.colon_space)+ numP * thresholdList.get(6),
+                    resourceArray[8] + getString(R.string.colon_space) + (numP * thresholdList.get(7))};
         return themeArray;
     }
 
@@ -326,7 +326,7 @@ public class EditConfigActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     selectedDifficultyButton = difficultySetting;
                     configuration.setAchievement_Thresholds(selectedDifficultyButton);
-                    populateAchievementRanges();
+                    populateAchievementThreshold();
                 }
             });
             group.addView(button);
@@ -343,7 +343,7 @@ public class EditConfigActivity extends AppCompatActivity {
         }
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-           populateAchievementRanges();
+           populateAchievementThreshold();
         }
         @Override
         public void afterTextChanged(Editable editable) {

@@ -3,6 +3,7 @@ package com.sfu.cmpt276.coopachievement;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -111,7 +112,7 @@ public class NewGameActivity extends AppCompatActivity {
 
             numPlayersInt = currentGame.getNumPlayers();
             currentGame.setNumPlayers(numPlayersInt);
-            ListView list = findViewById(R.id.listViewPlayers);
+            list = findViewById(R.id.listViewPlayers);
             list.setAdapter(complexAdapter);
 
         }
@@ -136,7 +137,7 @@ public class NewGameActivity extends AppCompatActivity {
         saveSound.start();
 
     }
-
+    //Get Theme for Achievements
     private String[] populateAchievementList(int themeIndex) {
 
         if(themeIndex== 0){
@@ -157,7 +158,7 @@ public class NewGameActivity extends AppCompatActivity {
         else
             return achievementsList;
     }
-
+    //Easy Normal Hard difficulty selection
     private void setupDifficultyRadioButtons() {
         RadioGroup group = findViewById(R.id.difficultyRadioGroup);
 
@@ -301,7 +302,7 @@ public class NewGameActivity extends AppCompatActivity {
                         playerScoreArray.add(-1);
                     }
                     currentGame.setNumPlayers(numPlayersInt);
-                    ListView list = findViewById(R.id.listViewPlayers);
+                    list = findViewById(R.id.listViewPlayers);
                     list.setAdapter(complexAdapter);
                 }
             }
@@ -312,7 +313,6 @@ public class NewGameActivity extends AppCompatActivity {
 
         }
     };
-
     private class ComplexAdapter extends ArrayAdapter<Integer> {
         private Context contextMain;
         private int resourceLayout;
@@ -331,9 +331,7 @@ public class NewGameActivity extends AppCompatActivity {
             }
 
             TextView playerText = itemView.findViewById(R.id.playerNumber);
-
             EditText getScore = itemView.findViewById(R.id.getPlayerScore);
-
 
             playerText.setText("Player " + (position+1) + " Score:");
 
@@ -349,6 +347,13 @@ public class NewGameActivity extends AppCompatActivity {
                             R.layout.player_score_row, playerScoreArray);
                 }
             }
+            if(playerScoreArray.get(position) != -1){
+                getScore.setText(currentGame.getListScore().get(position) +"");
+            }
+            else{
+                getScore.setText(getString(R.string.blank));
+            }
+
 
             getScore.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -357,15 +362,16 @@ public class NewGameActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String[] words = playerText.getText().toString().split(" ");
                     if(getScore.hasFocus()) {
                         String getScoreString = getScore.getText().toString();
 
                         //Change Values
                         if (getScoreString.equals("")) {
-                            playerScoreArray.set(position, -1);
+                            playerScoreArray.set(Integer.parseInt(words[1])-1, -1);
                             currentGame.setTotalScore(playerScoreArray);
                         } else {
-                            playerScoreArray.set(position, Integer.parseInt(getScoreString));
+                            playerScoreArray.set(Integer.parseInt(words[1])-1, Integer.parseInt(getScoreString));
                             currentGame.setTotalScore(playerScoreArray);
                         }
 
