@@ -43,6 +43,13 @@ public class ViewConfigListActivity extends AppCompatActivity {
     private TextView emptyListTxt;
     private TextView helpCreateConfig;
 
+    public static final String EXTRA_THEME = "Theme position in Option";
+
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, ViewConfigListActivity.class);
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -70,24 +77,33 @@ public class ViewConfigListActivity extends AppCompatActivity {
         populateListView();
         registerListClick();
     }
+// todo Need to make sure finish Affinity and back press does not break code
 
-    @Override
+  @Override
     public void onBackPressed() {
-        //Save instance code here
-        super.onBackPressed();
-        finishAffinity();
-    }
+     //Save instance code here
+      super.onBackPressed();
+      //finishAffinity();
+      finishAndRemoveTask();
+   }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_configured_list);
 
+        Intent intent = getIntent();
+        int theme_key = intent.getIntExtra(EXTRA_THEME,0);
+
         isEditConfigMode = true;
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("Configured Games");
 
         createFloatingActionButton();
+
+        //Set up for intent theme key
+        //testing only
+
 
     }
 

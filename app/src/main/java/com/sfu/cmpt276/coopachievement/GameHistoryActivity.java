@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,13 +26,13 @@ import com.sfu.cmpt276.coopachievement.model.Singleton;
 import java.util.ArrayList;
 
 /*
-* The GameHistory Activity is responsible for displaying the instances of GamesPlayed
-* in the GameHistory Class in a List Format.This is shown after a user selects the game configuration
-* in the previous screen's menu.
-*/
+ * The GameHistory Activity is responsible for displaying the instances of GamesPlayed
+ * in the GameHistory Class in a List Format.This is shown after a user selects the game configuration
+ * in the previous screen's menu.
+ */
 
 public class GameHistoryActivity extends AppCompatActivity {
-    private final int ACHIEVEMENT_LIST_SIZE = 8;
+    //private final int ACHIEVEMENT_LIST_SIZE = 8;
     private final static String positionCodeName = "POSITION";
     private int position;
     private GameHistory gameHistory;
@@ -41,6 +42,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private String [] achievementsList;
     private TextView noItemView;
     private ArrayList<String[]> paramsList;
+
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
         Intent intent = new Intent(context, GameHistoryActivity.class);
@@ -60,16 +62,11 @@ public class GameHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_config_history);
         noItemView = findViewById(R.id.no_items_history_text);
         noItemView.setVisibility(View.INVISIBLE);
-        achievementsList = new String[]{
-                getResources().getString(R.string.lowly_leech),
-                getResources().getString(R.string.horrendous_hagfish),
-                getResources().getString(R.string.bogus_blowfish),
-                getResources().getString(R.string.terrible_trolls),
-                getResources().getString(R.string.goofy_goblins),
-                getResources().getString(R.string.dastardly_dragons),
-                getResources().getString(R.string.awesome_alligators),
-                getResources().getString(R.string.epic_elephants),
-                getResources().getString(R.string.fabulous_fairies)};
+
+        singleton = Singleton.getInstance();
+        int themeIndex = singleton.getThemeIndex();
+        achievementsList = populateAchievementList(themeIndex);
+
         getDataFromIntent();
 
         singleton = Singleton.getInstance();
@@ -103,6 +100,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         updateGameAchievements();
         if(gameHistory.getGameHistoryList().size() > 0) {
             populateListView(gameHistory);
+            listOnClick();
         }
         noItemView.setVisibility(View.INVISIBLE);
         if(gameHistory.getGameHistoryList().size() == 0){
@@ -126,14 +124,34 @@ public class GameHistoryActivity extends AppCompatActivity {
         }
     }
 
+    private String[] populateAchievementList(int themeIndex) {
+
+        if(themeIndex== 0){
+            String[] themeArray=getResources().getStringArray(R.array.mythical);
+            return themeArray;
+        }
+        if (themeIndex==1)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.paw_patrol);
+            return themeArray;
+
+        }
+        if(themeIndex==2)
+        {
+            String[] themeArray=getResources().getStringArray(R.array.dinosaur);
+            return themeArray;
+        }
+        else
+            return achievementsList;
+    }
     private void floatingActionButton() {
         FloatingActionButton fab = findViewById(R.id.add_new_game_btn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
-               intent.putExtra("configIndex", position);
-               startActivity(intent);
+                Intent intent = NewGameActivity.makeIntent(GameHistoryActivity.this);
+                intent.putExtra("configIndex", position);
+                startActivity(intent);
             }
         });
     }
@@ -145,7 +163,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-//Will contain code to handle editing game instance
+    //Will contain code to handle editing game instance
     private void listOnClick() {
         ListView list = findViewById(R.id.game_history_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -182,7 +200,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private class MyListAdapter extends ArrayAdapter<String[]> {
 
         public MyListAdapter(){
-                super(GameHistoryActivity.this, R.layout.game_history_list, paramsList);
+            super(GameHistoryActivity.this, R.layout.game_history_list, paramsList);
         }
 
         @NonNull
