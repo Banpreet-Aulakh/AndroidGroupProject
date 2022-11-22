@@ -58,6 +58,7 @@ public class NewGameActivity extends AppCompatActivity {
     private ListView list;
     private TextView updateTotalScore;
     private boolean initialize;
+    private boolean complexAdapterInitialize;
     private ArrayList<Integer> copyOriginalArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class NewGameActivity extends AppCompatActivity {
         numPlayers = findViewById(R.id.numPlayersEditText);
         displayAchievementText = findViewById(R.id.displayAchievementText);
         numPlayers.addTextChangedListener(checkFinished);
+        updateTotalScore = findViewById(R.id.txtTotalScore);
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
@@ -89,11 +91,15 @@ public class NewGameActivity extends AppCompatActivity {
         if (historyIndex != -1) {
             //set to true to help initialize values when populating list view
             initialize = true;
+            complexAdapterInitialize = true;
+
             //get the specific game played that was clicked on
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
             toolbar.setTitle(R.string.edit_game);
             numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
             displayAchievementText.setText(currentGame.getAchievementName());
+            updateTotalScore.setText(Integer.toString(currentGame.getTotalScore()));
+
             //set radio group button as checked
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(currentGame.getDifficulty());
             button.setChecked(true);
@@ -285,10 +291,9 @@ public class NewGameActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             displayAchievementText.setText(R.string.empty_string);
-            if(!numPlayers.getText().toString().isEmpty()) {
+            if (!numPlayers.getText().toString().isEmpty()) {
                 numPlayersInt = Integer.parseInt(numPlayers.getText().toString());
-            }
-            else{
+            } else {
                 TextView updateTotalScore = findViewById(R.id.txtTotalScore);
                 updateTotalScore.setText(R.string.empty_string);
                 numPlayersInt = 0;
@@ -338,9 +343,10 @@ public class NewGameActivity extends AppCompatActivity {
             updateTotalScore = (TextView) ((Activity)contextMain).findViewById(R.id.txtTotalScore);
 
             //Helper code for initializing values in case of editing array
+
             if(historyIndex != -1 && initialize){
                 getScore.setText(currentGame.getListScore().get(position)+"");
-                if(position == (currentGame.getListScore().size() - 1)){
+                if(position == 3){
                     updateTotalScore.setText(currentGame.getTotalScore()+"");
                     initialize = false;
                     complexAdapter = new ComplexAdapter(NewGameActivity.this,
@@ -349,6 +355,7 @@ public class NewGameActivity extends AppCompatActivity {
             }
             if(playerScoreArray.get(position) != -1){
                 getScore.setText(currentGame.getListScore().get(position) +"");
+
             }
             else{
                 getScore.setText(getString(R.string.blank));
