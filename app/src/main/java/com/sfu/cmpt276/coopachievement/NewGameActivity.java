@@ -379,6 +379,7 @@ public class NewGameActivity extends AppCompatActivity {
                         if (currentGame.isValidScoresList()) {
                             updateTotalScore.setText(Integer.toString(currentGame.getTotalScore()));
                             currentGame.setListScore(playerScoreArray);
+                            selectedDifficultyButton = currentGame.getDifficulty();
                             displayAchievementLevel();
                         } else {
                             updateTotalScore.setText(R.string.empty_string);
