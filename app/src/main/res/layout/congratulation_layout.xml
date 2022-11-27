@@ -23,22 +23,48 @@
         android:id="@+id/image_alertDialog"
         android:layout_width="95dp"
         android:layout_height="91dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/achievement_name"
-        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alert_text"
-        app:layout_constraintVertical_bias="0.096"
+        app:layout_constraintVertical_bias="0.049"
         app:srcCompat="@drawable/ball" />
 
     <TextView
         android:id="@+id/achievement_name"
-        android:layout_width="146dp"
-        android:layout_height="76dp"
+        android:layout_width="141dp"
+        android:layout_height="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintHorizontal_bias="0.875"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alert_text"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.045" />
+
+    <TextView
+        android:id="@+id/txt_points_to_next"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/points_to_next_achievement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_alertDialog" />
+
+    <Spinner
+        android:id="@+id/alert_spinner"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/image_alertDialog"
+        app:layout_constraintTop_toBottomOf="@+id/achievement_name"
+        app:layout_constraintVertical_bias="0.001" />
 </androidx.constraintlayout.widget.ConstraintLayout>

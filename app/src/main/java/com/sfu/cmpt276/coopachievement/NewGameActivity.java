@@ -3,8 +3,6 @@ package com.sfu.cmpt276.coopachievement;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +20,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,9 +38,7 @@ import java.util.ArrayList;
  */
 
 public class NewGameActivity extends AppCompatActivity {
-    final static  private int EASY = 0;
     final static private int MEDIUM = 1;
-    final static private int HARD = 2;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
@@ -138,6 +133,14 @@ public class NewGameActivity extends AppCompatActivity {
     public void celebrationMessage() {
         FragmentManager manager = getSupportFragmentManager();
         MessageFragment dialog = new MessageFragment();
+
+        Bundle varBundle = new Bundle();
+
+        varBundle.putInt("score", currentGame.getTotalScore());
+        varBundle.putIntegerArrayList("thresholds", gameConfiguration.getAchievement_Thresholds());
+        varBundle.putInt("numPlayers", currentGame.getNumPlayers());
+
+        dialog.setArguments(varBundle);
         dialog.show(manager, "");
         final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
         saveSound.start();
