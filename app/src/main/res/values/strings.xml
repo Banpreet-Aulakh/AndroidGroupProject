@@ -59,6 +59,7 @@
     <string name="alert_max_score_achieved">You earned the highest achievement! Congratulations!</string>
     <string name="alert_not_max_achievement_1">You were so close!\ </string>
     <string name="alert_not_max_achievement_2"> \ points away from the next achievement:\ </string>
+    <string name="animate">Animate</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>

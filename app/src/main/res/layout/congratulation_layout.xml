@@ -9,15 +9,16 @@
 
     <TextView
         android:id="@+id/alert_text"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:text="@string/you_got_an_achievement"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintVertical_bias="0.002" />
 
     <ImageView
         android:id="@+id/image_alertDialog"
@@ -26,10 +27,10 @@
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/achievement_name"
-        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintHorizontal_bias="0.401"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alert_text"
-        app:layout_constraintVertical_bias="0.049"
+        app:layout_constraintVertical_bias="0.025"
         app:srcCompat="@drawable/ball" />
 
     <TextView
@@ -38,22 +39,22 @@
         android:layout_height="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alert_text"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <TextView
         android:id="@+id/txt_points_to_next"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="@string/points_to_next_achievement"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_alertDialog" />
+        app:layout_constraintTop_toBottomOf="@+id/replay_animation_btn" />
 
     <Spinner
         android:id="@+id/alert_spinner"
@@ -61,10 +62,23 @@
         android:layout_height="48dp"
         android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/select_theme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/image_alertDialog"
         app:layout_constraintTop_toBottomOf="@+id/achievement_name"
         app:layout_constraintVertical_bias="0.001" />
+
+    <Button
+        android:id="@+id/replay_animation_btn"
+        android:layout_width="132dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="64dp"
+        android:text="@string/animate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/alert_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/image_alertDialog"
+        app:layout_constraintVertical_bias="0.018" />
 </androidx.constraintlayout.widget.ConstraintLayout>
