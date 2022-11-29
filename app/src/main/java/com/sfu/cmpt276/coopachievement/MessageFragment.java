@@ -41,7 +41,7 @@ public class MessageFragment extends AppCompatDialogFragment {
         int themeIndex = instance.getThemeIndex();
 
         final ImageView dialogImageView= (ImageView) v.findViewById(R.id.image_alertDialog);
-
+        MessageFragment.this.setCancelable(false);
         if (themeIndex==0){
             dialogImageView.setImageResource(R.drawable.leviathan);
         }

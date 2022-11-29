@@ -44,11 +44,11 @@ public class NewGameActivity extends AppCompatActivity {
     final static  private int EASY = 0;
     final static private int MEDIUM = 1;
     final static private int HARD = 2;
+    final static private int INITIAL_PLAYERS = 3;
     private GameConfig gameConfiguration;
     private GamePlayed currentGame;
     private EditText numPlayers;
     private int numPlayersInt;
-    private ArrayList<Integer> playerScoreArray;
     private TextView displayAchievementText;
     private int historyIndex;
     private int configIndex;
@@ -58,18 +58,21 @@ public class NewGameActivity extends AppCompatActivity {
     private ListView list;
     private TextView updateTotalScore;
     private boolean initialize;
+    private boolean complexAdapterInitialize;
     private ArrayList<Integer> copyOriginalArray;
+    private ArrayList<Integer> savePlayerScoresChange;
+    private ArrayList<Integer> playerScoreArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         playerScoreArray = new ArrayList<Integer>();
-
+        savePlayerScoresChange = new ArrayList<Integer>();
 
         Singleton configList = Singleton.getInstance();
         int themeIndex = configList.getThemeIndex();
         achievementsList = populateAchievementList(themeIndex);
-
 
         Intent intent = getIntent();
         configIndex = intent.getIntExtra("configIndex", -1);
@@ -78,6 +81,7 @@ public class NewGameActivity extends AppCompatActivity {
         numPlayers = findViewById(R.id.numPlayersEditText);
         displayAchievementText = findViewById(R.id.displayAchievementText);
         numPlayers.addTextChangedListener(checkFinished);
+        updateTotalScore = findViewById(R.id.txtTotalScore);
 
         gameConfiguration = configList.getGameConfigList().get(configIndex);
         ActionBar toolbar = getSupportActionBar();
@@ -89,11 +93,15 @@ public class NewGameActivity extends AppCompatActivity {
         if (historyIndex != -1) {
             //set to true to help initialize values when populating list view
             initialize = true;
+            complexAdapterInitialize = true;
+
             //get the specific game played that was clicked on
             this.currentGame = gameConfiguration.getGameHistory().getGameHistoryList().get(historyIndex);
             toolbar.setTitle(R.string.edit_game);
             numPlayers.setText(""+currentGame.getNumPlayers(), TextView.BufferType.EDITABLE);
             displayAchievementText.setText(currentGame.getAchievementName());
+            updateTotalScore.setText(Integer.toString(currentGame.getTotalScore()));
+
             //set radio group button as checked
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(currentGame.getDifficulty());
             button.setChecked(true);
@@ -106,6 +114,7 @@ public class NewGameActivity extends AppCompatActivity {
             complexAdapter = new ComplexAdapter(NewGameActivity.this,
                     R.layout.player_score_row, tempArray);
             playerScoreArray = currentGame.getListScore();
+            savePlayerScoresChange = (ArrayList<Integer>) currentGame.getListScore().clone();
 
             // original array values cloned in case of back button press cloned
             copyOriginalArray = (ArrayList<Integer>) currentGame.getListScore().clone();
@@ -118,14 +127,25 @@ public class NewGameActivity extends AppCompatActivity {
         }
         else {
             toolbar.setTitle(R.string.new_game);
-            initialize = false;
             this.currentGame = new GamePlayed();
+            this.currentGame.setNumPlayers(INITIAL_PLAYERS);
+            numPlayers.setText(Integer.toString(INITIAL_PLAYERS), TextView.BufferType.EDITABLE);
+            playerScoreArray.clear();
+            savePlayerScoresChange.clear();
+            for(int i = 0; i < INITIAL_PLAYERS; i++){
+                playerScoreArray.add(-1);
+                savePlayerScoresChange.add(-1);
+            }
             complexAdapter = new ComplexAdapter(NewGameActivity.this,
                     R.layout.player_score_row, playerScoreArray);
+            list = findViewById(R.id.listViewPlayers);
+            list.setAdapter(complexAdapter);
+
             //Index 1: medium difficulty by default
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(MEDIUM);
             button.setChecked(true);
             selectedDifficultyButton = MEDIUM;
+
         }
     }
 
@@ -285,10 +305,9 @@ public class NewGameActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             displayAchievementText.setText(R.string.empty_string);
-            if(!numPlayers.getText().toString().isEmpty()) {
+            if (!numPlayers.getText().toString().isEmpty()) {
                 numPlayersInt = Integer.parseInt(numPlayers.getText().toString());
-            }
-            else{
+            } else {
                 TextView updateTotalScore = findViewById(R.id.txtTotalScore);
                 updateTotalScore.setText(R.string.empty_string);
                 numPlayersInt = 0;
@@ -298,10 +317,28 @@ public class NewGameActivity extends AppCompatActivity {
             if(numPlayersInt != 0){
                 if(!initialize) {
                     playerScoreArray.clear();
-                    for (int j = 0; j < numPlayersInt; j++) {
-                        playerScoreArray.add(-1);
+                    if(savePlayerScoresChange.size() >= numPlayersInt){
+                        for(int j = 0; j < numPlayersInt; j++){
+                            playerScoreArray.add(savePlayerScoresChange.get(j));
+                        }
+                    }
+                    else{
+                        for(int j = 0; j < savePlayerScoresChange.size(); j++){
+                            playerScoreArray.add(savePlayerScoresChange.get(j));
+                        }
+                        for(int j = savePlayerScoresChange.size(); j < numPlayersInt; j++){
+                            playerScoreArray.add(-1);
+                            savePlayerScoresChange.add(-1);
+                        }
                     }
                     currentGame.setNumPlayers(numPlayersInt);
+                    currentGame.setListScore(playerScoreArray);
+                    if(currentGame.isValidScoresList()){
+                        currentGame.setTotalScore(playerScoreArray);
+                        updateTotalScore.setText(Integer.toString(currentGame.getTotalScore()));
+                        selectedDifficultyButton = currentGame.getDifficulty();
+                        displayAchievementLevel();
+                    }
                     list = findViewById(R.id.listViewPlayers);
                     list.setAdapter(complexAdapter);
                 }
@@ -338,9 +375,10 @@ public class NewGameActivity extends AppCompatActivity {
             updateTotalScore = (TextView) ((Activity)contextMain).findViewById(R.id.txtTotalScore);
 
             //Helper code for initializing values in case of editing array
+
             if(historyIndex != -1 && initialize){
                 getScore.setText(currentGame.getListScore().get(position)+"");
-                if(position == (currentGame.getListScore().size() - 1)){
+                if(position == 0){
                     updateTotalScore.setText(currentGame.getTotalScore()+"");
                     initialize = false;
                     complexAdapter = new ComplexAdapter(NewGameActivity.this,
@@ -349,6 +387,7 @@ public class NewGameActivity extends AppCompatActivity {
             }
             if(playerScoreArray.get(position) != -1){
                 getScore.setText(currentGame.getListScore().get(position) +"");
+
             }
             else{
                 getScore.setText(getString(R.string.blank));
@@ -369,9 +408,11 @@ public class NewGameActivity extends AppCompatActivity {
                         //Change Values
                         if (getScoreString.equals("")) {
                             playerScoreArray.set(Integer.parseInt(words[1])-1, -1);
+                            savePlayerScoresChange.set(Integer.parseInt(words[1])-1,-1);
                             currentGame.setTotalScore(playerScoreArray);
                         } else {
                             playerScoreArray.set(Integer.parseInt(words[1])-1, Integer.parseInt(getScoreString));
+                            savePlayerScoresChange.set(Integer.parseInt(words[1])-1,Integer.parseInt(getScoreString));
                             currentGame.setTotalScore(playerScoreArray);
                         }
 
@@ -379,6 +420,7 @@ public class NewGameActivity extends AppCompatActivity {
                         if (currentGame.isValidScoresList()) {
                             updateTotalScore.setText(Integer.toString(currentGame.getTotalScore()));
                             currentGame.setListScore(playerScoreArray);
+                            selectedDifficultyButton = currentGame.getDifficulty();
                             displayAchievementLevel();
                         } else {
                             updateTotalScore.setText(R.string.empty_string);
