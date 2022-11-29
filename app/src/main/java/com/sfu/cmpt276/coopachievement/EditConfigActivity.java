@@ -2,17 +2,26 @@ package com.sfu.cmpt276.coopachievement;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,6 +31,8 @@ import android.widget.Toast;
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -33,11 +44,15 @@ import java.util.ArrayList;
 
 public class EditConfigActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
-    static private int EASY = 0;
+    public static final int CAMERA_ACTION_CODE = 100;
+    private static final int DEFAULT_INDEX = -1;
+    //static private int EASY = 0;
     static private int MEDIUM = 1;
-    static private int HARD = 2;
+    //static private int HARD = 2;
     private Singleton gameConfigList = Singleton.getInstance();
     private GameConfig game;
+    private Bitmap boxPhoto;
+
 
 
 
@@ -57,6 +72,7 @@ public class EditConfigActivity extends AppCompatActivity {
     private EditText poorEditTxt;
     private EditText greatEditTxt;
     private EditText numPlayers;
+    private ImageView boxImage;
 
     private int selectedDifficultyButton;
 
@@ -72,7 +88,7 @@ public class EditConfigActivity extends AppCompatActivity {
     private void getDataFromIntent(){
         Intent intent = getIntent();
 
-        position = intent.getIntExtra(positionCodeName, -1);
+        position = intent.getIntExtra(positionCodeName, DEFAULT_INDEX);
         if(position != -1){
             isCreateConfig = false;
         }
@@ -92,6 +108,7 @@ public class EditConfigActivity extends AppCompatActivity {
         gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
         poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
         greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
+        boxImage = findViewById(R.id.boxImagePreview);
         numPlayers = findViewById(R.id.editText_numPlayers);
         numPlayers.addTextChangedListener(checkFinished);
         gameEditTxt.addTextChangedListener(checkFinished);
@@ -99,6 +116,7 @@ public class EditConfigActivity extends AppCompatActivity {
         greatEditTxt.addTextChangedListener(checkFinished);
 
 
+        setupCameraButton();
 
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
@@ -107,16 +125,38 @@ public class EditConfigActivity extends AppCompatActivity {
         else{
             toolbar.setTitle(R.string.edit_config_title);
             setEditConfigValues();
-
+            boxImage.setImageBitmap(game.getBoxImage());
         }
         setupDifficultyRadioButtons(game);
         selectedDifficultyButton = MEDIUM;
         toolbar.setDisplayHomeAsUpEnabled(true);
 
-
     }
 
+    private void setupCameraButton(){
+        Button btn = findViewById(R.id.addBoxPictureButton);
+        if(ContextCompat.checkSelfPermission(EditConfigActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(EditConfigActivity.this, new String[]{
+                    Manifest.permission.CAMERA
+            }, CAMERA_ACTION_CODE);
+        }
+        btn.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA_ACTION_CODE);
 
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CAMERA_ACTION_CODE && resultCode == RESULT_OK && data != null){
+            Bundle bundle = data.getExtras();
+            boxPhoto = (Bitmap) bundle.get("data");
+
+            boxImage.setImageBitmap(boxPhoto);
+        }
+    }
 
     //Get Values from a game config to Edit
     private void setEditConfigValues(){
@@ -179,6 +219,8 @@ public class EditConfigActivity extends AppCompatActivity {
                     if(greatScore > poorScore && greatScore-poorScore > 8) {
 
                         //Put gameName, greatScore, and poorScore into singleton here.
+                        //TODO: save image to config class
+                        game.setBoxImage(boxPhoto);
                         game.setGameName(gameName);
                         game.setPoorScore(poorScore);
                         game.setGreatScore(greatScore);

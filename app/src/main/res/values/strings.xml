@@ -54,6 +54,7 @@
     <string name="zero">0</string>
     <string name="colon_space">:\u0020\u0020\u0020\u0020\u0020</string>
     <string name="colon_greater">:  Greater Than\u0020</string>
+    <string name="takepic">Add image</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>
