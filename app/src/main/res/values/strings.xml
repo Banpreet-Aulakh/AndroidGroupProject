@@ -54,6 +54,12 @@
     <string name="zero">0</string>
     <string name="colon_space">:\u0020\u0020\u0020\u0020\u0020</string>
     <string name="colon_greater">:  Greater Than\u0020</string>
+    <string name="developers">Developers:</string>
+    <string name="developer_names">Preston Quach \nDante Umpherville-Choy \nBanpreet Aulakh \nDuy Nguyen</string>
+    <string name="pokeball_link">Pokeball: <a href="https://pixabay.com/illustrations/pokeball-pokemon-game-ball-1594373/"
+        >Pokeball Link </a></string>
+    <string name="config">Config</string>
+    <string name="about">About</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>
@@ -95,6 +101,30 @@
         <item>Terrific Triceratops</item>
         <item>Super Stegosaurus </item>
         <item>Valiant velociraptor </item>
+    </string-array>
+
+    <string-array name = "links">
+        <item>https://pixabay.com/illustrations/pokeball-pokemon-game-ball-1594373/</item>
+        <item>https://www.pngwing.com/en/free-png-iqjzv</item>
+        <item>https://www.pngwing.com/en/free-png-bnehu</item>
+        <item>https://www.pngwing.com/en/free-png-pgcnj</item>
+        <item>https://www.pngwing.com/en/free-png-bznqa</item>
+        <item>https://pixabay.com/</item>
+        <item>https://pixabay.com/</item>
+        <item>https://www.youtube.com/watch?v=p9PHXRay3r4</item>
+        <item>https://www.youtube.com/watch?v=Wc62qX7Ra5I\u0026t=173s</item>
+    </string-array>
+
+    <string-array name = "link_name">
+        <item>Pokeball</item>
+        <item>PawPatrol Main Menu Banner</item>
+        <item>Dinosaur</item>
+        <item>Leviathan</item>
+        <item>PawPatrol Achievement</item>
+        <item>Shouting Yeah Sound</item>
+        <item>Yeahboy Sound</item>
+        <item>Scale Up Down Animation</item>
+        <item>Zoom, Fade, and Rotate Animation</item>
     </string-array>
 
 </resources>
