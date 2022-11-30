@@ -24,7 +24,7 @@ public class GameConfig {
         achievementCounter = new int[9];
     }
 
-    private int[] getAchievementCounter(){
+    public int[] getAchievementCounter(){
         return achievementCounter;
     }
 

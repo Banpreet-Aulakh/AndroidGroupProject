@@ -90,6 +90,9 @@ public class GameHistoryActivity extends AppCompatActivity {
 
         //Floating Action Button
         floatingActionButton();
+        
+        //Statistics Button
+        statisticButton();
 
         //STUB GAME HISTORY CODE
         String configName = gameHistory.getConfigName();
@@ -100,6 +103,15 @@ public class GameHistoryActivity extends AppCompatActivity {
             populateListView(gameHistory);
             listOnClick();
         }
+    }
+
+    private void statisticButton() {
+        statButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(GameHistoryActivity.this, "Stats", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
