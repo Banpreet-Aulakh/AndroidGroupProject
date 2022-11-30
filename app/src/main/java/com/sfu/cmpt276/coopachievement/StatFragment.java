@@ -1,7 +1,9 @@
 package com.sfu.cmpt276.coopachievement;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -31,6 +33,12 @@ public class StatFragment extends DialogFragment {
         int[] counter = getArguments().getIntArray("counter");
         View v = getLayoutInflater().inflate(R.layout.stat_fragment, container, false);
 
+        // SOURCE https://stackoverflow.com/questions/15421271/custom-fragmentdialog-with-round-corners-and-not-100-screen-width
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
+
         for(int i = 0; i < counter.length; i++){
             TextView nameText = v.findViewById(nameTextViews[i]);
             TextView countText = v.findViewById(countTextViews[i]);
@@ -44,7 +52,7 @@ public class StatFragment extends DialogFragment {
 
     @Override
     public void onResume() {
-
+        //Source: https://gist.github.com/marc0x71/f571f4dfe328b662860cd4e80bd7f6af
         Window window = getDialog().getWindow();
         Point size = new Point();
         Display display = window.getWindowManager().getDefaultDisplay();;
