@@ -28,6 +28,14 @@ public class GameConfig {
         return achievementCounter;
     }
 
+    public String achievementCounterString(){
+        String str = "";
+        for(int i = 0; i < achievementCounter.length; i++){
+            str += achievementCounter[i] + ", ";
+        }
+        return str;
+    }
+
     //difficulty: easy:0, medium:1, hard:2
     private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore, int difficulty) {
         achievement_Thresholds.clear();

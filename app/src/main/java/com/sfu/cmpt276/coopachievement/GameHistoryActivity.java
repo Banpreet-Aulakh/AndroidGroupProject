@@ -109,7 +109,7 @@ public class GameHistoryActivity extends AppCompatActivity {
         statButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(GameHistoryActivity.this, "Stats", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GameHistoryActivity.this, gameConfig.achievementCounterString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
