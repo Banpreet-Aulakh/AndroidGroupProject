@@ -1,5 +1,9 @@
 package com.sfu.cmpt276.coopachievement;
 
+/*
+    The StatFragment is the fragment class that creates the statistics table in gameHistoryActivity
+*/
+
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.Color;
