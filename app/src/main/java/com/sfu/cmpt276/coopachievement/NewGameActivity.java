@@ -106,6 +106,7 @@ public class NewGameActivity extends AppCompatActivity {
             //set radio group button as checked
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(currentGame.getDifficulty());
             button.setChecked(true);
+            selectedDifficultyButton = currentGame.getDifficulty();
 
             ArrayList<Integer> tempArray = new ArrayList<>();
             for (int j = 0; j < numPlayersInt; j++) {

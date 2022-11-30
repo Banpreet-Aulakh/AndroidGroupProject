@@ -109,7 +109,13 @@ public class GameHistoryActivity extends AppCompatActivity {
         statButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(GameHistoryActivity.this, gameConfig.achievementCounterString(), Toast.LENGTH_SHORT).show();
+                Bundle varBundle = new Bundle();
+                varBundle.putIntArray("counter", gameConfig.getAchievementCounter());
+                varBundle.putStringArray("achievementList", achievementsList);
+
+                StatFragment statFragment = new StatFragment();
+                statFragment.setArguments(varBundle);
+                statFragment.show(getSupportFragmentManager(), "Statistics");
             }
         });
     }
