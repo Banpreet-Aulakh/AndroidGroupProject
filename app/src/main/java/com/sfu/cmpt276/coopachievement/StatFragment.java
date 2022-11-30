@@ -1,5 +1,6 @@
 package com.sfu.cmpt276.coopachievement;
 
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -26,6 +27,7 @@ public class StatFragment extends DialogFragment {
     int[] countTextViews = {R.id.text_count1, R.id.text_count2, R.id.text_count3,
             R.id.text_count4, R.id.text_count5, R.id.text_count6,
             R.id.text_count7, R.id.text_count8, R.id.text_count9};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
