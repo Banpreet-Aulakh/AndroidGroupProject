@@ -10,12 +10,15 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -33,6 +36,8 @@ import java.util.Date;
 import android.hardware.Camera;
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
+import com.google.android.material.button.MaterialButton;
+
 /*
  * Main Menu is responsible for switching between ViewConfigList Activity and Option Activity
  */
@@ -47,6 +52,10 @@ public class MainMenuActivity extends AppCompatActivity {
     public ImageView previewImage;
     public String currentPhotoPath;
 
+    MaterialButton Button;
+    ImageView imageView;
+    Uri image_uri;
+
 
 
     @Override
@@ -57,6 +66,9 @@ public class MainMenuActivity extends AppCompatActivity {
         assert toolbar != null;
         toolbar.setTitle("Main Menu");
 
+        Button = findViewById(R.id.capture_photo_button);
+        imageView = findViewById(R.id.preview_image);
+
 
         ImageView bugImage = findViewById(R.id.main_banner);
         bugImage.startAnimation(AnimationUtils.loadAnimation(
@@ -64,7 +76,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 R.anim.fadein
         ));
 
-        previewImage = findViewById(R.id.preview_image);
+        //previewImage = findViewById(R.id.preview_image);
         captureBtn = findViewById(R.id.captureBtn);
 
         //storage permission request
@@ -80,6 +92,29 @@ public class MainMenuActivity extends AppCompatActivity {
 
         setupConfigButton();
         setupOptionButton();
+
+        //test youtube guide
+
+        Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+                    if(checkSelfPermission(Manifest.permission.CAMERA)==
+                    PackageManager.PERMISSION_DENIED ||
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+                    PackageManager.PERMISSION_DENIED){
+                        String[]permission = {Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permission,CAMERA_PERM_CODE);
+                    }
+                    else{
+                        openCamera();
+                    }
+
+                }else{
+                    openCamera();
+                }
+            }
+        });
 
     }
 
@@ -107,33 +142,42 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode,permissions,grantResults);
-        if(requestCode == CAMERA_PERM_CODE){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                dispatchTakePictureIntent();
-            }else {
-                Toast.makeText(this, "Camera Permission is Required to Use camera.", Toast.LENGTH_SHORT).show();
-            }
+        switch (requestCode){
+            case CAMERA_PERM_CODE:
+                if(grantResults.length>0&&grantResults[0]==
+                PackageManager.PERMISSION_GRANTED){
+                    openCamera();
+                }
+                else{
+                    Toast.makeText(this,"Permission needed!",Toast.LENGTH_SHORT).show();
+                }
         }
+
     }
 
 
     private void openCamera() {
-        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camera,CAMERA_REQUEST_CODE);
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE,"new image");
+        values.put(MediaStore.Images.Media.DESCRIPTION,"from the camera");
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+
+        Intent camIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        camIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
+        startActivityForResult(camIntent,CAMERA_REQUEST_CODE);
+
 
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if(requestCode == CAMERA_REQUEST_CODE){
-            if(resultCode == Activity.RESULT_OK){
-                Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
-                previewImage.setImageBitmap(bitmap);
-            }
+        if(resultCode == RESULT_OK){
+            imageView.setImageURI(image_uri);
 
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void setupConfigButton() {
