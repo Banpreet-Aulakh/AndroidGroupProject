@@ -44,7 +44,6 @@ public class MessageFragment extends AppCompatDialogFragment {
     private boolean maxScore;
     private Singleton instance;
     private int themeIndex;
-    ;
     private TextView nextScoreView;
     private String[] achievementList;
 
