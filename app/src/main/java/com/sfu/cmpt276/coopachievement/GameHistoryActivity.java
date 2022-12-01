@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class GameHistoryActivity extends AppCompatActivity {
     private String [] achievementsList;
     private TextView noItemView;
     private ArrayList<String[]> paramsList;
+    private Button statButton;
 
     //Gets the position extra for editing game config
     public static Intent getIntent(Context context, int position){
@@ -63,6 +65,9 @@ public class GameHistoryActivity extends AppCompatActivity {
         noItemView = findViewById(R.id.no_items_history_text);
         noItemView.setVisibility(View.INVISIBLE);
 
+        statButton = findViewById(R.id.btn_achievement_stats);
+        statButton.setVisibility(View.INVISIBLE);
+
         singleton = Singleton.getInstance();
         int themeIndex = singleton.getThemeIndex();
         achievementsList = populateAchievementList(themeIndex);
@@ -77,11 +82,17 @@ public class GameHistoryActivity extends AppCompatActivity {
         if(gameHistory.getGameHistoryList().size() == 0){
             noItemView.setVisibility(View.VISIBLE);
         }
+        else{
+            statButton.setVisibility(View.VISIBLE);
+        }
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         //Floating Action Button
         floatingActionButton();
+        
+        //Statistics Button
+        statisticButton();
 
         //STUB GAME HISTORY CODE
         String configName = gameHistory.getConfigName();
@@ -92,6 +103,21 @@ public class GameHistoryActivity extends AppCompatActivity {
             populateListView(gameHistory);
             listOnClick();
         }
+    }
+
+    private void statisticButton() {
+        statButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle varBundle = new Bundle();
+                varBundle.putIntArray("counter", gameConfig.getAchievementCounter());
+                varBundle.putStringArray("achievementList", achievementsList);
+
+                StatFragment statFragment = new StatFragment();
+                statFragment.setArguments(varBundle);
+                statFragment.show(getSupportFragmentManager(), "Statistics");
+            }
+        });
     }
 
     @Override
@@ -106,12 +132,12 @@ public class GameHistoryActivity extends AppCompatActivity {
         if(gameHistory.getGameHistoryList().size() == 0){
             noItemView.setVisibility(View.VISIBLE);
         }
+        else {
+            statButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateGameAchievements() {
-        /*
-        Stub method will use the Game instance model methods to update achievements based on config
-        */
         singleton = Singleton.getInstance();
         gameConfig = singleton.getGameConfigList().get(position);
         gameHistory = gameConfig.getGameHistory();
