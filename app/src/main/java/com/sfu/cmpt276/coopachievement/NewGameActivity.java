@@ -62,6 +62,7 @@ public class NewGameActivity extends AppCompatActivity {
     private ArrayList<Integer> copyOriginalArray;
     private ArrayList<Integer> savePlayerScoresChange;
     private ArrayList<Integer> playerScoreArray;
+    int achievementIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,7 @@ public class NewGameActivity extends AppCompatActivity {
             //set radio group button as checked
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(currentGame.getDifficulty());
             button.setChecked(true);
+            selectedDifficultyButton = currentGame.getDifficulty();
 
             ArrayList<Integer> tempArray = new ArrayList<>();
             for (int j = 0; j < numPlayersInt; j++) {
@@ -123,6 +125,10 @@ public class NewGameActivity extends AppCompatActivity {
             currentGame.setNumPlayers(numPlayersInt);
             list = findViewById(R.id.listViewPlayers);
             list.setAdapter(complexAdapter);
+
+            //subtract achievement number when editing
+            achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
+            gameConfiguration.getAchievementCounter()[achievementIndex]--;
 
         }
         else {
@@ -147,6 +153,15 @@ public class NewGameActivity extends AppCompatActivity {
             selectedDifficultyButton = MEDIUM;
 
         }
+    }
+
+    //Use to get index when saving to add to config array OR subtract config array when editing
+    private int getAchievementIndex(String achievementName, String[] listAchievements) {
+        int i = 0;
+        while(!achievementName.equals(listAchievements[i])){
+            i++;
+        }
+        return i;
     }
 
     public void celebrationMessage() {
@@ -255,6 +270,11 @@ public class NewGameActivity extends AppCompatActivity {
                     else {
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
                     }
+
+                    //add current achievement to achievement counter
+                    achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
+                    gameConfiguration.getAchievementCounter()[achievementIndex]++;
+
                     ViewConfigListActivity.saveData(NewGameActivity.this);
                     celebrationMessage();
 
@@ -265,6 +285,10 @@ public class NewGameActivity extends AppCompatActivity {
                 if(historyIndex != -1){
                     currentGame.setNumPlayers(copyOriginalArray.size());
                     currentGame.setTotalScore(copyOriginalArray);
+
+                    //add current achievement to achievement counter
+                    achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
+                    gameConfiguration.getAchievementCounter()[achievementIndex]++;
                 }
                 finish();
                 return true;
@@ -358,6 +382,7 @@ public class NewGameActivity extends AppCompatActivity {
 
         }
     };
+
     private class ComplexAdapter extends ArrayAdapter<Integer> {
         private Context contextMain;
         private int resourceLayout;
