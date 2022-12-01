@@ -54,6 +54,12 @@
     <string name="zero">0</string>
     <string name="colon_space">:\u0020\u0020\u0020\u0020\u0020</string>
     <string name="colon_greater">:  Greater Than\u0020</string>
+    <string name="todo">TODO</string>
+    <string name="points_to_next_achievement">Points to next achievement:</string>
+    <string name="alert_max_score_achieved">You earned the highest achievement! Congratulations!</string>
+    <string name="alert_not_max_achievement_1">You were so close!\ </string>
+    <string name="alert_not_max_achievement_2"> \ points away from the next achievement:\ </string>
+    <string name="animate">Animate</string>
     <string name="statistics">Statistics</string>
     <string name="total_achievements">Total Achievements</string>
 

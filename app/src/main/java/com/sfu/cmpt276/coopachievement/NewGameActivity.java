@@ -167,6 +167,14 @@ public class NewGameActivity extends AppCompatActivity {
     public void celebrationMessage() {
         FragmentManager manager = getSupportFragmentManager();
         MessageFragment dialog = new MessageFragment();
+
+        Bundle varBundle = new Bundle();
+
+        varBundle.putInt("score", currentGame.getTotalScore());
+        varBundle.putIntegerArrayList("thresholds", gameConfiguration.getAchievement_Thresholds());
+        varBundle.putInt("numPlayers", currentGame.getNumPlayers());
+
+        dialog.setArguments(varBundle);
         dialog.show(manager, "");
         final MediaPlayer saveSound = MediaPlayer.create(NewGameActivity.this,R.raw.shouting_yeah);
         saveSound.start();

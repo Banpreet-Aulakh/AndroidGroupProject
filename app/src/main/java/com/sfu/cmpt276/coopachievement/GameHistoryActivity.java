@@ -123,6 +123,8 @@ public class GameHistoryActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        int themeIndex = singleton.getThemeIndex();
+        achievementsList = populateAchievementList(themeIndex);
         updateGameAchievements();
         if(gameHistory.getGameHistoryList().size() > 0) {
             populateListView(gameHistory);
