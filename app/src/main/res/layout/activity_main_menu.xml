@@ -42,20 +42,8 @@
         app:layout_constraintVertical_bias="0.027"
         app:srcCompat="@drawable/banner" />
 
-    <TextureView
-        android:id="@+id/capture_image"
-        android:layout_width="144dp"
-        android:layout_height="143dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.884"
-         />
-
     <Button
-        android:id="@+id/capture_button"
+        android:id="@+id/captureBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Capture "
@@ -65,4 +53,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.816" />
+
+    <ImageView
+        android:id="@+id/preview_image"
+        android:layout_width="205dp"
+        android:layout_height="192dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.931"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/galleryBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gallery"
+        tools:layout_editor_absoluteX="254dp"
+        tools:layout_editor_absoluteY="626dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
