@@ -54,7 +54,7 @@
     <string name="zero">0</string>
     <string name="colon_space">:\u0020\u0020\u0020\u0020\u0020</string>
     <string name="colon_greater">:  Greater Than\u0020</string>
-    <string name="developers">Developers:</string>
+    <string name="developers">Team Chlorine Developers:</string>
     <string name="developer_names">Preston Quach \nDante Umpherville-Choy \nBanpreet Aulakh \nDuy Nguyen</string>
     <string name="pokeball_link">Pokeball: <a href="https://pixabay.com/illustrations/pokeball-pokemon-game-ball-1594373/"
         >Pokeball Link </a></string>
@@ -109,6 +109,8 @@
         <item>https://www.pngwing.com/en/free-png-bnehu</item>
         <item>https://www.pngwing.com/en/free-png-pgcnj</item>
         <item>https://www.pngwing.com/en/free-png-bznqa</item>
+        <item>http://www.clker.com/clipart-4389.html</item>
+        <item>https://blog.heartsupport.com/forever-alone-467b2b5c71e6</item>
         <item>https://pixabay.com/</item>
         <item>https://pixabay.com/</item>
         <item>https://www.youtube.com/watch?v=p9PHXRay3r4</item>
@@ -121,6 +123,8 @@
         <item>Dinosaur</item>
         <item>Leviathan</item>
         <item>PawPatrol Achievement</item>
+        <item>Red dice</item>
+        <item>Forever alone face</item>
         <item>Shouting Yeah Sound</item>
         <item>Yeahboy Sound</item>
         <item>Scale Up Down Animation</item>

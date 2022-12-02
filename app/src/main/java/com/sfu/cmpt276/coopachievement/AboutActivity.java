@@ -24,7 +24,10 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         ActionBar toolbar = getSupportActionBar();
         toolbar.setTitle("About Page");
-
+        createList();
+        createListClick();
+    }
+    protected void createList(){
         urls = getResources().getStringArray(R.array.links);
         urlNames = getResources().getStringArray(R.array.link_name);
 
@@ -35,6 +38,9 @@ public class AboutActivity extends AppCompatActivity {
                 urlNames);
         resourceslist.setAdapter(adapter);
 
+    }
+    protected void createListClick(){
+        ListView resourceslist = findViewById(R.id.listViewResources);
         resourceslist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -42,6 +48,5 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(urlIntent);
             }
         });
-
     }
 }
