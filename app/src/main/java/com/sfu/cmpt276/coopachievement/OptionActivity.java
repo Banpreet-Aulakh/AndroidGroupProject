@@ -86,7 +86,7 @@ public class OptionActivity extends AppCompatActivity {
                 selectedTheme = themeSpinner.getSelectedItem().toString();
 
                 int parentID=parent.getId();
-                if(parentID ==R.id.theme_spinner){
+                if(parentID == R.id.theme_spinner){
                     switch (selectedTheme){
                         case "Mythical":
                             theme1Array = getResources().getStringArray(R.array.mythical);

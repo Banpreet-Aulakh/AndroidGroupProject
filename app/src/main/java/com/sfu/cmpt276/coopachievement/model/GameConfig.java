@@ -3,6 +3,7 @@ package com.sfu.cmpt276.coopachievement.model;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /*
 * Game config class is responsible for storing all data needed for configuration of a game
@@ -21,7 +22,23 @@ public class GameConfig {
     private String boxImage;
     //TODO store a reference to the image in storage instead of a bitmap
     private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
+    private int[] achievementCounter;
 
+    public GameConfig(){
+        achievementCounter = new int[9];
+    }
+
+    public int[] getAchievementCounter(){
+        return achievementCounter;
+    }
+
+    public String achievementCounterString(){
+        String str = "";
+        for(int i = 0; i < achievementCounter.length; i++){
+            str += achievementCounter[i] + ", ";
+        }
+        return str;
+    }
 
     //difficulty: easy:0, medium:1, hard:2
     private ArrayList<Integer> calculateAchievementThreshold(int greatScore, int poorScore, int difficulty) {
