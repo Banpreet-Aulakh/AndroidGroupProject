@@ -103,8 +103,6 @@ public class ViewConfigListActivity extends AppCompatActivity {
 
         //Set up for intent theme key
         //testing only
-
-
     }
 
 
