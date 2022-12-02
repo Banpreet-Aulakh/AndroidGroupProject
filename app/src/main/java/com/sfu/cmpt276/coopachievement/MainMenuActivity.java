@@ -34,9 +34,9 @@ public class MainMenuActivity extends AppCompatActivity {
 
         setupConfigButton();
         setupOptionButton();
+        setupAboutButton();
 
     }
-
 
 
     private void setupConfigButton() {
@@ -54,5 +54,12 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+    }
+    private void setupAboutButton() {
+        Button btn = findViewById(R.id.aboutbtn);
+        btn.setOnClickListener(v->{
+            Intent i = new Intent(MainMenuActivity.this, AboutActivity.class);
+            startActivity(i);
+        });
     }
 }

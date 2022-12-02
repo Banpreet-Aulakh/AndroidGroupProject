@@ -26,11 +26,11 @@
         android:layout_height="91dp"
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/achievement_name"
-        app:layout_constraintHorizontal_bias="0.401"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alert_text"
-        app:layout_constraintVertical_bias="0.025"
+        app:layout_constraintVertical_bias="0.058"
         app:srcCompat="@drawable/ball" />
 
     <TextView
@@ -47,8 +47,8 @@
     <TextView
         android:id="@+id/txt_points_to_next"
         android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:layout_marginTop="36dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/points_to_next_achievement"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,25 +60,24 @@
         android:id="@+id/alert_spinner"
         android:layout_width="140dp"
         android:layout_height="48dp"
-        android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/select_theme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/image_alertDialog"
+        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/achievement_name"
-        app:layout_constraintVertical_bias="0.001" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/replay_animation_btn"
         android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="64dp"
         android:text="@string/animate"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/alert_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_alertDialog"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintVertical_bias="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
