@@ -125,7 +125,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //change activity code. Position extra is the "key" to the
-                // ArrayList so we know which GameConfig to edit.
+                //ArrayList so we know which GameConfig to edit.
                 Intent intent = GameHistoryActivity.getIntent(
                         ViewConfigListActivity.this, position);
                 startActivity(intent);
@@ -155,6 +155,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
         edit.apply();
 
     }
+
     public static void getData(Context context){
         SharedPreferences pref = context.getSharedPreferences("Object Preference", MODE_PRIVATE);
         Gson gson = new Gson();
