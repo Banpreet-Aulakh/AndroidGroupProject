@@ -1,29 +1,43 @@
 package com.sfu.cmpt276.coopachievement;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
 
 /*
  * EditConfig Activity is responsible for creating new config and editing an already created
@@ -33,12 +47,16 @@ import java.util.ArrayList;
 
 public class EditConfigActivity extends AppCompatActivity {
     private final static String positionCodeName = "POSITION_ACTIVITY";
-    static private int EASY = 0;
+    public static final int CAMERA_ACTION_CODE = 100;
+    private static final int DEFAULT_INDEX = -1;
+    //static private int EASY = 0;
     static private int MEDIUM = 1;
-    static private int HARD = 2;
+    //static private int HARD = 2;
     private Singleton gameConfigList = Singleton.getInstance();
     private GameConfig game;
-
+    private Bitmap boxPhoto;
+    private Bitmap defaultImage;
+    private String bitmapEncoded;
 
 
     //Index of config array, if position = -1, you are creating a new config
@@ -57,6 +75,7 @@ public class EditConfigActivity extends AppCompatActivity {
     private EditText poorEditTxt;
     private EditText greatEditTxt;
     private EditText numPlayers;
+    private ImageView boxImagePreview;
 
     private int selectedDifficultyButton;
 
@@ -72,7 +91,7 @@ public class EditConfigActivity extends AppCompatActivity {
     private void getDataFromIntent(){
         Intent intent = getIntent();
 
-        position = intent.getIntExtra(positionCodeName, -1);
+        position = intent.getIntExtra(positionCodeName, DEFAULT_INDEX);
         if(position != -1){
             isCreateConfig = false;
         }
@@ -92,31 +111,78 @@ public class EditConfigActivity extends AppCompatActivity {
         gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
         poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
         greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
+        boxImagePreview = findViewById(R.id.boxImagePreview);
         numPlayers = findViewById(R.id.editText_numPlayers);
         numPlayers.addTextChangedListener(checkFinished);
         gameEditTxt.addTextChangedListener(checkFinished);
         poorEditTxt.addTextChangedListener(checkFinished);
         greatEditTxt.addTextChangedListener(checkFinished);
 
+        defaultImage = BitmapFactory.decodeResource(getResources(), R.drawable.default_game);
 
+        setupCameraButton();
 
         if(isCreateConfig){
             toolbar.setTitle(R.string.create_config_title);
             game = new GameConfig();
+            boxImagePreview.setImageBitmap(defaultImage);
+            boxPhoto = defaultImage;
         }
         else{
             toolbar.setTitle(R.string.edit_config_title);
             setEditConfigValues();
-
+            bitmapEncoded = (game.getBoxImage());
+            boxPhoto = stringToBitmap(bitmapEncoded);
+            boxImagePreview.setImageBitmap(boxPhoto);
         }
+
         setupDifficultyRadioButtons(game);
         selectedDifficultyButton = MEDIUM;
         toolbar.setDisplayHomeAsUpEnabled(true);
 
-
     }
 
+    private void setupCameraButton(){
+        Button btn = findViewById(R.id.addBoxPictureButton);
+        if(ContextCompat.checkSelfPermission(EditConfigActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(EditConfigActivity.this, new String[]{
+                    Manifest.permission.CAMERA
+            }, CAMERA_ACTION_CODE);
+        }
 
+        btn.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA_ACTION_CODE);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CAMERA_ACTION_CODE && resultCode == RESULT_OK && data != null){
+            Bundle bundle = data.getExtras();
+            boxPhoto = (Bitmap) bundle.get("data");
+
+            boxImagePreview.setImageBitmap(boxPhoto);
+        }
+    }
+
+    private String bitmapToString(Bitmap image){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    private Bitmap decodeBase64(String input)
+    {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0,   decodedByte.length);
+    }
+
+    private Bitmap stringToBitmap(String image){
+        return decodeBase64(image);
+    }
 
     //Get Values from a game config to Edit
     private void setEditConfigValues(){
@@ -179,6 +245,9 @@ public class EditConfigActivity extends AppCompatActivity {
                     if(greatScore > poorScore && greatScore-poorScore > 8) {
 
                         //Put gameName, greatScore, and poorScore into singleton here.
+                        //TODO: save image to config class
+                        bitmapEncoded = bitmapToString(boxPhoto);
+                        game.setBoxImage(bitmapEncoded);
                         game.setGameName(gameName);
                         game.setPoorScore(poorScore);
                         game.setGreatScore(greatScore);
