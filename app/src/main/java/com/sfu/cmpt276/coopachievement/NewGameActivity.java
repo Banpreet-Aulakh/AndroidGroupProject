@@ -62,7 +62,7 @@ public class NewGameActivity extends AppCompatActivity {
     private ArrayList<Integer> copyOriginalArray;
     private ArrayList<Integer> savePlayerScoresChange;
     private ArrayList<Integer> playerScoreArray;
-    int achievementIndex;
+    private int achievementIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
