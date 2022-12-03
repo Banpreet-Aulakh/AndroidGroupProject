@@ -1,5 +1,7 @@
 package com.sfu.cmpt276.coopachievement;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -7,10 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +36,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
@@ -60,6 +68,22 @@ public class NewGameActivity extends AppCompatActivity {
     private boolean initialize;
     private boolean complexAdapterInitialize;
     private ArrayList<Integer> copyOriginalArray;
+
+    //Variables for creating photo
+    private static final int REQUEST_TAKE_PHOTO = 1;
+    public static final int CAMERA_PERM_CODE = 101;
+    public static final int CAMERA_REQUEST_CODE = 102;
+
+
+    public android.widget.Button captureBtn;
+    public ImageView previewImage;
+    public String currentPhotoPath;
+
+    MaterialButton Button;
+    ImageView imageView;
+    Uri image_uri;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +157,47 @@ public class NewGameActivity extends AppCompatActivity {
             button.setChecked(true);
             selectedDifficultyButton = MEDIUM;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        switch (requestCode){
+            case CAMERA_PERM_CODE:
+                if(grantResults.length>0&&grantResults[0]==
+                        PackageManager.PERMISSION_GRANTED){
+                    openCamera();
+                }
+                else{
+                    Toast.makeText(this,"Permission needed!",Toast.LENGTH_SHORT).show();
+                }
+        }
+
+    }
+
+
+    private void openCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE,"new image");
+        values.put(MediaStore.Images.Media.DESCRIPTION,"from the camera");
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+
+        Intent camIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        camIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
+        startActivityForResult(camIntent,CAMERA_REQUEST_CODE);
+
+
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if(resultCode == RESULT_OK){
+            imageView.setImageURI(image_uri);
+
+        }
+
     }
 
     public void celebrationMessage() {

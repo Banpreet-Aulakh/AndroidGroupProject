@@ -66,22 +66,23 @@ public class MainMenuActivity extends AppCompatActivity {
         assert toolbar != null;
         toolbar.setTitle("Main Menu");
 
-        Button = findViewById(R.id.capture_photo_button);
-        imageView = findViewById(R.id.preview_image);
 
 
-        ImageView bugImage = findViewById(R.id.main_banner);
-        bugImage.startAnimation(AnimationUtils.loadAnimation(
+        ImageView bannerImage = findViewById(R.id.main_banner);
+        bannerImage.startAnimation(AnimationUtils.loadAnimation(
                 getApplicationContext(),
                 R.anim.fadein
         ));
 
         //previewImage = findViewById(R.id.preview_image);
+        Button = findViewById(R.id.capture_photo_button);
+        imageView = findViewById(R.id.preview_image);
+
         captureBtn = findViewById(R.id.captureBtn);
 
         //storage permission request
 
-
+//delete after done
         captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +95,7 @@ public class MainMenuActivity extends AppCompatActivity {
         setupOptionButton();
 
         //test youtube guide
+
 
         Button.setOnClickListener(new View.OnClickListener() {
             @Override
