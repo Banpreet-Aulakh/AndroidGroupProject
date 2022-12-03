@@ -93,6 +93,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         setupConfigButton();
         setupOptionButton();
+        setupAboutButton();
 
         //test youtube guide
 
@@ -157,7 +158,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
-
     private void openCamera() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"new image");
@@ -197,6 +197,13 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+    }
+    private void setupAboutButton() {
+        Button btn = findViewById(R.id.aboutbtn);
+        btn.setOnClickListener(v->{
+            Intent i = new Intent(MainMenuActivity.this, AboutActivity.class);
+            startActivity(i);
+        });
     }
 
     private File createImageFile() throws IOException {
