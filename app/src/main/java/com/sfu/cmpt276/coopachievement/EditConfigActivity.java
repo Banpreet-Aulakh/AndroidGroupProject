@@ -1,6 +1,8 @@
 package com.sfu.cmpt276.coopachievement;
 
-import android.Manifest;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -174,7 +176,7 @@ public class EditConfigActivity extends AppCompatActivity {
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
-    private Bitmap decodeBase64(String input)
+    private static Bitmap decodeBase64(String input)
     {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedByte, 0,   decodedByte.length);

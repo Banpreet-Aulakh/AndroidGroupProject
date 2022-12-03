@@ -54,6 +54,7 @@
     <string name="zero">0</string>
     <string name="colon_space">:\u0020\u0020\u0020\u0020\u0020</string>
     <string name="colon_greater">:  Greater Than\u0020</string>
+    <string name="takepic">Add image</string>
     <string name="todo">TODO</string>
     <string name="points_to_next_achievement">Points to next achievement:</string>
     <string name="alert_max_score_achieved">You earned the highest achievement! Congratulations!</string>
