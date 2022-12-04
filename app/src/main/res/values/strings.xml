@@ -126,6 +126,7 @@
         <item>https://www.youtube.com/watch?v=Wc62qX7Ra5I\u0026t=173s</item>
         <item>https://stackoverflow.com/questions/15421271/custom-fragmentdialog-with-round-corners-and-not-100-screen-width</item>
         <item>https://gist.github.com/marc0x71/f571f4dfe328b662860cd4e80bd7f6af</item>
+        <item>https://stackoverflow.com/questions/8586242/how-to-store-images-using-sharedpreference-in-android</item>
     </string-array>
 
     <string-array name = "link_name">
@@ -142,6 +143,7 @@
         <item>Zoom, Fade, and Rotate Animation</item>
         <item>Rounded Dialog Fragment Corner</item>
         <item>Dialog Fragment Scaling</item>
+        <item>Storing image data in shared preferences</item>
     </string-array>
 
 </resources>
