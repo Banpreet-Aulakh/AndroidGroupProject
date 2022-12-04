@@ -112,7 +112,8 @@ public class ViewConfigListActivity extends AppCompatActivity {
     private void populateListView() {
 
         //Get Singleton Class
-        /*ArrayAdapter<GameConfig> adapter = new ArrayAdapter<GameConfig>(
+        /*
+        ArrayAdapter<GameConfig> adapter = new ArrayAdapter<GameConfig>(
                 this,
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
                 gameList
@@ -194,14 +195,15 @@ public class ViewConfigListActivity extends AppCompatActivity {
                 itemView = inflater.inflate(ResourceLayout, parent, false);
             }
 
-            ImageView configImage = findViewById(R.id.gameConfigImage);
-            TextView configName = findViewById(R.id.gameConfigName);
+            ImageView configImage = itemView.findViewById(R.id.gameConfigImage);
+            TextView configName = itemView.findViewById(R.id.gameConfigName);
 
             configName.setText(gameConfig.getGameName());
+            configImage.setImageResource(R.drawable.alone);
 
-            /*bitmapString = (gameConfig.getBoxImage());
+            bitmapString = (gameConfig.getBoxImage());
             boxPhoto = EditConfigActivity.stringToBitmap(bitmapString);
-            configImage.setImageBitmap(boxPhoto);*/
+            configImage.setImageBitmap(boxPhoto);
 
             return itemView;
         }
