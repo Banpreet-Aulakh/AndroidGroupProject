@@ -1,5 +1,8 @@
 package com.sfu.cmpt276.coopachievement;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -24,8 +27,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -103,7 +104,7 @@ public class EditConfigActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_edit_delete_configuration);
+        setContentView(R.layout.activity_edit_config);
 
         getDataFromIntent();
         ActionBar toolbar = getSupportActionBar();
@@ -180,7 +181,7 @@ public class EditConfigActivity extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedByte, 0,   decodedByte.length);
     }
 
-    private Bitmap stringToBitmap(String image){
+    public static Bitmap stringToBitmap(String image){
         return decodeBase64(image);
     }
 
