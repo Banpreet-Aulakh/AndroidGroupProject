@@ -1,5 +1,7 @@
 package com.sfu.cmpt276.coopachievement.model;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -17,6 +19,8 @@ public class GameConfig {
     private final static double HARD = 1.25;
     private int greatScore;
     private int poorScore;
+    private String boxImage;
+    //TODO store a reference to the image in storage instead of a bitmap
     private ArrayList<Integer> achievement_Thresholds = new ArrayList<Integer>();
     private int[] achievementCounter;
 
@@ -52,7 +56,6 @@ public class GameConfig {
             multiplier = HARD;
         }
 
-
         int boundary = (int) Math.floor((range/MAX_THRESHOLD));
         achievement_Thresholds.add(lowerBound);
 
@@ -60,8 +63,8 @@ public class GameConfig {
         for (int i = 0; i < remainder ;i++){
             lowerBound += boundary+1;
             achievement_Thresholds.add(lowerBound);
-
         }
+
         //adding leftover threshold
         for(int i = 0; i< (MAX_THRESHOLD - remainder);i++){
             lowerBound += boundary;
@@ -80,6 +83,9 @@ public class GameConfig {
     public void setGameHistory(GameHistory history){
         this.gameHistory = history;
     }
+    public void setBoxImage(String image){
+        boxImage = image;
+    }
 
     public String getGameName(){
         return gameName;
@@ -89,6 +95,9 @@ public class GameConfig {
     }
     public int getPoorScore(){
         return poorScore;
+    }
+    public String getBoxImage(){
+        return boxImage;
     }
     public void setGameName(String gameName){
         this.gameName = gameName;
