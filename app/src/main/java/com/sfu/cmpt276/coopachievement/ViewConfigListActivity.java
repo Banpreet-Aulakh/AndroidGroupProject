@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -109,6 +112,7 @@ public class ViewConfigListActivity extends AppCompatActivity {
     private void populateListView() {
 
         //Get Singleton Class
+        /*
         ArrayAdapter<GameConfig> adapter = new ArrayAdapter<GameConfig>(
                 this,
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -116,7 +120,11 @@ public class ViewConfigListActivity extends AppCompatActivity {
         );
 
         ListView list = (ListView) findViewById(R.id.ListEditConfiguredItems);
-        list.setAdapter(adapter);
+        list.setAdapter(adapter);*/
+
+        ComplexAdapter complexlist = new ComplexAdapter(ViewConfigListActivity.this, R.layout.edit_config_row, gameList);
+        ListView list = (ListView) findViewById(R.id.ListEditConfiguredItems);
+        list.setAdapter(complexlist);
     }
 
     private void registerListClick(){
@@ -167,6 +175,37 @@ public class ViewConfigListActivity extends AppCompatActivity {
         if(json != null){
         gameList = gson.fromJson(json, type);
         singleton.setNewGameConfigList(gameList);
+        }
+    }
+    private class ComplexAdapter extends ArrayAdapter<GameConfig>{
+        private int ResourceLayout;
+        public ComplexAdapter(Context context, int resourceLayout, ArrayList<GameConfig> configList){
+            super(context, resourceLayout, configList);
+            this.ResourceLayout = resourceLayout;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            View itemView = convertView;
+            GameConfig gameConfig = gameList.get(position);
+            String bitmapString;
+            Bitmap boxPhoto;
+
+            if(itemView == null){
+                LayoutInflater inflater = LayoutInflater.from(ViewConfigListActivity.this);
+                itemView = inflater.inflate(ResourceLayout, parent, false);
+            }
+
+            ImageView configImage = itemView.findViewById(R.id.gameConfigImage);
+            TextView configName = itemView.findViewById(R.id.gameConfigName);
+
+            configName.setText(gameConfig.getGameName());
+            configImage.setImageResource(R.drawable.alone);
+
+            bitmapString = (gameConfig.getBoxImage());
+            boxPhoto = EditConfigActivity.stringToBitmap(bitmapString);
+            configImage.setImageBitmap(boxPhoto);
+
+            return itemView;
         }
     }
 
