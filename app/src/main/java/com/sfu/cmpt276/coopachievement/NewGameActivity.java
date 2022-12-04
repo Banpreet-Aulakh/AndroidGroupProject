@@ -259,7 +259,7 @@ public class NewGameActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+//
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==CAMERA_REQUEST_CODE&& resultCode==RESULT_OK){
             Bitmap photo= (Bitmap) data.getExtras().get("data");
