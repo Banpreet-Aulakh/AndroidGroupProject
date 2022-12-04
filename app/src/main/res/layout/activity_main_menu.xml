@@ -42,6 +42,7 @@
         app:layout_constraintVertical_bias="0.027"
         app:srcCompat="@drawable/banner" />
 
+
     <Button
         android:id="@+id/captureBtn"
         android:layout_width="wrap_content"
@@ -49,23 +50,10 @@
         android:text="Capture "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.816" />
-
-    <ImageView
-        android:id="@+id/preview_image"
-        android:layout_width="205dp"
-        android:layout_height="192dp"
-        android:src="@drawable/dice"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.931"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="144dp"
