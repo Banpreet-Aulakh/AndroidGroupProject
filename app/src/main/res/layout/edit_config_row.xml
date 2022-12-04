@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/gameConfigImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <TextView
+            android:id="@+id/gameConfigName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="20dp">
+
+        </TextView>
+    </LinearLayout>
+
+</RelativeLayout>
