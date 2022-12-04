@@ -152,8 +152,12 @@ public class EditConfigActivity extends AppCompatActivity {
         }
 
         btn.setOnClickListener(v -> {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, CAMERA_ACTION_CODE);
+            if((ContextCompat.checkSelfPermission(EditConfigActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)){
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, CAMERA_ACTION_CODE);
+            }else{
+
+            }
         });
     }
 
