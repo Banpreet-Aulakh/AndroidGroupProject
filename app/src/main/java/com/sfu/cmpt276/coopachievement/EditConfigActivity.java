@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GameHistory;
@@ -109,6 +110,8 @@ public class EditConfigActivity extends AppCompatActivity {
         getDataFromIntent();
         ActionBar toolbar = getSupportActionBar();
 
+
+
         gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
         poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
         greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
@@ -145,6 +148,8 @@ public class EditConfigActivity extends AppCompatActivity {
 
     }
 
+
+
     private void setupCameraButton(){
         Button btn = findViewById(R.id.addBoxPictureButton);
         if(ContextCompat.checkSelfPermission(EditConfigActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -154,8 +159,16 @@ public class EditConfigActivity extends AppCompatActivity {
         }
 
         btn.setOnClickListener(v -> {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, CAMERA_ACTION_CODE);
+            if((ContextCompat.checkSelfPermission(EditConfigActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)){
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, CAMERA_ACTION_CODE);
+            }else{
+                FragmentManager manager = getSupportFragmentManager();
+                PermissionsFragment dialog = new PermissionsFragment();
+                dialog.show(manager, "MessageDialog");
+
+
+            }
         });
     }
 
