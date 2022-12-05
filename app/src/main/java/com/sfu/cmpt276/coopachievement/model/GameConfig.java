@@ -86,6 +86,9 @@ public class GameConfig {
     public void setBoxImage(String image){
         boxImage = image;
     }
+    public String getBoxImage(){
+        return boxImage;
+    }
 
     public String getGameName(){
         return gameName;
@@ -96,9 +99,7 @@ public class GameConfig {
     public int getPoorScore(){
         return poorScore;
     }
-    public String getBoxImage(){
-        return boxImage;
-    }
+
     public void setGameName(String gameName){
         this.gameName = gameName;
     }

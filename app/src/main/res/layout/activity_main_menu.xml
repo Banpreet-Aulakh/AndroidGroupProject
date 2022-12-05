@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintVertical_bias="0.547" />
 
     <Button
         android:id="@+id/optionBtn"
@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.713" />
+        app:layout_constraintVertical_bias="0.641" />
 
     <ImageView
         android:id="@+id/main_banner"
@@ -42,6 +42,7 @@
         app:layout_constraintVertical_bias="0.027"
         app:srcCompat="@drawable/banner" />
 
+
     <Button
         android:id="@+id/aboutbtn"
         android:layout_width="wrap_content"
@@ -52,5 +53,5 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837" />
+        app:layout_constraintVertical_bias="0.749" />
 </androidx.constraintlayout.widget.ConstraintLayout>

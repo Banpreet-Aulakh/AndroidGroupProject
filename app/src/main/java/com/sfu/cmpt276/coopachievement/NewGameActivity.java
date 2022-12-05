@@ -1,16 +1,30 @@
 package com.sfu.cmpt276.coopachievement;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,6 +35,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,11 +44,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.sfu.cmpt276.coopachievement.model.GameConfig;
 import com.sfu.cmpt276.coopachievement.model.GamePlayed;
 import com.sfu.cmpt276.coopachievement.model.Singleton;
 
 import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import android.text.TextUtils;
+import android.util.Base64;
 
 /*
  * The NewGame Activity is responsible for taking user's total score input and number of player
@@ -63,11 +82,33 @@ public class NewGameActivity extends AppCompatActivity {
     private ArrayList<Integer> savePlayerScoresChange;
     private ArrayList<Integer> playerScoreArray;
     private int achievementIndex;
+    private boolean isCreateNewGame;
+
+    //Variables for creating photo
+
+    public static final int CAMERA_PERM_CODE = 101;
+    public static final int CAMERA_REQUEST_CODE = 102;
+    public Bitmap capturedImageBitMap;
+    public Bitmap defaultImageBitmap;
+    public ImageView capturedImagePreview;
+    public Uri image_uri;
+    private String bitmapEncoded;
+
+    PreferenceManager preferenceManager;
+    Intent camera;
+    //end of
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
+
+        //set up for camera here
+
+        defaultImageBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.dice);
+        capturedImagePreview = findViewById(R.id.preview_image);
+        //end of
+
         playerScoreArray = new ArrayList<Integer>();
         savePlayerScoresChange = new ArrayList<Integer>();
 
@@ -89,6 +130,10 @@ public class NewGameActivity extends AppCompatActivity {
         toolbar.setDisplayHomeAsUpEnabled(true);
         RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
         setupDifficultyRadioButtons();
+
+        openCamera();
+
+
 
         //history index default to -1 for new game, otherwise is index of game we are editing
         if (historyIndex != -1) {
@@ -112,7 +157,7 @@ public class NewGameActivity extends AppCompatActivity {
             for (int j = 0; j < numPlayersInt; j++) {
                 tempArray.add(-1);
             }
-
+//
             complexAdapter = new ComplexAdapter(NewGameActivity.this,
                     R.layout.player_score_row, tempArray);
             playerScoreArray = currentGame.getListScore();
@@ -129,6 +174,12 @@ public class NewGameActivity extends AppCompatActivity {
             //subtract achievement number when editing
             achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
             gameConfiguration.getAchievementCounter()[achievementIndex]--;
+
+            //set up camera for edit game
+            bitmapEncoded = (currentGame.getBoxImage());
+            capturedImageBitMap = stringToBitmap(bitmapEncoded);
+            capturedImagePreview.setImageBitmap(capturedImageBitMap);
+
 
         }
         else {
@@ -151,6 +202,8 @@ public class NewGameActivity extends AppCompatActivity {
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(MEDIUM);
             button.setChecked(true);
             selectedDifficultyButton = MEDIUM;
+            capturedImagePreview.setImageBitmap(defaultImageBitmap);
+            capturedImageBitMap = defaultImageBitmap;
 
         }
     }
@@ -163,6 +216,66 @@ public class NewGameActivity extends AppCompatActivity {
         }
         return i;
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        switch (requestCode){
+            case CAMERA_PERM_CODE:
+                if(grantResults.length>0&&grantResults[0]==
+                        PackageManager.PERMISSION_GRANTED){
+                    openCamera();
+                }
+                else{
+                    Toast.makeText(this,"Permission needed!",Toast.LENGTH_SHORT).show();
+                }
+        }
+
+    }
+
+    private void openCamera() {
+        Button btn = findViewById(R.id.capture_btn);
+        if(ContextCompat.checkSelfPermission(
+                NewGameActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(NewGameActivity.this,new String[]{
+                    Manifest.permission.CAMERA,
+            },CAMERA_PERM_CODE);
+        }
+
+        btn.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA_REQUEST_CODE);
+        });}
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==CAMERA_REQUEST_CODE&& resultCode==RESULT_OK && data!=null){
+            Bundle bundle = data.getExtras();
+            capturedImageBitMap= (Bitmap) bundle.get("data");
+            capturedImagePreview.setImageBitmap(capturedImageBitMap);
+        }
+
+    }
+    private String bitmapToString(Bitmap image){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    private static Bitmap decodeBase64(String input)
+    {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0,   decodedByte.length);
+    }
+    public static Bitmap stringToBitmap(String image){
+
+        return decodeBase64(image);
+    }
+
 
     public void celebrationMessage() {
         FragmentManager manager = getSupportFragmentManager();
@@ -240,6 +353,13 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
 
 
     @Override
@@ -259,6 +379,7 @@ public class NewGameActivity extends AppCompatActivity {
                     Toast.makeText(NewGameActivity.this, getString(R.string.zero_error),Toast.LENGTH_LONG).show();
 
                 }else {
+
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
                     currentGame.setListScore(playerScoreArray);
                     currentGame.setDifficulty(selectedDifficultyButton);
@@ -266,6 +387,7 @@ public class NewGameActivity extends AppCompatActivity {
                     currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
                     if (historyIndex != -1) {
                         gameConfiguration.getGameHistory().setGamePlayed(historyIndex, currentGame);
+
                     }
                     else {
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
@@ -275,16 +397,18 @@ public class NewGameActivity extends AppCompatActivity {
                     achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
                     gameConfiguration.getAchievementCounter()[achievementIndex]++;
 
+                    bitmapEncoded=bitmapToString(capturedImageBitMap);
+                    currentGame.setBoxImage(bitmapEncoded);
                     ViewConfigListActivity.saveData(NewGameActivity.this);
                     celebrationMessage();
-
-
                 }
+
                 return true;
             case android.R.id.home:
                 if(historyIndex != -1){
                     currentGame.setNumPlayers(copyOriginalArray.size());
                     currentGame.setTotalScore(copyOriginalArray);
+
 
                     //add current achievement to achievement counter
                     achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);

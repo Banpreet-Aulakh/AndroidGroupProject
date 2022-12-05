@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewGameActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,6 +60,7 @@
                     android:layout_column="0"
                     android:layout_marginTop="20dp"
                     android:layout_weight="2"
+                    android:nestedScrollingEnabled="true"
                     />
             </TableRow>
 
@@ -137,6 +139,27 @@
                     android:textAlignment="center"
                     android:textSize="16sp" />
             </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/capture_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="capture" />
+
+                <ImageView
+                    android:id="@+id/preview_image"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:gravity="left"
+                    android:src="@drawable/dice"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_column="1"
+                    android:layout_weight="1"/>
+            </TableRow>
         </TableLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

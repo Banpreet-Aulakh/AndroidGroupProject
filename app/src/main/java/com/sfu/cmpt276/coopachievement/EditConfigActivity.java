@@ -115,14 +115,16 @@ public class EditConfigActivity extends AppCompatActivity {
         gameEditTxt = (EditText) findViewById(R.id.editTextGameName);
         poorEditTxt = (EditText) findViewById(R.id.editTextPoorScore);
         greatEditTxt = (EditText) findViewById(R.id.editTextGreatScore);
-        boxImagePreview = findViewById(R.id.boxImagePreview);
+
         numPlayers = findViewById(R.id.editText_numPlayers);
         numPlayers.addTextChangedListener(checkFinished);
         gameEditTxt.addTextChangedListener(checkFinished);
         poorEditTxt.addTextChangedListener(checkFinished);
         greatEditTxt.addTextChangedListener(checkFinished);
 
+        boxImagePreview = findViewById(R.id.boxImagePreview);
         defaultImage = BitmapFactory.decodeResource(getResources(), R.drawable.default_game);
+
 
         setupCameraButton();
 
@@ -176,7 +178,6 @@ public class EditConfigActivity extends AppCompatActivity {
         if(requestCode == CAMERA_ACTION_CODE && resultCode == RESULT_OK && data != null){
             Bundle bundle = data.getExtras();
             boxPhoto = (Bitmap) bundle.get("data");
-
             boxImagePreview.setImageBitmap(boxPhoto);
         }
     }
