@@ -9,9 +9,9 @@
         android:id="@+id/alertMessageText"
         android:layout_width="225dp"
         android:layout_height="104dp"
-        android:layout_marginTop="312dp"
+        android:gravity="center"
         android:text="@string/permissions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="300dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
