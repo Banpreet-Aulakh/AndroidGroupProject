@@ -157,7 +157,7 @@ public class NewGameActivity extends AppCompatActivity {
             for (int j = 0; j < numPlayersInt; j++) {
                 tempArray.add(-1);
             }
-
+//
             complexAdapter = new ComplexAdapter(NewGameActivity.this,
                     R.layout.player_score_row, tempArray);
             playerScoreArray = currentGame.getListScore();
