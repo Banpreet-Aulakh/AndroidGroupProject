@@ -65,10 +65,10 @@
     <string name="total_achievements">Total Achievements</string>
     <string name="developers">Team Chlorine Developers:</string>
     <string name="developer_names">Preston Quach \nDante Umpherville-Choy \nBanpreet Aulakh \nDuy Nguyen</string>
-    <string name="pokeball_link">Pokeball: <a href="https://pixabay.com/illustrations/pokeball-pokemon-game-ball-1594373/"
-        >Pokeball Link </a></string>
+    <string name="pokeball_link">Pokeball: <a href="https://pixabay.com/illustrations/pokeball-pokemon-game-ball-1594373/">Pokeball Link </a></string>
     <string name="config">Config</string>
     <string name="about">About</string>
+    <string name="permissions">Camera permissions needed. Please grant camera permissions in android settings.</string>
 
     <string-array name="theme_choice">
         <item>Mythical</item>
@@ -112,7 +112,7 @@
         <item>Valiant velociraptor </item>
     </string-array>
 
-    <string-array name = "links">
+    <string-array name="links">
         <item>https://pixabay.com/illustrations/pokeball-pokemon-game-ball-1594373/</item>
         <item>https://www.pngwing.com/en/free-png-iqjzv</item>
         <item>https://www.pngwing.com/en/free-png-bnehu</item>
@@ -126,9 +126,10 @@
         <item>https://www.youtube.com/watch?v=Wc62qX7Ra5I\u0026t=173s</item>
         <item>https://stackoverflow.com/questions/15421271/custom-fragmentdialog-with-round-corners-and-not-100-screen-width</item>
         <item>https://gist.github.com/marc0x71/f571f4dfe328b662860cd4e80bd7f6af</item>
+        <item>https://stackoverflow.com/questions/8586242/how-to-store-images-using-sharedpreference-in-android</item>
     </string-array>
 
-    <string-array name = "link_name">
+    <string-array name="link_name">
         <item>Pokeball</item>
         <item>PawPatrol Main Menu Banner</item>
         <item>Dinosaur</item>
@@ -142,6 +143,9 @@
         <item>Zoom, Fade, and Rotate Animation</item>
         <item>Rounded Dialog Fragment Corner</item>
         <item>Dialog Fragment Scaling</item>
+        <item>Storing image data in shared preferences</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
