@@ -7,13 +7,11 @@
     tools:context=".NewGameActivity">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="411dp"
         android:layout_height="726dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="5dp">
 
         <TableLayout
             android:id="@+id/tableLayoutNewGame"
@@ -142,20 +140,25 @@
                     android:textAlignment="center"
                     android:textSize="16sp" />
             </TableRow>
+            <TableRow>
+
+                <Button
+                    android:id="@+id/capture_btn"
+                    android:layout_width="62dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="capture" />
+
+                <ImageView
+                    android:id="@+id/preview_image"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/dice"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </TableRow>
         </TableLayout>
 
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/preview_image"
-        android:layout_width="116dp"
-        android:layout_height="102dp"
-        android:src="@drawable/dice"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918"
-        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ public class GamePlayed {
     private int numPlayers;
     private String achievementName;
     private int difficulty;
+    private String boxImage;
 
     private static final String DATE_FORMAT = "MMM dd @ HH:mm";
     private String timePlayed;
@@ -134,6 +135,7 @@ public class GamePlayed {
     }
     public String[] getParamsArray() {
         String[] params = {""+totalScore, ""+numPlayers, getDifficultyAsString(), ""+achievementName, ""+timePlayed };
+
         return params;
     }
 
@@ -155,6 +157,13 @@ public class GamePlayed {
             }
         }
         return true;
+    }
+
+    public void setBoxImage(String image){
+        boxImage = image;
+    }
+    public String getBoxImage(){
+        return boxImage;
     }
 
 }

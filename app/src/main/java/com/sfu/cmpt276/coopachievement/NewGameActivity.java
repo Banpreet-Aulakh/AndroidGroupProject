@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,13 +82,17 @@ public class NewGameActivity extends AppCompatActivity {
     private ArrayList<Integer> savePlayerScoresChange;
     private ArrayList<Integer> playerScoreArray;
     private int achievementIndex;
+    private boolean isCreateNewGame;
 
     //Variables for creating photo
 
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
-    public ImageView previewImage;
+    public Bitmap capturedImageBitMap;
+    public Bitmap defaultImageBitmap;
+    public ImageView capturedImagePreview;
     public Uri image_uri;
+    private String bitmapEncoded;
 
     PreferenceManager preferenceManager;
     Intent camera;
@@ -99,18 +104,9 @@ public class NewGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_game);
 
         //set up for camera here
-        previewImage = findViewById(R.id.preview_image);
-        StrictMode.VmPolicy.Builder builder=new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        preferenceManager=PreferenceManager.getInstance(this);
 
-        String previouslyEncodedImage = preferenceManager.getString("imagepath");
-
-        if( !previouslyEncodedImage.equalsIgnoreCase("") ){
-            byte[] b = Base64.decode(previouslyEncodedImage, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-            previewImage.setImageBitmap(bitmap);
-        }
+        defaultImageBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.dice);
+        capturedImagePreview = findViewById(R.id.preview_image);
         //end of
 
         playerScoreArray = new ArrayList<Integer>();
@@ -135,6 +131,7 @@ public class NewGameActivity extends AppCompatActivity {
         RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
         setupDifficultyRadioButtons();
 
+        openCamera();
 
 
 
@@ -178,6 +175,12 @@ public class NewGameActivity extends AppCompatActivity {
             achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
             gameConfiguration.getAchievementCounter()[achievementIndex]--;
 
+            //set up camera for edit game
+            bitmapEncoded = (currentGame.getBoxImage());
+            capturedImageBitMap = stringToBitmap(bitmapEncoded);
+            capturedImagePreview.setImageBitmap(capturedImageBitMap);
+
+
         }
         else {
             toolbar.setTitle(R.string.new_game);
@@ -199,6 +202,8 @@ public class NewGameActivity extends AppCompatActivity {
             RadioButton button = (RadioButton) difficultyRadioGroup.getChildAt(MEDIUM);
             button.setChecked(true);
             selectedDifficultyButton = MEDIUM;
+            capturedImagePreview.setImageBitmap(defaultImageBitmap);
+            capturedImageBitMap = defaultImageBitmap;
 
         }
     }
@@ -228,59 +233,47 @@ public class NewGameActivity extends AppCompatActivity {
 
     }
 
-
     private void openCamera() {
-        if((ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{
-                        Manifest.permission.CAMERA,
-                },CAMERA_PERM_CODE);
-            }
-        }
-        else{
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE,"new image");
-            values.put(MediaStore.Images.Media.DESCRIPTION,"from the camera");
-            image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-//            image_uri.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//            String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-
-
-            camera=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            camera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-            camera.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
-            startActivityForResult(camera,CAMERA_REQUEST_CODE);
+        Button btn = findViewById(R.id.capture_btn);
+        if(ContextCompat.checkSelfPermission(
+                NewGameActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(NewGameActivity.this,new String[]{
+                    Manifest.permission.CAMERA,
+            },CAMERA_PERM_CODE);
         }
 
+        btn.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA_REQUEST_CODE);
+        });}
 
-    }
 
-    @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==CAMERA_REQUEST_CODE&& resultCode==RESULT_OK){
-            Bitmap photo= (Bitmap) data.getExtras().get("data");
-            previewImage.setImageBitmap(photo);
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = baos.toByteArray();
-            String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-            preferenceManager.setString("imagepath",encodedImage);
-
-            SharedPreferences shre = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor edit=shre.edit();
-            edit.putString("imagepath",encodedImage);
-            edit.commit();
-
-            Toast.makeText(this, "Image saved in SharedPreferences", Toast.LENGTH_SHORT).show();
+        if(requestCode==CAMERA_REQUEST_CODE&& resultCode==RESULT_OK && data!=null){
+            Bundle bundle = data.getExtras();
+            capturedImageBitMap= (Bitmap) bundle.get("data");
+            capturedImagePreview.setImageBitmap(capturedImageBitMap);
         }
-        else{
-            Toast.makeText(this, "could not captured", Toast.LENGTH_SHORT).show();
-        }
+
+    }
+    private String bitmapToString(Bitmap image){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    private static Bitmap decodeBase64(String input)
+    {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0,   decodedByte.length);
+    }
+    public static Bitmap stringToBitmap(String image){
+
+        return decodeBase64(image);
     }
 
 
@@ -360,6 +353,13 @@ public class NewGameActivity extends AppCompatActivity {
         }
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
 
 
     @Override
@@ -379,6 +379,7 @@ public class NewGameActivity extends AppCompatActivity {
                     Toast.makeText(NewGameActivity.this, getString(R.string.zero_error),Toast.LENGTH_LONG).show();
 
                 }else {
+
                     currentGame.setNumPlayers(getIntFromEditText(numPlayers));
                     currentGame.setListScore(playerScoreArray);
                     currentGame.setDifficulty(selectedDifficultyButton);
@@ -386,6 +387,7 @@ public class NewGameActivity extends AppCompatActivity {
                     currentGame.setAchievementLevel(gameConfiguration.getAchievement_Thresholds(), achievementsList);
                     if (historyIndex != -1) {
                         gameConfiguration.getGameHistory().setGamePlayed(historyIndex, currentGame);
+
                     }
                     else {
                         gameConfiguration.getGameHistory().addPlayedGame(currentGame);
@@ -395,30 +397,18 @@ public class NewGameActivity extends AppCompatActivity {
                     achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
                     gameConfiguration.getAchievementCounter()[achievementIndex]++;
 
-                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                        if(checkSelfPermission(Manifest.permission.CAMERA)==
-                                PackageManager.PERMISSION_DENIED ||
-                                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
-                                        PackageManager.PERMISSION_DENIED){
-                            String[]permission = {Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                            requestPermissions(permission,CAMERA_PERM_CODE);
-                        }
-                        else{
-                            openCamera();
-                        }
-
-                    }else{
-                        openCamera();
-                    }
-
+                    bitmapEncoded=bitmapToString(capturedImageBitMap);
+                    currentGame.setBoxImage(bitmapEncoded);
                     ViewConfigListActivity.saveData(NewGameActivity.this);
                     celebrationMessage();
                 }
+
                 return true;
             case android.R.id.home:
                 if(historyIndex != -1){
                     currentGame.setNumPlayers(copyOriginalArray.size());
                     currentGame.setTotalScore(copyOriginalArray);
+
 
                     //add current achievement to achievement counter
                     achievementIndex = getAchievementIndex(currentGame.getAchievementName(), achievementsList);
